@@ -26,8 +26,11 @@ links:
     url: /Description of Data/
   - title: Models and Methods
     url: /Models and Methods/
-  - title: Results 
-    url: /Results/
+  - title: Results and Conclusion  
+    url: /Results and Conclusion/
+  - title: Appendix  
+    url: /Appendix/
+    
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone: Asia/Shanghai
