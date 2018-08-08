@@ -1,25 +1,13 @@
-title: Jiafeng(Alan) Liu
+title: Spotify Project
 #tagline:          A short tagline
 #description:      Describe your website.
 #Comment out url when working locally to resolve base urls correctly
-url: http://jayfongl.github.io
+url: http://lyannaliu.github.io
 
 # Owner/author information
 owner:
-  name:           Jiafeng
-  avatar:         Jiafeng.JPG
-#  bio:
-  email:        Jiafeng_alan@hotmail.com  
-  # Social networking links are used in author-bio sidebar. Update and remove as you like.
-  twitter:
-  facebook:
-  github: JayfongL
-  linkedin: 
-  instagram:
-  lastfm:
-  tumblr:
-  # For Google Authorship https://plus.google.com/authorship
-  google_plus:
+  name:           Spotify
+  avatar:          Spotify.JPG
 
 # Analytics and webmaster tools stuff goes here
 google_verify: "JW0gdx05xcJSQe6saaq67u_U1vgdfuh8OxrjS-fEuyQ"
@@ -29,14 +17,16 @@ bing_verify:
 # Links to include in top navigation
 # For external links add external: true
 links:
-  - title: Home
+  - title: Motivation and Abstract
     url: /
-  - title: Research
-    url: /research/
-  - title: Blogs
-    url: /blogs/
-  - title: Hobbies
-    url: /hobbies/
+  - title: Description of Data
+    url: /descriptionofdata/
+  - title: Models and Methods
+    url: /modelsandmethods/
+  - title: Results and Conclusion
+    url: /resultsandconclusion/
+  - title: Appendix
+    url: /Appendix/
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone: Asia/Shanghai
