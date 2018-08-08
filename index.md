@@ -4,7 +4,7 @@ layout: page
 
 # CS109A Data Science Final Project
 
-
+<font color="#515151">Group #15: Haley Huang, Jose Garcia Crespo, Kezhou Miao, Liz Lawler</font><br /> 
 
 ## Motivation
 
