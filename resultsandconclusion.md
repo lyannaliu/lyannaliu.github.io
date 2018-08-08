@@ -28,18 +28,116 @@ All scores are mean values
 TP = True Positive, FP = False Positive, FN = False Negative
 
 
-|         Model       | Train Score  | Test Score | Train TP/FP  | Train TP/FN | Test TP/FP | Test TP/FN | Parameters |
-| :------------------ | :----------: | :---------:| :----------: | :---------: | :--------: | :--------: |  --------: |
-|   Metalearner Model |              |            |              |             |            |            |            |
-|   Last.FM Ensemble  |              |            |              |             |            |            |            |
-| Logistic Regression |              |            |              |             |            |            |            |
-|    Other model 2    |              |            |              |             |            |            |            |
-|    Other model 3    |              |            |              |             |            |            |            |
-|  MPD Ensemble Model |              |            |              |             |            |            |            |
-| Logistic Regression |              |            |              |             |            |            |            |
-|    Decision Tree    |              |            |              |             |            |            |            |
-|    Neural Network   |              |            |              |             |            |            |            |
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
 
-
+<table class="tablelines">
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Train Score</th>
+      <th>Train TP/FP</th>
+      <th>Train TP/FN</th>
+      <th>Test TP/FP</th>
+      <th>Test TP/FN</th>
+      <th>Parameters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Metalearner Model</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Last.FM Ensemble</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Logistic Regression</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Other model 2</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Other model 3</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>MPD Ensemble Model</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Logistic Regression</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Decision Tree</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Neural Network</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
 
 
