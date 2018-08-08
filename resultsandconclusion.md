@@ -20,6 +20,25 @@ title: Results and Conclusions
 
 
 <h2 id="1">1. Summary</h2>
-
-|Model|Mean Train Score|Mean Test Score|Mean Train True Positive : False Positive ratio|Mean Train True Positive: False Negative ratio|Mean Test True Positive: False Negative ratio|Parameters|
-|Metalearner Model|-|-|-|-|-|-|-|
+<table>
+    <tr>
+        <td>Model</td>
+        <td>Mean Train Score</td>
+        <td>Mean Test Score</td>
+        <td>Mean Train True Positive : False Positive ratio</td>
+        <td>Mean Train True Positive: False Negative ratio</td>
+        <td>Mean Test True Positive : False Positive ratio</td>
+        <td>Mean Test True Positive: False Negative ratio</td>
+        <td>Parameters</td>
+    </tr>
+    <tr>
+        <td>Metalearner Model</td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+</table>
