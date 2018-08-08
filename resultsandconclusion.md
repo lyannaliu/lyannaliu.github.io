@@ -32,7 +32,17 @@ title: Results and Conclusions
         <td>Parameters</td>
     </tr>
     <tr>
-        <td>Metalearner Model</td>
+        <td bgcolor=yellow>Metalearner Model</td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <td bgcolor=blue>Last.FM Ensemble</td>
         <td> </td>
         <td> </td>
         <td> </td>
