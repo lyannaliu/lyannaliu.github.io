@@ -1,21 +1,6 @@
-title: CS109A Data Science Final Project
-#tagline:          A short tagline
-#description:      Describe your website.
-#Comment out url when working locally to resolve base urls correctly
-url: http://lyannaliu.github.io
 
-# Owner/author information
-owner:
-  name:           
-  avatar:         
-#  bio:
-  email:        
-  
 
-# Analytics and webmaster tools stuff goes here
-google_verify: "JW0gdx05xcJSQe6saaq67u_U1vgdfuh8OxrjS-fEuyQ"
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:
+
 
 # Links to include in top navigation
 # For external links add external: true
@@ -32,33 +17,4 @@ links:
     url: /Appendix/
     
 
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone: Asia/Shanghai
-future: true
-rouge: true
-markdown: kramdown
 
-
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-#permalink:   /:categories/:title
-
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  use_coderay: false
-
-  coderay:
-    coderay_line_numbers:
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
-
-include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "minimal-mistakes.sublime-project", "minimal-mistakes.sublime-workspace"]
-
-
-
-theme: jekyll-theme-cayman
