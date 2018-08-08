@@ -21,11 +21,21 @@ title: Results and Conclusions
 
 <h2 id="1">1. Summary</h2>
 
+Note:
+
 All scores are mean values
+
 TP = True Positive, FP = False Positive, FN = False Negative
 
 
 | Model  | Train Score  | Test Score | Train TP/FP  | Train TP/FN | Test TP/FP | Test TP/FN | Parameters |
 | :----- | :----------: | :---------:| :----------: | :---------: | :--------: | :--------: | :--------: |
 | Metalearner Model |   |   |   |   |   |   |   |
-
+| Last.FM Ensemble |   |   |   |   |   |   |   |
+| Logistic Regression |   |   |   |   |   |   |   |
+| Other model 2 |   |   |   |   |   |   |   |
+| Other model 3 |   |   |   |   |   |   |   |
+| MPD Ensemble Model |   |   |   |   |   |   |   |
+| Logistic Regression |   |   |   |   |   |   |   |
+| Decision Tree |   |   |   |   |   |   |   |
+| Neural Network |   |   |   |   |   |   |   |
