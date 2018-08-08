@@ -20,7 +20,8 @@ title: Results and Conclusions
 
 
 <h2 id="1">1. Summary</h2>
-<table>
+
+<table class="table table-bordered table-striped table-condensed">
     <tr>
         <th>Model</th>
         <th>Mean Train Score</th>
