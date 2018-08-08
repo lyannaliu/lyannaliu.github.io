@@ -42,7 +42,7 @@ title: Results and Conclusions
         <td> </td>
     </tr>
     <tr>
-        <td bgcolor=“blue”>Last.FM Ensemble</td>
+        <td bgcolor="Pink">Last.FM Ensemble</td>
         <td> </td>
         <td> </td>
         <td> </td>
