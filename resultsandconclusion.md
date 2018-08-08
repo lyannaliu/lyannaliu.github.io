@@ -59,7 +59,7 @@ TP = True Positive, FP = False Positive, FN = False Negative
       <td> </td>
     </tr>
     <tr>
-      <td>Last.FM Ensemble</td>
+      <td colspan="2" bgcolor=#AEEEEE>Last.FM Ensemble</td>
       <td> </td>
       <td> </td>
       <td> </td>
