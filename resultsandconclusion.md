@@ -21,103 +21,11 @@ title: Results and Conclusions
 
 <h2 id="1">1. Summary</h2>
 
-<table class="table table-bordered table-striped table-condensed">
-    <tr>
-        <th>Model</th>
-        <th>Mean Train Score</th>
-        <th>Mean Test Score</th>
-        <th>Mean Train True Positive : False Positive ratio</th>
-        <th>Mean Train True Positive: False Negative ratio</th>
-        <th>Mean Test True Positive : False Positive ratio</th>
-        <th>Mean Test True Positive: False Negative ratio</th>
-        <th>Parameters</th>
-    </tr>
-    <tr>
-        <td bgcolor=#FFB6C1>Metalearner Model</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <td> Last.FM Ensemble </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <td>Other model 2</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <td>Other model 3</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <td> MPD Ensemble Model </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <td>Logistic Regression </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <td>Decision Tree</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
-        <td>Neural Network</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-</table>
+All scores are mean values
+TP = True Positive, FP = False Positive, FN = False Negative
 
 
-| Left-Aligned  | Center Aligned  | Right Aligned |
-| :------------ |:---------------:| -----:|
-| col 3 is      | some wordy text | $1600 |
-| col 2 is      | centered        |   $12 |
-| zebra stripes | are neat        |    $1 |
+| Model  | Train Score  | Test Score | Train TP/FP  | Train TP/FN | Test TP/FP | Test TP/FN | Parameters |
+| :----- | :----------: | :---------:| :----------: | :---------: | :--------: | :--------: | :--------: |
+| Metalearner Model |   |   |   |   |   |   |   |
 
