@@ -2,6 +2,8 @@
 layout: page
 permalink: /modelsandmethods/index.html
 title: Description of Data
+pubs:
+---
 
 * [1. Powerpoint diagram](#1)
 * [2. Last.FM Model](#2)
