@@ -33,7 +33,7 @@ title: Results and Conclusions
         <th>Parameters</th>
     </tr>
     <tr>
-        <td>Metalearner Model</td>
+        <td color=#FFB6C1>Metalearner Model</td>
         <td> </td>
         <td> </td>
         <td> </td>
@@ -113,10 +113,3 @@ title: Results and Conclusions
         <td> </td>
     </tr>
 </table>
-
-Name | Academy | score 
-- | :-: | -: 
-Harry Potter | Gryffindor| 90 
-Hermione Granger | Gryffindor | 100 
-Draco Malfoy | Slytherin | 90
-
