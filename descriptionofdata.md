@@ -1,5 +1,5 @@
 ---
 layout: page
-permalink: /Description of Data/index.html
+permalink: /descriptionofdata/index.html
 title: Description of Data
 ---
