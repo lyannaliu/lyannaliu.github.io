@@ -1,14 +1,14 @@
 ---
 layout: page
 permalink: /modelsandmethods/index.html
-title: Description of Data
-pubs:
+title: Results and Conclusions
 ---
+
 # Results and Conclusions
 
 * [1. Summary](#1)
 * [2. Last.FM Model Results](#2)
-    * [2.1 Logistic regression](#2.1)
+    * [2.1 Logistic regression(#2.1)
     * [2.2 Ensemble model](#2.2)
 * [3. Million Playlist Model Results](#3)
     * [3.1 Logistic Regression](#3.1)
