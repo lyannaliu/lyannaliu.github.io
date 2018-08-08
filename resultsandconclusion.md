@@ -42,7 +42,7 @@ title: Results and Conclusions
         <td> </td>
     </tr>
     <tr>
-        <td bgcolor=rgb(255, 192, 203)> Last.FM Ensemble </td>
+        <td bgcolor=rgb(255,192,203)> Last.FM Ensemble </td>
         <td> </td>
         <td> </td>
         <td> </td>
@@ -52,7 +52,57 @@ title: Results and Conclusions
         <td> </td>
     </tr>
     <tr>
-        <td>Logistic regression</td>
+        <td>Other model 2</td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <td>Other model 3</td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <td bgcolor=rgb(0,10,0)> MPD Ensemble Model </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <td>Logistic Regression </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <td>Decision Tree</td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <td>Neural Network</td>
         <td> </td>
         <td> </td>
         <td> </td>
@@ -62,3 +112,4 @@ title: Results and Conclusions
         <td> </td>
     </tr>
 </table>
+
