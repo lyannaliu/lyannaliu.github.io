@@ -33,7 +33,7 @@ title: Results and Conclusions
         <th>Parameters</th>
     </tr>
     <tr>
-        <td color=#FFB6C1>Metalearner Model</td>
+        <td bgcolor=#FFB6C1>Metalearner Model</td>
         <td> </td>
         <td> </td>
         <td> </td>
@@ -113,3 +113,11 @@ title: Results and Conclusions
         <td> </td>
     </tr>
 </table>
+
+
+| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
+
