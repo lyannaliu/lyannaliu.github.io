@@ -1,5 +1,15 @@
+title: Spotify Project
+#tagline:          A short tagline
+#description:      Describe your website.
+#Comment out url when working locally to resolve base urls correctly
+url: http://lyannaliu.github.io
 
-
+# Owner/author information
+owner:
+  name:           Spotify
+  avatar:         Sptify.JPG
+#  bio:
+ 
 
 
 # Links to include in top navigation
