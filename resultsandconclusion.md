@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /modelsandmethods/index.html
+permalink: /resultsandconclusion/index.html
 title: Results and Conclusions
 ---
 
