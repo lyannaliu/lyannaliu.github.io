@@ -22,14 +22,14 @@ title: Results and Conclusions
 <h2 id="1">1. Summary</h2>
 <table>
     <tr>
-        <td>Model</td>
-        <td>Mean Train Score</td>
-        <td>Mean Test Score</td>
-        <td>Mean Train True Positive : False Positive ratio</td>
-        <td>Mean Train True Positive: False Negative ratio</td>
-        <td>Mean Test True Positive : False Positive ratio</td>
-        <td>Mean Test True Positive: False Negative ratio</td>
-        <td>Parameters</td>
+        <th>Model</th>
+        <th>Mean Train Score</th>
+        <th>Mean Test Score</th>
+        <th>Mean Train True Positive : False Positive ratio</th>
+        <th>Mean Train True Positive: False Negative ratio</th>
+        <th>Mean Test True Positive : False Positive ratio</th>
+        <th>Mean Test True Positive: False Negative ratio</th>
+        <th>Parameters</th>
     </tr>
     <tr>
         <td bgcolor=“yellow”>Metalearner Model</td>
@@ -42,7 +42,7 @@ title: Results and Conclusions
         <td> </td>
     </tr>
     <tr>
-        <td bgcolor="Pink">Last.FM Ensemble</td>
+        <td bgcolor=rgb(255, 192, 203)> Last.FM Ensemble </td>
         <td> </td>
         <td> </td>
         <td> </td>
