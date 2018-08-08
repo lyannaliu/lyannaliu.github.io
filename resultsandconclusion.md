@@ -32,7 +32,7 @@ title: Results and Conclusions
         <th>Parameters</th>
     </tr>
     <tr>
-        <td bgcolor=“yellow”>Metalearner Model</td>
+        <td>Metalearner Model</td>
         <td> </td>
         <td> </td>
         <td> </td>
@@ -42,7 +42,7 @@ title: Results and Conclusions
         <td> </td>
     </tr>
     <tr>
-        <td bgcolor=rgb(255,192,203)> Last.FM Ensemble </td>
+        <td> Last.FM Ensemble </td>
         <td> </td>
         <td> </td>
         <td> </td>
@@ -72,7 +72,7 @@ title: Results and Conclusions
         <td> </td>
     </tr>
     <tr>
-        <td bgcolor=rgb(0,10,0)> MPD Ensemble Model </td>
+        <td> MPD Ensemble Model </td>
         <td> </td>
         <td> </td>
         <td> </td>
