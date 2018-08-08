@@ -1,15 +1,26 @@
-title: Spotify Project
+title: Jiafeng(Alan) Liu
 #tagline:          A short tagline
 #description:      Describe your website.
 #Comment out url when working locally to resolve base urls correctly
-url: http://lyannaliu.github.io
+url: http://jayfongl.github.io
 
 # Owner/author information
 owner:
-  name:           Spotify
-  avatar:         Spotify.JPG
+  name:           Jiafeng
+  avatar:         Jiafeng.JPG
 #  bio:
- 
+  email:        Jiafeng_alan@hotmail.com  
+  # Social networking links are used in author-bio sidebar. Update and remove as you like.
+  twitter:
+  facebook:
+  github: JayfongL
+  linkedin: 
+  instagram:
+  lastfm:
+  tumblr:
+  # For Google Authorship https://plus.google.com/authorship
+  google_plus:
+
 # Analytics and webmaster tools stuff goes here
 google_verify: "JW0gdx05xcJSQe6saaq67u_U1vgdfuh8OxrjS-fEuyQ"
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
@@ -18,17 +29,15 @@ bing_verify:
 # Links to include in top navigation
 # For external links add external: true
 links:
-  - title: Motivation and Abstract
+  - title: Home
     url: /
-  - title: Description of Data
-    url: /Description of Data/
-  - title: Models and Methods
-    url: /Models and Methods/
-  - title: Results and Conclusion  
-    url: /Results and Conclusion/
-  - title: Appendix  
-    url: /Appendix/
-    
+  - title: Research
+    url: /research/
+  - title: Blogs
+    url: /blogs/
+  - title: Hobbies
+    url: /hobbies/
+
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone: Asia/Shanghai
 future: true
@@ -55,3 +64,5 @@ kramdown:
 
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "minimal-mistakes.sublime-project", "minimal-mistakes.sublime-workspace"]
+
+
