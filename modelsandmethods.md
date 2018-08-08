@@ -2,7 +2,7 @@
 layout: page
 permalink: /modelsandmethods/index.html
 title: Description of Data
----
+pubs:
 
 * [1. Powerpoint diagram](#1)
 * [2. Last.FM Model](#2)
@@ -15,6 +15,7 @@ title: Description of Data
     * [3.3 Decision Tree](#3.3)
     * [3.4 Neural Network](#3.4)
     * [3.5 Ensemble Method](#3.5)
+* [4. Metalearner](#4)
 
 <h2 id="1">1. Summary</h2>
 show the overall structure of the model
@@ -56,3 +57,11 @@ Justification
 Code to create models
 Affiliated diagrams
 Justification
+
+<h2 id="4">4. Metalearner</h2>
+Description
+Challenges
+Model
+Code
+Justification: Why we thought this was a good way to build the model
+
