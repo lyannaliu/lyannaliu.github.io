@@ -39,6 +39,7 @@ TP = True Positive, FP = False Positive, FN = False Negative
     <tr>
       <th>Model</th>
       <th>Train Score</th>
+      <th>Test Score</th>
       <th>Train TP/FP</th>
       <th>Train TP/FN</th>
       <th>Test TP/FP</th>
