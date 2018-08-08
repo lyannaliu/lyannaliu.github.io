@@ -5,7 +5,7 @@ layout: page
 # CS109A Data Science Final Project
 
 
-**Motivation**
+##Motivation
 
 
 
@@ -15,4 +15,4 @@ layout: page
 
 
 
-**Abstract**
+##Abstract
