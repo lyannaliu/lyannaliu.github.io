@@ -58,7 +58,7 @@ For each `related track`, the following attributes are calculated:
 
 For example, for the `target track` "Piano Man", the following dataset is dynamically generated:
 
-![Piano Man DF](piano_man_df.png)
+/images/piano_man_df.png
 
 In this example, the `related track` "Ghosts 'n' Stuff" by deadmau5 from the album "For Lack of a Better Name" was found 4 times in the same playlist as "Piano Man", the artist deadmau5 showed up 24 times in the same playlist as "Piano Man", and the album "For Lack of a Better Name" showed up 6 times in the same playlist as "Piano Man". Overall, the song "Ghosts 'n' Stuff" showed up in 332 in playlists, the artist deadmau5 showed up 3259 times in playlists, and the album "For Lack of a Better Name" showed up 592 times in playlists.
 
@@ -259,7 +259,7 @@ def get_random_song_list(length, target_playlist, artistList, albumList):
 
 The final result is a dataframe containing the dynamically calculated frequency values for the `target song`. As shown earlier, for Piano Man, this dataframe would look something like the dataframe below.
 
-![Piano Man DF](piano_man_df.png)
+/images/piano_man_df.png
 
 <h3 id="3.2">3.2 Logistic Regression</h3>
 The logistic regression submodel is an ensembled set of eight logistic models. The eight models were trained separately on eight randomly selected `target tracks` and `target playlists` from the detailed_train_playlists set. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. The final prediction is either the majority if producing a binary result or the average probability if producing a probabilistic result.
@@ -350,7 +350,7 @@ def predictions_matrix(model, N=20):
 
 The plot output for the running predictions indicates that accuracy is maximized at around 8 models.
 
-![Logistic Regression Accuracy](logistic_regression_accuracy.png)
+/images/logistic_regression_accuracy.png
 
 <h4 id="3.3">3.3 Decision Tree</h4>
 The decision tree model is a single tree of max depth 4. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. 
@@ -379,7 +379,7 @@ plt.legend()
 
 From the plot, accuracy does not change significantly when adding trees, so only a single tree is used for the model.
 
-![Decision Tree Accuracy](decision_tree_accuracy.png)
+/images/decision_tree_accuracy.png
 
 The decision tree is visualized below.
 
@@ -395,7 +395,7 @@ graph = pydot.graph_from_dot_data(dot_data.getvalue())
 Image(graph[0].create_png())
 ```
 
-![Decision Tree](decision_tree.png)
+/images/decision_tree.png
 <h5 id="3.4">3.4 Neural Network</h5>
 
 Unlike the logistic or decision tree model, the neural network model is trained on 100 different dynamically generated datasets for 100 different `target song`s and `target playlist`s. This method is used instead of splitting the dataset into multiple batches, because the liklihood of creating batches of a good representation of hits and misses is low in such a skewed dataset. The classes are given different weights with 0 being weighted .11 and 1 being weighted .89.
@@ -483,7 +483,7 @@ def build_train_predictions():
 
 An example of the resulting dataframe is displayed below:
 
-![Metalearner DF](metalearner_df.png)
+/images/metalearner_df.png
 
 To crossvalidate for a reliable number of iterations, two different `target song`s and `target playlist`s were selected from the training set and used to train the AdaBoost metalearner. The running score was then plotted and analyzed for a shared optimum. The accuracy of the metalearner, instead of an overall accuracy, was the number of True Positives predicted by the model to the number of Total Positives.
 
@@ -517,7 +517,7 @@ plt.title('Accuracy of Boosting Model vs Number of Iterations')
 plt.legend()
 ```
 
-![AdaBoost CV](adaboost_cv.png)
+/images/adaboost_cv.png
 
 From the plot, it appears that by 20 iterations, the model does well for both the train and cross validation case, so n_estimators is set at 20 to prevent overfitting.
 
