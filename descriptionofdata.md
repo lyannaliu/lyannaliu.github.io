@@ -229,6 +229,6 @@ ax.set_ylabel('Total count')
 ax.legend(handles=markers)
 ```
 
-![Count Comparison](images/count_comparison.png)
+![Count Comparison](/images/count_comparison.png)
 
 The plot shows that songs with high counts do not necessarily have artists and albums with high counts. The same holds true for the relationship between artists and albums to songs. Therefore, even though there is some visible colinearity, we determined that the frequency counts were not perfectly colinear and could potentially be significant as separate predictors.
