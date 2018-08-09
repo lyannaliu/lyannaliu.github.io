@@ -19,9 +19,10 @@ title: Models and Methods
     * [3.5 Ensemble Method](#3.5)
 * [4. Metalearner](#4)
 
-<h2 id="1">1. Summary</h2>
-show the overall structure of the model
-Description of metamodel and two submodels 
+<h2 id="1">1. Powerpoint diagram</h2>
+The overall structure of the model description of metamodel and two submodels:
+![Fig](/images/Fig.png)
+
 
 <h2 id="2">2. Last.FM Model</h2>
 Last.FM Model
