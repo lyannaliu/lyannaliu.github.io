@@ -11,8 +11,7 @@ title: Results and Conclusions
     * [2.1 Logistic regression](#2.1)
     * [2.2 Ensemble model](#2.2)
 * [3. Million Playlist Model Results](#3)
-   
-* [5. Conclusion](#5)
+* [4. Conclusion](#4)
 
 
 <h2 id="1">1. Summary</h2>
@@ -461,5 +460,5 @@ The decision tree had an enormous spread of false discover rates from 0 to 1, bu
 Overall, out of the three submodels, logistic regression performed the best. In general, it was also able to predict more false positives than even the metalearner model. However, the metalearner had generally the tightest spreads in its prediction scores. It's possible that the metalearner was hurt by the Neural Network model which seemed to significantly overfit for the 0 scores, and the fact that the decision tree model and neural network models were not preferred in any of the metrics.
 
 
-<h2 id="5">5 Conclusion</h2>
+<h2 id="4">4 Conclusion</h2>
 Conclusion
