@@ -352,7 +352,8 @@ def predictions_matrix(model, N=20):
 
 The plot output for the running predictions indicates that accuracy is maximized at around 8 models.
 
-/images/logistic_regression_accuracy.png
+![Logistic Regression Accuracy](/images/logistic_regression_accuracy.png)
+
 
 <h4 id="3.3">3.3 Decision Tree</h4>
 The decision tree model is a single tree of max depth 4. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. 
@@ -381,7 +382,7 @@ plt.legend()
 
 From the plot, accuracy does not change significantly when adding trees, so only a single tree is used for the model.
 
-/images/decision_tree_accuracy.png
+![Decision Tree Accuracy](/images/decision_tree_accuracy.png)
 
 The decision tree is visualized below.
 
@@ -397,7 +398,7 @@ graph = pydot.graph_from_dot_data(dot_data.getvalue())
 Image(graph[0].create_png())
 ```
 
-/images/decision_tree.png
+![Decision Tree](/images/decision_tree.png)
 <h5 id="3.4">3.4 Neural Network</h5>
 
 Unlike the logistic or decision tree model, the neural network model is trained on 100 different dynamically generated datasets for 100 different `target song`s and `target playlist`s. This method is used instead of splitting the dataset into multiple batches, because the liklihood of creating batches of a good representation of hits and misses is low in such a skewed dataset. The classes are given different weights with 0 being weighted .11 and 1 being weighted .89.
@@ -485,7 +486,7 @@ def build_train_predictions():
 
 An example of the resulting dataframe is displayed below:
 
-/images/metalearner_df.png
+![Metalearner DF](/images/metalearner_df.png)
 
 To crossvalidate for a reliable number of iterations, two different `target song`s and `target playlist`s were selected from the training set and used to train the AdaBoost metalearner. The running score was then plotted and analyzed for a shared optimum. The accuracy of the metalearner, instead of an overall accuracy, was the number of True Positives predicted by the model to the number of Total Positives.
 
@@ -519,7 +520,7 @@ plt.title('Accuracy of Boosting Model vs Number of Iterations')
 plt.legend()
 ```
 
-/images/adaboost_cv.png
+![AdaBoost CV](/images/adaboost_cv.png)
 
 From the plot, it appears that by 20 iterations, the model does well for both the train and cross validation case, so n_estimators is set at 20 to prevent overfitting.
 
