@@ -6,6 +6,8 @@ title: Models and Methods
 
 # Models and Methods
 
+#### Contents
+
 * [1. Overlook of the Models](#1)
 * [2. Last.FM Model](#2)
     * [2.1 Data Preparation](#2.1)
