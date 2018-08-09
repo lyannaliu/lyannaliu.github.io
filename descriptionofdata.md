@@ -21,7 +21,7 @@ We used Last.FM Data Set and Million Playlist Data Set as our two data sets.
 
 <h2 id="2">2. LastFM</h2>
 <h3 id="2.1">2.1 Data Source</h3>
-We obtained the data from the Last.fm Dataset on the Million Song Dataset: https://labrosa.ee.columbia.edu/millionsong/lastfm. 
+We obtained the Last.fm Dataset on the Million Song Dataset: https://labrosa.ee.columbia.edu/millionsong/lastfm. 
 
 <h3 id="2.2">2.2 Description of the Raw Data</h3>
 The Last.fm data set contains:
@@ -39,9 +39,7 @@ Code used to compare with Million Playlist data
 <h2 id="3">3. Million Playlist</h2>
 
 <h3 id="3.1">3.1 Data Source</h3>
-We obtained data from: 
-
-This data distribution is for our Summer CS109A project purposes ONLY and MUST NOT be distributed for any other uses and for any other reasons during the course and after the course's conclusion.
+We obtained the Million Playlist Dataset from: http://recsys-challenge.spotify.com/
 
 <h3 id="3.2">3.2 Description of the Raw Data</h3>
 The Million Playlist data set contains:
