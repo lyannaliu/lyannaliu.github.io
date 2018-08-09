@@ -29,7 +29,10 @@ The Last FM Model was created as an ensemble model, built from three other model
   - Bagging 
   - Boosting
   - Neural Network 
-**Need to be completed:** All three models will predict the probability of a song being a 'hit': the predicted song appears on the  
+  
+**Need to be completed:** 
+
+All three models will predict the probability of a song being a 'hit': the predicted song appears on the  
 
 <h3 id="2.1">2.1 Data Preparation</h3>
 building dynamic dfs
