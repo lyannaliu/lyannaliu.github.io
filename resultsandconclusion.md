@@ -96,30 +96,30 @@ Below is an overview of how all our models performed. Each value is the mean sco
     </tr>
     <tr>
       <td> MPD Ensemble Model</td>
-      <td> 0.113055181696</td>
-      <td> 0.00175202212554</td>
-      <td> 0.998247977874</td>
-      <td> 0.0865497076023</td>
-      <td> 0.000915543741074</td>
-      <td> 0.999084456259</td>
+      <td> 0.1131</td>
+      <td> 0.0018</td>
+      <td> 0.9982</td>
+      <td> 0.0865</td>
+      <td> 0.0009</td>
+      <td> 0.9991</td>
     </tr>
     <tr>
       <td>Logistic Regression</td>
-      <td> 0.141184387618</td>
-      <td> 0.0389600742804</td>
-      <td> 0.96103992572</td>
-      <td> 0.119298245614</td>
-      <td> 0.0239838763856</td>
-      <td> 0.976016123614</td>
+      <td> 0.1412</td>
+      <td> 0.0390</td>
+      <td> 0.9610</td>
+      <td> 0.1193</td>
+      <td> 0.0240</td>
+      <td> 0.9760</td>
     </tr>
     <tr>
       <td>Decision Tree</td>
-      <td> 0.0125168236878</td>
-      <td> 0.0474247832738</td>
-      <td> 0.952575216726</td>
-      <td> 0.015037593985</td>
-      <td> 0.0355169692186</td>
-      <td> 0.964483030781</td>
+      <td> 0.0125</td>
+      <td> 0.0474</td>
+      <td> 0.9526</td>
+      <td> 0.0150</td>
+      <td> 0.0355</td>
+      <td> 0.9645</td>
     </tr>
     <tr>
       <td>Neural Network</td>
