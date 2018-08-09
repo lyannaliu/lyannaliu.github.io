@@ -150,4 +150,23 @@ All scores are mean values
   </tbody>
 </table>
 
-
+<h2 id="2">2. Last.FM Model Results</h2>
+Last.FM Model Results
+<h3 id="2.1">2.1 Logistic regression</h3>
+Logistic regression
+<h4 id="2.2">2.2 Ensemble model</h4>
+Ensemble model
+<h2 id="3">3. Million Playlist Model Results</h2>
+Million Playlist Model Results
+<h3 id="3.1">3.1 Logistic regression</h3>
+Logistic regression
+<h4 id="3.2">3.2 Decision Tree</h4>
+Decision Tree
+<h5 id="3.3">3.3 Neural Network</h5>
+Neural Network
+<h6 id="3.4">3.4 Ensemble Method</h6>
+Ensemble Method
+<h2 id="4">4 Metalearner</h2>
+Metalearner
+<h2 id="5">5 Conclusion</h2>
+Conclusion
