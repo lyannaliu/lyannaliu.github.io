@@ -40,16 +40,18 @@ TP = True Positive, FP = False Positive, FN = False Negative
       <th>Model</th>
       <th>Train Score</th>
       <th>Test Score</th>
-      <th>Train TP/FP</th>
-      <th>Train TP/FN</th>
-      <th>Test TP/FP</th>
-      <th>Test TP/FN</th>
+      <th>Train True Positive/Total Positive ratio… Sensitivity</th>
+      <th>Train False Positive/(True Positive + False Positive) ratio… FDR</th>
+      <th>Train TP/(TP + FP)... Precision</th>
+      <th>Test True Positive/Total Positive ratio</th>
+       <th>Test False Positive/(True Positive + False Positive) ratio</th>
       <th>Parameters</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Metalearner Model</td>
+      <td> </td>
       <td> </td>
       <td> </td>
       <td> </td>
@@ -67,9 +69,11 @@ TP = True Positive, FP = False Positive, FN = False Negative
       <td> </td>
       <td> </td>
       <td> </td>
+      <td> </td>
     </tr>
     <tr>
       <td>Logistic Regression</td>
+      <td> </td>
       <td> </td>
       <td> </td>
       <td> </td>
@@ -87,6 +91,7 @@ TP = True Positive, FP = False Positive, FN = False Negative
       <td> </td>
       <td> </td>
       <td> </td>
+      <td> </td>
     </tr>
     <tr>
       <td>Other model 3</td>
@@ -97,19 +102,22 @@ TP = True Positive, FP = False Positive, FN = False Negative
       <td> </td>
       <td> </td>
       <td> </td>
+      <td> </td>
     </tr>
     <tr>
+      <td> </td>
+      <td> </td>
       <td>MPD Ensemble Model</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td> 0.113055181696</td>
+      <td> 0.00175202212554</td>
+      <td> 0.998247977874</td>
+      <td> 0.0865497076023</td>
+      <td> 0.999084456259</td>
+      <td> 0.000915543741074</td>
     </tr>
     <tr>
       <td>Logistic Regression</td>
+      <td> </td>
       <td> </td>
       <td> </td>
       <td> </td>
@@ -127,9 +135,11 @@ TP = True Positive, FP = False Positive, FN = False Negative
       <td> </td>
       <td> </td>
       <td> </td>
+      <td> </td>
     </tr>
     <tr>
       <td>Neural Network</td>
+      <td> </td>
       <td> </td>
       <td> </td>
       <td> </td>
