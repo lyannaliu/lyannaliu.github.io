@@ -22,21 +22,23 @@ We used Last.FM Data Set and Million Playlist Data Set as our two data sets.
 <h2 id="2">2. LastFM</h2>
 <h3 id="2.1">2.1 Data Source</h3>
 We obtained the data from the Last.fm Dataset on the Million Song Dataset: https://labrosa.ee.columbia.edu/millionsong/lastfm. 
+
 <h3 id="2.2">2.2 Description of the Raw Data</h3>
 Last.fm contains:
-- song tags (eg genres and/or official playlists, Bay Area top 100 or Hip Hop) and song/track similarity for all of the tracks in the Million Song Dataset
-- SQLite databases that can be parsed
-- Numerical Variables:
-Artist Hotness
-Artist Familiarity
-Duration
-Similarity
-- Categorical Variables:
-Track ID
-Artist Name
-Same Album
-Tags
-Year of release
+  - song tags (eg genres and/or official playlists, Bay Area top 100 or Hip Hop) and song/track similarity for all of the tracks in the Million Song Dataset
+
+  - SQLite databases that can be parsed
+  - Numerical Variables:
+   - Artist Hotness
+   - Artist Familiarity
+   - Duration
+   - Similarity
+  - Categorical Variables:
+   - Track ID
+   - Artist Name
+   - Same Album
+   - Tags
+   - Year of release
 
 <h3 id="2.3">2.3 Exploratory Data Analysis</h3>
 Code used to process/clean data
