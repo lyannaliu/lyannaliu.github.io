@@ -44,7 +44,6 @@ Issues with the data?
 Steps taken to clean
 Code used to clean data
 <h3 id="3.3">3.3 Exploratory Data Analysis</h3>
-# Exploratory Data Analysis
 
 The first step to analyzing the Million Playlist Data was to decide the data structure that would best suit the needs of both the Last.FM Model and Million Playlist Model. The biggest issue with the playlist data was ensuring that tracks could be identified as unique while keeping the amount of loaded information to a minimum (to reduce memory costs).
 
