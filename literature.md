@@ -6,7 +6,7 @@ pubs:
 ---
 # Literature Review
 
-#### Contents
+### Contents
 
 * [1. Predicting Song Popularity](#1)
 * [2. The Million Song Dataset](#2)
