@@ -6,7 +6,7 @@ title: Models and Methods
 
 # Models and Methods
 
-* [1. Powerpoint diagram](#1)
+* [1. Overlook of the Models](#1)
 * [2. Last.FM Model](#2)
     * [2.1 Data Preparation](#2.1)
     * [2.2 Logistic regression](#2.2)
@@ -19,7 +19,7 @@ title: Models and Methods
     * [3.5 Ensemble Method](#3.5)
 * [4. Metalearner](#4)
 
-<h2 id="1">1. Powerpoint diagram</h2>
+<h2 id="1">1. Overlook of the Models</h2>
 The overall structure of the model description of metamodel and two submodels:
 
 ![Fig](/images/Fig.png)
