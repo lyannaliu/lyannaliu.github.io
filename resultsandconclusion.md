@@ -44,7 +44,7 @@ TP = True Positive, FP = False Positive, FN = False Negative
       <th>Train False Positive/(True Positive + False Positive) ratio… FDR</th>
       <th>Train TP/(TP + FP)... Precision</th>
       <th>Test True Positive/Total Positive ratio</th>
-       <th>Test False Positive/(True Positive + False Positive) ratio</th>
+      <th>Test False Positive/(True Positive + False Positive) ratio</th>
       <th>Parameters</th>
     </tr>
   </thead>
@@ -105,9 +105,9 @@ TP = True Positive, FP = False Positive, FN = False Negative
       <td> </td>
     </tr>
     <tr>
+      <td> MPD Ensemble Model</td>
       <td> </td>
       <td> </td>
-      <td>MPD Ensemble Model</td>
       <td> 0.113055181696</td>
       <td> 0.00175202212554</td>
       <td> 0.998247977874</td>
