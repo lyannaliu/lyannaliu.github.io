@@ -201,7 +201,7 @@ for count_type, count_type_name, i in zip(count_types, count_type_names, range(3
     ax[i].set_title('Total counts of {}'.format(count_type_name))
 ```
 
-![Total Counts](total_counts.png)
+![Total Counts](/images/total_counts.png)
 
 By doing so we discovered that all three follow a similar Pareto distribution. Colinearity became a concern, so we selected ten tracks and compared the trend of the total song count, artist count, and album counts of each song.
 
@@ -229,6 +229,6 @@ ax.set_ylabel('Total count')
 ax.legend(handles=markers)
 ```
 
-![Count Comparison](count_comparison.png)
+![Count Comparison](images/count_comparison.png)
 
 The plot shows that songs with high counts do not necessarily have artists and albums with high counts. The same holds true for the relationship between artists and albums to songs. Therefore, even though there is some visible colinearity, we determined that the frequency counts were not perfectly colinear and could potentially be significant as separate predictors.
