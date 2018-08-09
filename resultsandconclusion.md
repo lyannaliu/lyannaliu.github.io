@@ -6,7 +6,7 @@ title: Results and Conclusions
 
 # Results and Conclusions
 
-#### Contents
+### Contents
 
 * [1. Summary](#1)
 * [2. Last.FM Model Results](#2)
