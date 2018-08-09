@@ -25,7 +25,12 @@ The overall structure of the model description of metamodel and two submodels:
 ![Fig](/images/Fig.png)
 
 <h2 id="2">2. Last.FM Model</h2>
-Last.FM Model
+The Last FM Model was created as an ensemble model, built from three other models: 
+  - Bagging 
+  - Boosting
+  - Neural Network 
+**Need to be completed:** All three models will predict the probability of a song being a 'hit': the predicted song appears on the  
+
 <h3 id="2.1">2.1 Data Preparation</h3>
 building dynamic dfs
 Include snapshot of one dynamic df
