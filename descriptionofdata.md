@@ -31,7 +31,7 @@ The Last.fm data set contains:
   - Numerical Variables: 
     - Artist Hotness 
     - Artist Familiarity
-    - Duration; 
+    - Duration
     - Similarity
   - Categorical Variables:
     - Track ID
