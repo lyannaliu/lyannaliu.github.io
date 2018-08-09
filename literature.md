@@ -4,7 +4,7 @@ permalink: /literature/index.html
 title: Literature
 pubs:
 ---
-# Literature Review and Related Work
+# Literature Review
 
 * [1. Predicting Song Popularity](#1)
 * [2. The Million Song Dataset](#2)
