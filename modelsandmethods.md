@@ -58,7 +58,7 @@ For each `related track`, the following attributes are calculated:
 
 For example, for the `target track` "Piano Man", the following dataset is dynamically generated:
 
-/images/piano_man_df.png
+![Piano Man DF](/image/piano_man_df.png)
 
 In this example, the `related track` "Ghosts 'n' Stuff" by deadmau5 from the album "For Lack of a Better Name" was found 4 times in the same playlist as "Piano Man", the artist deadmau5 showed up 24 times in the same playlist as "Piano Man", and the album "For Lack of a Better Name" showed up 6 times in the same playlist as "Piano Man". Overall, the song "Ghosts 'n' Stuff" showed up in 332 in playlists, the artist deadmau5 showed up 3259 times in playlists, and the album "For Lack of a Better Name" showed up 592 times in playlists.
 
@@ -259,7 +259,9 @@ def get_random_song_list(length, target_playlist, artistList, albumList):
 
 The final result is a dataframe containing the dynamically calculated frequency values for the `target song`. As shown earlier, for Piano Man, this dataframe would look something like the dataframe below.
 
-/images/piano_man_df.png
+
+
+![Piano Man DF](/image/piano_man_df.png)
 
 <h3 id="3.2">3.2 Logistic Regression</h3>
 The logistic regression submodel is an ensembled set of eight logistic models. The eight models were trained separately on eight randomly selected `target tracks` and `target playlists` from the detailed_train_playlists set. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. The final prediction is either the majority if producing a binary result or the average probability if producing a probabilistic result.
