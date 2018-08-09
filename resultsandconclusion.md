@@ -6,6 +6,8 @@ title: Results and Conclusions
 
 # Results and Conclusions
 
+#### Contents
+
 * [1. Summary](#1)
 * [2. Last.FM Model Results](#2)
     * [2.1 Logistic regression](#2.1)
