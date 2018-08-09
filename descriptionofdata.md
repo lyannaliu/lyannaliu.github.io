@@ -90,7 +90,7 @@ The Million Playlist data set contains:
     - Total artist frequency
     - Total album frequency
     
-<font color=#FF4500 size=60>Need to be completed</font>  
+**Needs to be completed:** 
 
 Include one dictionary/df to illustrate - Haley
 Issues with the data?
