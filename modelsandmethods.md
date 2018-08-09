@@ -26,6 +26,7 @@ The overall structure of the model description of metamodel and two submodels:
 
 <h2 id="2">2. Last.FM Model</h2>
 The Last FM Model was created as an ensemble model, built from three other models: 
+
   - Bagging 
   - Boosting
   - Neural Network 
