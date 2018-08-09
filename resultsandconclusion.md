@@ -17,7 +17,15 @@ title: Results and Conclusions
 
 <h2 id="1">1. Summary</h2>
 
+Because of the large number of 0s in our datasets, true accuracy scores are not very useful in understanding how well our models scores. Therefore, we primarily focused on three other metrics when determining how well our models performed.
 
+1. Sensitivity: Defined as `True Positive/(True Positive + False Negative)`. This value represents what we actually care about - out of all the tracks in the `target playlist`, how many did we actually recommend?
+
+2. Precision: Defined as `True Positive/(True Positive + False Positive)`. This value represents how much our models are cheating - how many tracks are we recommending? If we recommend all the songs in our datasets, then we probably have a great sensitivity, but a recommendation this extensive wouldn't be very helpful.
+
+3. False Discovery Rate: Defined as `False Positive/(True Positive + False Positive)`. This score is related to precision and tells us if our models are getting tracks correct simply because they are recommending everything and the kitchen sink.
+
+Below is an overview of how all our models performed. Each value is the mean score of either 100 train sets or 100 test sets.
 
 
 
