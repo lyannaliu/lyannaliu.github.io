@@ -27,7 +27,7 @@ Where did it come from?
 What is contained in the data?
 Include df to illustrate
 Issues with the data?
-<h4 id="2.3">2.3 Exploratory Data Analysis</h4>
+<h3 id="2.3">2.3 Exploratory Data Analysis</h3>
 Code used to process/clean data
 Code used to create visualizations
 Code used to compare with Million Playlist data
@@ -43,7 +43,7 @@ Include one dictionary/df to illustrate - Haley
 Issues with the data?
 Steps taken to clean
 Code used to clean data
-<h4 id="3.3">3.3 Exploratory Data Analysis</h4>
+<h3 id="3.3">3.3 Exploratory Data Analysis</h3>
 # Exploratory Data Analysis
 
 The first step to analyzing the Million Playlist Data was to decide the data structure that would best suit the needs of both the Last.FM Model and Million Playlist Model. The biggest issue with the playlist data was ensuring that tracks could be identified as unique while keeping the amount of loaded information to a minimum (to reduce memory costs).
