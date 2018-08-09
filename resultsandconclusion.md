@@ -25,7 +25,6 @@ Note:
 
 All scores are mean values
 
-TP = True Positive, FP = False Positive, FN = False Negative
 
 
 <style>
