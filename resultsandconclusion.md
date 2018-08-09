@@ -31,12 +31,12 @@ title: Results and Conclusions
   <thead>
     <tr>
       <th>Model</th>
-      <th>Train True Positive/Total Positive ratio… Sensitivity</th>
-      <th>Train False Positive/(True Positive + False Positive) ratio… FDR</th>
-      <th>Train TP/(TP + FP)... Precision</th>
-      <th>Test True Positive/Total Positive ratio</th>
-      <th>Test False Positive/(True Positive + False Positive) ratio</th>
-      <th>Parameters</th>
+      <th>Sensitivity (Train)</th>
+      <th>Precision (Train)</th>
+      <th>False Discovery Rate (Train)</th>
+      <th>Sensitivity (Test)</th>
+      <th>Precision (Test)</th>
+      <th>False Discovery Rate (Test)</th>
     </tr>
   </thead>
   <tbody>
@@ -87,39 +87,39 @@ title: Results and Conclusions
     </tr>
     <tr>
       <td> MPD Ensemble Model</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td> 0.113055181696</td>
+      <td> 0.00175202212554</td>
+      <td> 0.998247977874</td>
+      <td> 0.0865497076023</td>
+      <td> 0.000915543741074</td>
+      <td> 0.999084456259</td>
     </tr>
     <tr>
       <td>Logistic Regression</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td> 0.141184387618</td>
+      <td> 0.0389600742804</td>
+      <td> 0.96103992572</td>
+      <td> 0.119298245614</td>
+      <td> 0.0239838763856</td>
+      <td> 0.976016123614</td>
     </tr>
     <tr>
       <td>Decision Tree</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td> 0.0125168236878</td>
+      <td> 0.0474247832738</td>
+      <td> 0.952575216726</td>
+      <td> 0.015037593985</td>
+      <td> 0.0355169692186</td>
+      <td> 0.964483030781</td>
     </tr>
     <tr>
       <td>Neural Network</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
+      <td> 0</td>
     </tr>
   </tbody>
 </table>
