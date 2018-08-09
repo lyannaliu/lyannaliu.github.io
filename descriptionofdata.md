@@ -42,7 +42,7 @@ The Last.fm data set contains:
 
 <h3 id="2.3">2.3 Exploratory Data Analysis</h3>
 
-#### Processing
+##### Processing
 To alleviate storage/memory limitations, this dataset was built by querying tables from the SQLite databases made available by the Million Song Dataset team. The two databases used were: [Tags](http://labrosa.ee.columbia.edu/millionsong/sites/default/files/lastfm/lastfm_tags.db) and [Track Metadata](http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/track_metadata.db). 
 
 Tables were pulled from each database and joined to create a dataset that had one row per track_id per tag, so there were multiple rows per track, depending on how many tags were associated with each track. 
@@ -53,7 +53,7 @@ Various smaller grouped tables were created to explore the data, including: numb
 
 The final dataset (ie one row per song) was then created by concatenating all tags for one song into a row (basically a row of tag strings now associated with each song, instead of multiple rows associated with each song, each containing a tag). This dataset will serve as the database that will be queried when running the model, using playlists from the Million Playlist Dataset (MPD).
 
-#### Cleaning
+##### Cleaning
 The messiest feature of the LastFM dataset is the tag names. Many tags are misspelled, modified with adjectives that don’t change the genre/tag meaning, and/or are completely irrelevant. This was initially discovered by grouping the track and tag data by tag and counting the number of tracks associated with each. The discrepancies were seen in tags with very low frequency (ie n = 1). 
 
 The following steps were taken to clean the tags:
@@ -65,6 +65,7 @@ The following steps were taken to clean the tags:
 Other cleaning procedures were conducted to account for data that should have been represented as NaN and not zero:
 -	When initially visualizing the distribution of ‘artist hotness’, there were some values = 0. Since artist hotness would be > 0 (even if it’s still small), those values were replaced with NaN.
 -	When initially visualizing the distribution of ‘year’, there were values = 0. Since year cannot = 0 for recorded songs, those values were replaced with NaN.
+
 
 
 <h2 id="3">3. Million Playlist</h2>
