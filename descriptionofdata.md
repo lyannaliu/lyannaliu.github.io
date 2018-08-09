@@ -17,7 +17,7 @@ title: Description of Data
     * [3.3 Exploratory Data Analysis](#3.3)
 
 <h2 id="1">1. Summary</h2>
-We used these two data sets
+We used Last.FM Data Set and Million Playlist Data Set as our two data sets.
 
 <h2 id="2">2. LastFM</h2>
 Last.FM
