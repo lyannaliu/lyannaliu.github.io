@@ -39,7 +39,8 @@ Code used to compare with Million Playlist data
 <h2 id="3">3. Million Playlist</h2>
 
 <h3 id="3.1">3.1 Data Source</h3>
-We obtained data from: https://drive.google.com/file/d/1vvKVox1_MNezGJA7PCt_ZplQDqoVYA--/view
+We obtained data from: 
+
 This data distribution is for our Summer CS109A project purposes ONLY and MUST NOT be distributed for any other uses and for any other reasons during the course and after the course's conclusion.
 
 <h3 id="3.2">3.2 Description of the Raw Data</h3>
