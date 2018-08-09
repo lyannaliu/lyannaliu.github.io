@@ -21,8 +21,8 @@ title: Models and Methods
 
 <h2 id="1">1. Powerpoint diagram</h2>
 The overall structure of the model description of metamodel and two submodels:
-![Fig](/images/Fig.png)
 
+![Fig](/images/Fig.png)
 
 <h2 id="2">2. Last.FM Model</h2>
 Last.FM Model
