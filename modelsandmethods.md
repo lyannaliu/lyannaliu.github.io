@@ -33,7 +33,7 @@ Include snapshot of one dynamic df
 Code to create models
 Affiliated diagrams
 Justification
-<h4 id="2.3">2.3 Ensemble model</h4>
+<h3 id="2.3">2.3 Ensemble model</h3>
 Code to ensemble above models
 Affiliated diagrams
 ustification
@@ -356,7 +356,7 @@ The plot output for the running predictions indicates that accuracy is maximized
 ![Logistic Regression Accuracy](/images/logistic_regression_accuracy.png)
 
 
-<h4 id="3.3">3.3 Decision Tree</h4>
+<h3 id="3.3">3.3 Decision Tree</h3>
 The decision tree model is a single tree of max depth 4. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. 
 
 ```python
@@ -400,7 +400,7 @@ Image(graph[0].create_png())
 ```
 
 ![Decision Tree](/images/decision_tree.png)
-<h5 id="3.4">3.4 Neural Network</h5>
+<h3 id="3.4">3.4 Neural Network</h3>
 
 Unlike the logistic or decision tree model, the neural network model is trained on 100 different dynamically generated datasets for 100 different `target song`s and `target playlist`s. This method is used instead of splitting the dataset into multiple batches, because the liklihood of creating batches of a good representation of hits and misses is low in such a skewed dataset. The classes are given different weights with 0 being weighted .11 and 1 being weighted .89.
 
@@ -443,7 +443,7 @@ for NN_train in NN_train_dfs:
     NNmodel.fit(NN_X_train, NN_y_train, epochs=1, batch_size=len(NN_X_train))
 ```
 
-<h6 id="3.5">3.5 Ensemble Method</h6>
+<h3 id="3.5">3.5 Ensemble Method</h3>
 The metalearner model is an Adaboost model cross validated for an optimal number of iterations. The three predictors are, given a `target track` and `target playlist`, the predictions of the probability of a hit from the three submodels: logistic regression model, decision tree model, and neural network model. Adaboost was chosen because we are able to tune the n_estimators to try and find the balance between over and underfitting. The final model is built below.
 
 ```python
