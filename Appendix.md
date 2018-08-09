@@ -1,14 +1,19 @@
 ---
 layout: page
-permalink: /Appendix/index.html
-title: Appendix
+permalink: /literature/index.html
+title: Literature
 pubs:
 ---
-# Appendix
+# Literature Review and Related Work
+
+* [1. Predicting Song Popularity](#1)
+* [2. The Million Song Dataset](#2)
 
 This project reviews the literature relevant to its main purpose of identifying key characteristics associated with the likeability of songs. Articles considered for the review were mainly related to the use of the Million Song Dataset and the use of Python for the analysis, as well as all classification and prediction algorithms discussed during the CSCI 109 course, in Summer 2018 at Harvard University.
 
-I. Pham, J., Kyauk, E., and Park, E. (2015). Predicting Song Popularity. Department of Computer Science, Stanford University.
+<h2 id="1">1. Predicting Song Popularity</h2>
+
+Pham, J., Kyauk, E., and Park, E. (2015). Predicting Song Popularity. Department of Computer Science, Stanford University.
 
 This analysis relates to predicting song popularity, motivated by its importance for the music industry competitiveness. The goal of this project was to determine what makes a song popular using the Million Song Dataset, which has a large number of audio features and metadata from one million songs. Different classification and regression algorithms predicted song popularity and determined the significant variables and their respective contributions.
 
@@ -18,6 +23,8 @@ The dataset for analysis was based on the Million Song Dataset, containing acous
  
 As discussed in the conclusion, the authors also created their own metric of popularity, defined as the number of downloads on iTunes or the number of plays on Spotify. The Lasso regression was their preferred method based on final findings.
 
-II.    Bertin-Mahieux, T., Daniel P. W., and Lamere, P. E. (2011). The Million Song Dataset. ISMIR. http://labrosa.ee.columbia.edu/millionsong/.
+<h2 id="2">2. The Million Song Dataset</h2>
+
+Bertin-Mahieux, T., Daniel P. W., and Lamere, P. E. (2011). The Million Song Dataset. ISMIR. http://labrosa.ee.columbia.edu/millionsong/.
  
 The Million Song Dataset is a collection of audio features and metadata for one million contemporary popular music tracks as presented by the authors. They reported on the dataset creation process, what was included in the dataset, and the dataset’s potential applications. The article contains resources and links to better understand the data and guide the user in analysis. The Million Song Dataset is the largest and most current research dataset in the music industry.
