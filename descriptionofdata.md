@@ -45,12 +45,9 @@ The Million Playlist data set contains:
     - Total artist frequency
     - Total album frequency
     
-**Needs to be completed:** 
+A snippet of the Million Playlist data is shown here:
 
-Include one dictionary/df to illustrate - Haley
-Issues with the data?
-Steps taken to clean
-Code used to clean data
+![Total Counts](/images/MP_data_example.png)
 
 <h3 id="2.3">2.3 Exploratory Data Analysis</h3>
 
