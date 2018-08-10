@@ -777,7 +777,7 @@ Image(graph.create_png())
 
 ![dtree_nodes](/images/dtree_model.png)
 
-Then, the ensembler model was fit with 25 estimators at a max_depth of 3. 25 estimators was chosen as that's the largest we felt we could bootstrap when there are > 20million observations in each boostrapped sample.
+Then, the ensembler model was fit with 25 estimators at a max_depth of 3. This number of estimators was chosen because that's the largest we felt we could bootstrap (with current memory/processing limitations) when there are > 20million observations in each boostrapped sample.
 
 ```python
 bag_model = BaggingClassifier(
@@ -786,9 +786,61 @@ bag_model = BaggingClassifier(
 ```
 
 <h3 id="3.4">3.4 Boosting</h3>
-Code to ensemble above models
-Affiliated diagrams
-ustification
+The boosting model was built with sklearn's AdaBoostClassifier. The first step we took to assess the classifier fit was plotting the classifier's scores on training and test sets at two depths and 15 estimators.
+
+The two depths chosen were 2 and 3 - 3, because that was the optimal depth for the BaggingClassifier and 2, because AdaBoostClassifier's can often achieve optimal accuracy on lower depths than the base estimator (DecisionTree) can on its own. If there were more time and we had stronger processing power, we would have assessed the AdaBoost classifier on a broader range of depths and estimators (as we've done in class and homework).
+
+```python
+fig, axs = plt.subplots(1, 2, figsize = (15, 10))
+axs = axs.ravel()
+
+depths = [2, 3]
+
+for i, cur_depth in log_progress(enumerate(depths), every = 1):
+    model = AdaBoostClassifier(base_estimator = DecisionTreeClassifier(max_depth = cur_depth), 
+                               n_estimators = 15, learning_rate = 0.05).fit(X_train, y_train)
+    train_staged_score = model.staged_score(X_train, y_train)
+    test_staged_score = model.staged_score(X_test, y_test)
+
+    train_scores = []
+    for score in train_staged_score:
+        train_scores.append(score)
+
+    test_scores = []
+    for score in test_staged_score:
+        test_scores.append(score)
+     
+    stages = list(range(1, len(train_scores)+1))
+    
+    axs[i].plot(stages, train_scores, 'o', color = 'indigo', label = 'training')
+    axs[i].plot(stages, test_scores, 'o', color = 'darkcyan', label = 'test')
+    axs[i].set_xlabel('Number of Estimators', fontsize = 14)
+    axs[i].set_ylabel('Accuracy Score', fontsize = 14)
+    axs[i].set_title('Max Tree Depth of {}'.format(cur_depth), fontsize = 15)
+    axs[i].legend(loc = 'best', fontsize = 15)
+    axs[i].tick_params(labelsize = 13)
+    #axs[i].set_ylim(0.960, 0.995)
+
+fig.suptitle('Training and test scores as a function\nof the number of estimators in \
+AdaBoost Classifier', fontsize = 20)
+fig.tight_layout()
+fig.subplots_adjust(top = 0.87, hspace = .35, wspace = .25)
+
+plt.savefig('figures/AdaBoost.png')
+plt.show()
+```
+
+<INSERT IMAGE>
+![AdaBoost plot](/images/
+
+On first glance, it looks a terrible fit on both the training and the test sets. However, upon a closer look, we can see that the y_axis 'scale' is 9.998e-01, indicating that what looks like scores close to zero are actually scores close to 1. Since both depths 2 and 3 do quite well, we used a depth of 2 to train the classifier. We chose 4 estimators, as that's when the training set in depth 2 first achieves its max score.
+
+```python
+Ada_model = AdaBoostClassifier(
+    base_estimator = DecisionTreeClassifier(max_depth = 2, class_weight = 'balanced'), 
+    n_estimators = 4).fit(X_train, y_train)
+```
+
 <h3 id="3.5">3.5 Neural Network</h3>
 Neural Network
 <h3 id="3.6">3.6 Ensemble Model</h3>
