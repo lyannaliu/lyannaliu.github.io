@@ -9,12 +9,12 @@ title: Results and Conclusions
 ## Contents
 
 * [1. Summary](#1)
-* [2. Last.FM Model Results](#2)
-    * [2.2 Bagging](#2.2)
-    * [2.3 Boosting](#2.3)
-    * [2.4 Neural Network](#2.4)
-    * [2.5 Ensemble Model](#2.5)
-* [3. Million Playlist Model Results](#3)
+* [2. Million Playlist Model Results](#2)
+* [3. Last.FM Model Results](#3)
+    * [3.2 Bagging](#3.2)
+    * [3.3 Boosting](#3.3)
+    * [3.4 Neural Network](#3.4)
+    * [3.5 Ensemble Model](#3.5)
 * [4. Conclusion](#4)
 
 
@@ -144,12 +144,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
   </tbody>
 </table>
 
-<h2 id="2">2. Last.FM Model Results</h2>
-Last.FM Model Results
-<h3 id="2.1">2.1 Logistic regression</h3>
-Logistic regression
-<h3 id="2.2">2.2 Ensemble model</h3>
-Ensemble model
+
 <h2 id="3">3. Million Playlist Model Results</h2>
 
 Several custom functions were built to automate the selection of test `target track`s and `target playlist`s, building predictions on the selection, and processing the results.
@@ -472,6 +467,13 @@ The decision tree had an enormous spread of false discover rates from 0 to 1, bu
 
 Overall, out of the three submodels, logistic regression performed the best. In general, it was also able to predict more false positives than even the metalearner model. However, the metalearner had generally the tightest spreads in its prediction scores. It's possible that the metalearner was hurt by the Neural Network model which seemed to significantly overfit for the 0 scores, and the fact that the decision tree model and neural network models were not preferred in any of the metrics.
 
+
+<h2 id="3">3. Last.FM Model Results</h2>
+Last.FM Model Results
+<h3 id="3.1">3.1 Logistic regression</h3>
+Logistic regression
+<h3 id="3.2">3.2 Ensemble model</h3>
+Ensemble model
 
 <h2 id="4">4 Conclusion</h2>
 Conclusion
