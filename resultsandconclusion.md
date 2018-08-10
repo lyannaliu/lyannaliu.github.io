@@ -69,7 +69,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
       <td> </td>
     </tr>
-    <tr align="center" bgcolor="#C411FF">
+    <tr align="center" bgcolor="#C4E1FF">
       <td>Bagging</td>
       <td> </td>
       <td> </td>
@@ -78,7 +78,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
       <td> </td>
     </tr>
-    <tr align="center" bgcolor="#C411FF">
+    <tr align="center" bgcolor="#C4E1FF">
       <td>Boosting</td>
       <td> </td>
       <td> </td>
@@ -87,7 +87,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
       <td> </td>
     </tr>
-    <tr align="center" bgcolor="#C411FF">
+    <tr align="center" bgcolor="#C4E1FF">
       <td>Neural Network</td>
       <td> </td>
       <td> </td>
@@ -96,7 +96,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
       <td> </td>
     </tr>
-    <tr align="center">
+    <tr align="center" bgcolor="#97CBFF">
       <td> MPD Ensemble Model</td>
       <td> 0.1131</td>
       <td> 0.0018</td>
@@ -105,7 +105,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.0009</td>
       <td> 0.9991</td>
     </tr>
-    <tr align="center">
+    <tr align="center" bgcolor="#C4E1FF">
       <td>Logistic Regression</td>
       <td> 0.1412</td>
       <td> 0.0390</td>
@@ -114,7 +114,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.0240</td>
       <td> 0.9760</td>
     </tr>
-    <tr align="center">
+    <tr align="center" bgcolor="#C4E1FF">
       <td>Decision Tree</td>
       <td> 0.0125</td>
       <td> 0.0474</td>
@@ -123,7 +123,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.0355</td>
       <td> 0.9645</td>
     </tr>
-    <tr align="center">
+    <tr align="center" bgcolor="#C4E1FF">
       <td>Neural Network</td>
       <td> 0</td>
       <td> 0</td>
