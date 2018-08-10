@@ -11,10 +11,6 @@ title: Results and Conclusions
 * [1. Summary](#1)
 * [2. Million Playlist Model Results](#2)
 * [3. Last.FM Model Results](#3)
-    * [3.2 Bagging](#3.2)
-    * [3.3 Boosting](#3.3)
-    * [3.4 Neural Network](#3.4)
-    * [3.5 Ensemble Model](#3.5)
 * [4. Metalearner Results](#4)
 * [5. Conclusion](#4)
 
@@ -647,11 +643,6 @@ NN_train_metrics = metrics_models(y_train, NN_model.predict_classes(X_train), 'N
 NN_test_metrics = metrics_models(y_test, NN_model.predict_classes(X_test), 'NN_test')
 NN_metrics = pd.concat([NN_train_metrics, NN_test_metrics], axis = 1)
 ```
-
-<h3 id="3.1">3.1 Logistic regression</h3>
-Logistic regression
-<h3 id="3.2">3.2 Ensemble model</h3>
-Ensemble model
 
 <h2 id="4">4. Metalearner Results</h2>
 
