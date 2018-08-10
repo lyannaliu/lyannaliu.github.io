@@ -47,7 +47,35 @@ The Million Playlist data set contains:
     
 A snippet of the Million Playlist data is shown here:
 
-![Total Counts](/images/MP_data_example.png)
+```json
+{
+    "info": {
+        "generated_on": "2017-12-03 08:41:42.057563", 
+        "slice": "99000-99999", 
+        "version": "v1"
+    }, 
+    "playlists": [
+        {
+            "name": "Stuff", 
+            "collaborative": "false", 
+            "pid": 99000, 
+            "modified_at": 1504310400, 
+            "num_tracks": 170, 
+            "num_albums": 81, 
+            "num_followers": 1, 
+            "tracks": [
+                {
+                    "pos": 0, 
+                    "artist_name": "Fall Out Boy", 
+                    "track_uri": "spotify:track:18GC3F8YPGB8CePXcTUizQ", 
+                    "artist_uri": "spotify:artist:4UXqAaa6dQYAk18Lv7PEgX", 
+                    "track_name": "Thnks fr th Mmrs", 
+                    "album_uri": "spotify:album:03Og8YvbFYbe3hmr9MfZHT", 
+                    "duration_ms": 203506, 
+                    "album_name": "Infinity On High"
+                }, 
+...
+```
 
 <h3 id="2.3">2.3 Exploratory Data Analysis</h3>
 
@@ -57,7 +85,6 @@ There were several instances of tracks with the same song name, and several inst
 
 - Remastered/Remixes of the same song performed by the same artists are considered different tracks.
 - The same song performed by different artists are considered different tracks.
-- The same songs performed by the same artist in different albums are considered different tracks.
 
 The most obvious way to store a track was as a `namedtuple` with three properties - song, artist, and album.
 
@@ -96,7 +123,7 @@ with open('detailed_test_playlists.pkl', 'wb') as f:
     pickle.dump(detailed_test_playlists, f)
 ```
 
-The next question we needed to answer was how to turn completely categorical data with too many variables to 1-hot encode into preferably numerical data that could be ingested by a model.
+The next question we needed to answer was how to turn completely categorical data with too many variables to 1-hot encode into preferably numerical data that could be ingested by a model. For example, the artist category contains hundreds of thousands of artists to 1-hot encode would mean hundreds of thousands binary variables for each track.
 
 We began by exploring the concept of calculating total counts of songs, artists, and albums from the training set as potential attributes for a track.
 
@@ -116,7 +143,7 @@ def get_unique(playlist_list):
 totalArtistCount, totalAlbumCount, songDetails = get_unique(detailed_train_playlists)
 ```
 
-The above function returns three `Counter`s (that function similarly to a dictionary) that contain the number of times each unique track, artist, and album appears across all training playlists.
+The above function returns three `Counter`s that contain the number of times each unique track, artist, and album appears across all training playlists.
 
 ```python
 # Count of tracks
@@ -242,7 +269,9 @@ The plot shows that songs with high counts do not necessarily have artists and a
 <h3 id="3.1">3.1 Data Source</h3>
 We obtained the Last.fm Dataset on the Million Song Dataset: https://labrosa.ee.columbia.edu/millionsong/lastfm. 
 
-<h3 id="3.2">3.2 Description of the Raw Data</h3>
+<h3 id="3.2">3.2 Raw Data</h3>
+<h4 id="3.2.1">3.2.1 Description
+
 The Last.fm data set contains:
 
   - Song tags (eg genres and/or official playlists, Bay Area top 100 or Hip Hop) and song/track similarity for all of the tracks in the Million Song Dataset
@@ -259,7 +288,8 @@ The Last.fm data set contains:
     - Tags
     - Year of release
 
-##### Processing
+<h4 id="3.2.2">3.2.2 Processing
+
 To alleviate storage/memory limitations, this dataset was built by querying tables from the SQLite databases made available by the Million Song Dataset team. The two databases used were: [Tags](http://labrosa.ee.columbia.edu/millionsong/sites/default/files/lastfm/lastfm_tags.db) and [Track Metadata](http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/track_metadata.db). 
 
 Tables were pulled from each database, using variations of the code below (particular to a table and database):
@@ -303,7 +333,8 @@ This dataset has one row per track per tag (see below). Ultimately, this dataset
 
 ![songstags](/images/songs_tags.png)
 
-##### Cleaning
+<h4 id="3.2.3">3.2.3 Cleaning
+
 The messiest feature of the LastFM dataset is the tag names. Many tags are misspelled, modified with adjectives that don’t change the genre/tag meaning, and/or are completely irrelevant. This was initially discovered by grouping the track and tag data by tag and counting the number of tracks associated with each. The discrepancies were seen in tags with very low frequency (ie n = 1). 
 
 The following steps were taken to clean the tags:
@@ -365,7 +396,7 @@ Other cleaning procedures were conducted to account for data that should have be
 songs_tags['artist_hotness'] = songs_tags['artist_hotness'].replace(0, np.NaN)
 songs_tags['year'] = songs_tags['year'].replace(0, np.NaN)
 ```
-##### Generation of final 'database' 
+<h3 id="3.2.4">3.2.4 Finalising 
 
 After all of the initial processing and cleaning, a few more steps were taken to create the final dataset with one row per track.
 
