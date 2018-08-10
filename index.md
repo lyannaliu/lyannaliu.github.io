@@ -8,7 +8,7 @@ layout: page
 
 ## Motivation
 
-Music Recommender Systems (MRS) have recently exploded popularity thanks to music streaming services like Spotify, YouTube, and Last.fm. By some accounts, almost half of all current music consumption is through these services. MRSs that can accurately interpret a user's song preferences and suggest suitable songs for a user can help keep users interested for longer periods of time and consequently bring in considerable profits. However, even large companies like Spotify, which has access to more than 35 million songs, 170 million monthly active users, and 75 million paying subscribers, use music recommending services that are far from perfect.
+Music Recommender Systems (MRS) have recently exploded in popularity thanks to music streaming services like Spotify, YouTube, and Last.fm. By some accounts, almost half of all current music consumption is through these services. MRSs that can accurately interpret a user's song preferences and suggest suitable songs for a user can help keep users interested for longer periods of time and consequently bring in considerable profits. However, even large companies like Spotify, which has access to more than 35 million songs, 170 million monthly active users, and 75 million paying subscribers, use music recommending services that are far from perfect.
 
 ## Abstract
 
