@@ -274,7 +274,7 @@ The plot shows that songs with high counts do not necessarily have artists and a
 We obtained the Last.fm Dataset on the Million Song Dataset: https://labrosa.ee.columbia.edu/millionsong/lastfm. 
 
 <h3 id="3.2">3.2 Raw Data</h3>
-<h4 id="3.2.1">3.2.1 Description
+<h4 id="3.2.1">3.2.1 Description</h4>
 
 The Last.fm data set contains:
 
@@ -292,7 +292,7 @@ The Last.fm data set contains:
     - Tags
     - Year of release
 
-<h4 id="3.2.2">3.2.2 Processing
+<h4 id="3.2.2">3.2.2 Processing</h4>
 
 To alleviate storage/memory limitations, this dataset was built by querying tables from the SQLite databases made available by the Million Song Dataset team. The two databases used were: [Tags](http://labrosa.ee.columbia.edu/millionsong/sites/default/files/lastfm/lastfm_tags.db) and [Track Metadata](http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/track_metadata.db). 
 
@@ -337,7 +337,7 @@ This dataset has one row per track per tag (see below). Ultimately, this dataset
 
 ![songstags](/images/songs_tags.png)
 
-<h4 id="3.2.3">3.2.3 Cleaning
+<h4 id="3.2.3">3.2.3 Cleaning</h4>
 
 The messiest feature of the LastFM dataset is the tag names. Many tags are misspelled, modified with adjectives that don’t change the genre/tag meaning, and/or are completely irrelevant. This was initially discovered by grouping the track and tag data by tag and counting the number of tracks associated with each. The discrepancies were seen in tags with very low frequency (ie n = 1). 
 
