@@ -33,12 +33,12 @@ Below is an overview of how all our models performed. Each value is the mean sco
 
 
 <style>
- .tablelines table, .tablelines td, .tablelines th {
+.tablelines table, .tablelines td, .tablelines th {
         border: 1px solid black;
         }
 </style>
 
-<table class="tablelines" width="400">
+<table class="tablelines">
   <thead>
     <tr align="center">
       <th><font size="3">Model</font></th>
