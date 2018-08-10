@@ -38,16 +38,16 @@ Below is an overview of how all our models performed. Each value is the mean sco
         }
 </style>
 
-<table class="tablelines" width="1050">
+<table class="tablelines" width="910">
   <thead>
     <tr align="center">
-      <th width="150"><font size="3">Model</font></th>
-      <th width="150">Sensitivity (Train)</th>
-      <th width="150">Precision (Train)</th>
-      <th width="150">False Discovery Rate (Train)</th>
-      <th width="150">Sensitivity (Test)</th>
-      <th width="150">Precision (Test)</th>
-      <th width="150">False Discovery Rate (Test)</th>
+      <th width="130"><font size="3">Model</font></th>
+      <th width="130">Sensitivity (Train)</th>
+      <th width="130">Precision (Train)</th>
+      <th width="130">False Discovery Rate (Train)</th>
+      <th width="130">Sensitivity (Test)</th>
+      <th width="130">Precision (Test)</th>
+      <th width="130">False Discovery Rate (Test)</th>
     </tr>
   </thead>
   <tbody>
