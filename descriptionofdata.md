@@ -15,7 +15,11 @@ title: Description of Data
     * [2.3 Exploratory Data Analysis](#2.3)
 * [3. LastFM](#3)
     * [3.1 Data Source](#3.1)
-    * [3.2 Description of the Raw Data](#3.2)
+    * [3.2 Raw Data](#3.2)
+         * [3.2.1 Description of the Raw Data](#3.2.1)
+         * [3.2.2 Processing](#3.2.2)
+         * [3.2.3 Cleaning](#3.2.3)
+         * [3.2.4 Finalising](#3.2.4)
     * [3.3 Exploratory Data Analysis](#3.3)
 
 
