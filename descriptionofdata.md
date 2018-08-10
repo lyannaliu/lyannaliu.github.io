@@ -352,7 +352,7 @@ ax.set_title('Top 50 Tag Names', fontsize = 90)
 plt.savefig('figures/top50tags.png')
 plt.show()
 ```
-![Distribution of Tags](/image/top50tags.png)
+![Distribution of Tags](/images/top50tags.png)
 
 -	More cleaning could likely still be done on the tags by searching through other low frequency tags. This is an endeavor left for future work.
 
@@ -372,7 +372,7 @@ First, all of the tags for a particular track were concatenated together into on
 single_songs = songs_tags.groupby(['track_id'])['tag_name'].apply(lambda x: ','.join(x)).reset_index()
 single_songs
 ```
-![Single songs](/image/single_songs.png)
+![Single songs](/images/single_songs.png)
 
 Next, columns/features that won't be used in analysis were removed from the base dataset:
 ```python
@@ -381,7 +381,7 @@ songs_otherfeatures = songs_tags_copy.drop(['tid', 'tag', 'val', 'tid_num', 'tag
                                       'song_id', 'artist_id', 'artist_mbid'], axis = 1)
 songs_otherfeatures.head()
 ```
-![Other features](/image/songs_otherfeatures.png)
+![Other features](/images/songs_otherfeatures.png)
 
 The final dataset (which was later sorted by song and title) was created by joining the 'single_song' dataframe with the 'songs_otherfeatures' frame and dropping any duplicates (since songs_otherfeatures still has multiple rows with the same track):
 ```python
@@ -391,7 +391,7 @@ singlesong_features = single_songs.join(songs_otherfeatures.set_index('track_id'
                                         on = 'track_id', how = 'left')
 singlesong_features.head()
 ```
-![Singlesong_features](/image/singlesong_features.png)
+![Singlesong_features](/images/singlesong_features.png)
 
 <h3 id="3.3">3.3 Exploratory Data Analysis</h3>
 
@@ -420,7 +420,7 @@ ax.set_title('Distribution of Artist Hotness', fontsize = 20)
 plt.savefig('figures/artist_hotness.png')
 plt.show()
 ```
-![Artist hotness](/image/artist_hotness.png)
+![Artist hotness](/images/artist_hotness.png)
 
 As you can see, artist hotness has a fairly normal distribution.
 
@@ -439,12 +439,31 @@ ax.set_title('Distribution of Artist Familiarity across Songs', fontsize = 20)
 plt.savefig('figures/artist_familiarity.png')
 plt.show()
 ```
-![Artist familiarity](/image/artist_familiarity.png)
+![Artist familiarity](/images/artist_familiarity.png)
 Artist familiarity also has a normal distribution.
 
-As is explained in the Models and Methods section, the two primary methods of identification 'similar songs' for the LastFM model is by tag or artist. In the plot farther up this page, you can see the spread of the top 50 tags. Below, it is apparent that the tags have an exponential dis
+As is explained in the Models and Methods section, the two primary methods of identification 'similar songs' for the LastFM model is by tag or artist. In the plot farther up this page, you can see the spread of the top 50 tags. Below, it is apparent that the tags have an exponential distribution. 
 
+```python
+count_tags_insongs = songs_tags.groupby(by = 'track_id', as_index = False).agg({
+    'tag_name': np.count_nonzero
+})
 
+fig, ax = plt.subplots(1, 1, figsize = (10, 7))
+
+ax.hist(count_tags_insongs['tag_name'], bins = 50);
+
+ax.tick_params(labelsize = 16)
+ax.set_xlabel('Number of tags per unique track', fontsize = 18)
+ax.set_ylabel('Number of tracks', fontsize = 18)
+ax.set_title('Distribution of tags per track', fontsize = 20)
+
+plt.savefig('figures/tags_per_track.png')
+plt.show()
+```
+![tagspertrack](/images/tags_per_track.png)
+
+We then decided to explore the distribution of artists in the dataset. The top 5 artists in the LastFM dataset are: Michael Jackson, Aerosmith, Franz Ferdinand, Johnny Cash, and the Rolling Stones.
 
 ```python
 unique_artists = singlesong_features.groupby(['artist_name'], as_index = False).agg({
@@ -469,9 +488,23 @@ ax.set_title('Top 50 Artists', fontsize = 90)
 plt.savefig('top50_artists.png')
 plt.show()
 ```
+![top50artists](/images/top50_artists.png)
 
-**LIZ TO COMPLETE THIS**
+Finally, since duration is one of the features used in the modeling, we looked at the distribution of song duration. As you can see, it's a normal distribution with a small tail to the right.
 
+```python
+fig, ax = plt.subplots(1, 1, figsize = (10, 7))
 
+ax.hist(singlesong_features['duration'], range = 
+        [np.min(singlesong_features.duration), np.max(singlesong_features.duration)], bins = 30)
 
+ax.tick_params(labelsize = 16)
+ax.set_xlabel('Duration of Song', fontsize = 18)
+ax.set_ylabel('Number of Songs', fontsize = 18)
+ax.set_title('Distribution of Song Duration', fontsize = 20)
 
+plt.savefig('figures/song_duration.png')
+plt.show()
+```
+
+![songduration](/images/song_duration.png)
