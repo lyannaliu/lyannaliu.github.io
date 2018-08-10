@@ -440,6 +440,7 @@ plt.savefig('figures/artist_familiarity.png')
 plt.show()
 ```
 ![Artist familiarity](/images/artist_familiarity.png)
+
 Artist familiarity also has a normal distribution.
 
 As is explained in the Models and Methods section, the two primary methods of identification 'similar songs' for the LastFM model is by tag or artist. In the plot farther up this page, you can see the spread of the top 50 tags. Below, it is apparent that the tags have an exponential distribution. 
