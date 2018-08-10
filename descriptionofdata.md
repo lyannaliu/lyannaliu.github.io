@@ -262,29 +262,116 @@ The Last.fm data set contains:
     - Tags
     - Year of release
 
-<h3 id="3.3">3.3 Exploratory Data Analysis</h3>
-
 ##### Processing
 To alleviate storage/memory limitations, this dataset was built by querying tables from the SQLite databases made available by the Million Song Dataset team. The two databases used were: [Tags](http://labrosa.ee.columbia.edu/millionsong/sites/default/files/lastfm/lastfm_tags.db) and [Track Metadata](http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/track_metadata.db). 
 
-Tables were pulled from each database and joined to create a dataset that had one row per track_id per tag, so there were multiple rows per track, depending on how many tags were associated with each track. 
+Tables were pulled from each database, using variations of the code below (particular to a table and database):
 
+```python
+conn = sqlite3.connect("sql_db/lastfm_tags.db")
+tid_tag_table = pd.read_sql_query("select * from tid_tag;", conn)
+track_ids = pd.read_sql_query("select * from tids;", conn)
+tags = pd.read_sql_query("select * from tags;", conn)
+conn.close()
 
+conn = sqlite3.connect("sql_db/track_metadata.db")
+songs_table = pd.read_sql_query("select * from songs;", conn)
+conn.close()
+```
 
-Various smaller grouped tables were created to explore the data, including: number of tags associated with each track, distribution of artist hotness, distribution of song duration, etc.
+Appropriate modifications were made to ensure the tables from each database could be merged, with the below code:
 
-The final dataset (ie one row per song) was then created by concatenating all tags for one song into a row (basically a row of tag strings now associated with each song, instead of multiple rows associated with each song, each containing a tag). This dataset will serve as the database that will be queried when running the model, using playlists from the Million Playlist Dataset (MPD).
+```python
+tid_num = np.linspace(1, len(track_ids), len(track_ids))
+tid_num = [int(x) for x in tid_num]
+track_ids['tid_num'] = tid_num
+track_ids_copy = track_ids.copy()
+track_ids_copy.rename(columns={'tid':'track_id'}, inplace=True)
+tid_tag_table_copy = tid_tag_table.copy()
+trackid_tagnums = pd.merge(tid_tag_table_copy, track_ids_copy, left_on = 'tid', right_on = 'tid_num')
+
+tag_num = np.linspace(1, len(tags), len(tags))
+tag_num = [int(x) for x in tag_num]
+tags['tag_num'] = tag_num
+tags.rename(columns={'tag':'tag_name'}, inplace=True)
+
+tracks_tags = pd.merge(trackid_tagnums, tags, left_on = 'tag', right_on = 'tag_num')
+tracks_tags_copy = tracks_tags.copy()
+```
+Subsequently, the tables were merged to create one large dataset to begin exploring and cleaning:
+
+```python
+songs_tags = pd.merge(tracks_tags_copy, songs_table, left_on = 'track_id', right_on = 'track_id')
+```
 
 ##### Cleaning
 The messiest feature of the LastFM dataset is the tag names. Many tags are misspelled, modified with adjectives that don’t change the genre/tag meaning, and/or are completely irrelevant. This was initially discovered by grouping the track and tag data by tag and counting the number of tracks associated with each. The discrepancies were seen in tags with very low frequency (ie n = 1). 
 
 The following steps were taken to clean the tags:
--	We looked through tags that had a frequency of 1; any tags that could be recoded to a different category (ie ‘-pop’ to ‘pop’ or ‘jazzy’ to ‘jazz’) were recoded.
--	Once all of those tags were recoded, we looked through the remaining tags with a frequency of 1 and determined they couldn’t be recoded to a broader genre. These tags (and the associated track, as the initial merged dataset had one line per track per tag) were removed from the dataset. 
+-	We looked through tags that had a frequency of 1; any tags that could be recoded to a different category (ie ‘-pop’ to ‘pop’ or ‘jazzy’ to ‘jazz’) were recoded. This process was done in a manual iterative process with code similar to the  below:
+
+```python
+songs_tags.loc[songs_tags['tag_name'].str.contains('symph*onic.+metal', case = False), 
+                       'tag_name'] = 'symphonic metal'
+songs_tags.loc[songs_tags['tag_name'].str.contains('romantic', case = False), 
+                       'tag_name'] = 'romantic'
+```
+
+-	Once all of the tags were recoded, we looked through the remaining tags with a frequency of 1 and determined they couldn’t be recoded to a broader genre. These tags (and the associated track, as the initial merged dataset had one line per track per tag) were removed from the dataset. The below code was used to review the tracks:
+
+```python
+tag_frequency = songs_tags.groupby(by = 'tag_name', as_index = False).agg({
+    'track_id': np.count_nonzero
+})
+idx = np.where(tag_frequency['track_id'] <= 1)
+tag_frequency['tag_name'].iloc[idx]
+```
+![Tag Frequency](/images/tag_frequency.png)
+
 -	The distribution of tags changed upon this cleaning; initially, rock was the most frequent tag, but pop and jazz are now more frequent than rock.
+
+```python
+tag_frequency = songs_tags.groupby(by = 'tag_name', as_index = False).agg({
+    'track_id': np.count_nonzero
+})
+sorted_tags = tag_frequency.sort_values('track_id', ascending = False)
+sorted_tags.rename(columns={'track_id':'count'}, inplace=True)
+top_50 = tag_frequency.sort_values('track_id', ascending = False)[:50]
+
+fig, ax = plt.subplots(1, 1, figsize = (90,90))
+
+ypos = top_50['tag_name']
+track_count = top_50['track_id']
+
+ax.barh(ypos, track_count)
+ax.invert_yaxis()  # labels read top-to-bottom
+ax.tick_params(labelsize = 70)
+ax.set_xlabel('Count of Associated Tracks', fontsize = 80)
+ax.set_ylabel('Tag Names', fontsize = 80)
+
+ax.set_xlabel('Number of Associated Tracks')
+ax.set_title('Top 50 Tag Names', fontsize = 90)
+
+plt.savefig('figures/top50tags.png')
+plt.show()
+```
+![Distribution of Tags](/image/top50tags.png)
+
 -	More cleaning could likely still be done on the tags by searching through other low frequency tags. This is an endeavor left for future work.
 
 Other cleaning procedures were conducted to account for data that should have been represented as NaN and not zero:
 -	When initially visualizing the distribution of ‘artist hotness’, there were some values = 0. Since artist hotness would be > 0 (even if it’s still small), those values were replaced with NaN.
 -	When initially visualizing the distribution of ‘year’, there were values = 0. Since year cannot = 0 for recorded songs, those values were replaced with NaN.
+```python
+songs_tags['artist_hotness'] = songs_tags['artist_hotness'].replace(0, np.NaN)
+songs_tags['year'] = songs_tags['year'].replace(0, np.NaN)
+```
+##### Generation of final 'database' 
+
+<h3 id="3.3">3.3 Exploratory Data Analysis</h3>
+
+Various smaller grouped tables were created to explore the data, including: number of tags associated with each track, distribution of artist hotness, distribution of song duration, etc.
+
+The final dataset (ie one row per song) was then created by concatenating all tags for one song into a row (basically a row of tag strings now associated with each song, instead of multiple rows associated with each song, each containing a tag). This dataset will serve as the database that will be queried when running the model, using playlists from the Million Playlist Dataset (MPD).
+
 
