@@ -27,8 +27,6 @@ title: Models and Methods
 <h2 id="1">1. Overlook of the Models</h2>
 The recommendation model is a metalearner that ensembles of two primary submodels, which are the ensemble of three to four sub-submodels. 
 
-<<<<THE IMAGE GOES HERE! DELETE THIS AFTER>>>>
-
 ![Fig](/images/Fig.png)
 
 We chose this structure because of several reasons:
@@ -847,9 +845,180 @@ Neural Network
 Ensemble Model
 
 <h2 id="4">4. Metalearner</h2>
-Description
-Challenges
-Model
-Code
-Justification: Why we thought this was a good way to build the model
+
+The final metalearner takes in the predictive output of both the Million Playlist model and the Last.FM model and combines them into a two-attribute dataframe. Each predictive output is the probability of the recommended track being a hit.
+
+Since both models are able to output a different set of indices, when combined, any predictions missing due to one model recommending a song the other model does not are given a value of 0.
+
+![Two Model Prediction DF](/images/final_train_df.png)
+
+In order to combine the predictions from the two models, several steps of preprocessing need to occur.
+
+The code to build the models and create predictions is mostly redundant from building the predictions of the sub-models. The train sets, test sets, final models from each of the submodels were pickled and brought into the final ensembling file.
+
+```python
+# Randomly selected list of test playlists and test songs by index
+pkl_train_file = open('pickled_objects/detailed_train_playlists.pkl', 'rb')
+detailed_train_playlists = pickle.load(pkl_train_file)
+    
+pkl_test_file = open('pickled_objects/detailed_test_playlists.pkl', 'rb')
+detailed_test_playlists = pickle.load(pkl_test_file)
+
+pkl_file = open('pickled_objects/idx_title_test_playlist.pkl', 'rb')
+test_idx_songs = pickle.load(pkl_file)
+
+MP_models_file = open('pickled_objects/Million_Playlist_models.pkl', 'rb')
+MP_models = pickle.load(MP_models_file)
+MP_NN_model = load_model('pickled_objects/Million_Playlist_NN_Model.h5')
+
+pkl_file = open('pickled_objects/models_dict.pkl', 'rb')
+lastfm_model_dict = pickle.load(pkl_file)
+
+lastfm_NN_model = load_model('pickled_objects/NN_model.h5')
+
+pkl_file = open('pickled_objects/scaler.pkl', 'rb')
+scaler = pickle.load(pkl_file)
+
+pkl_file = open('pickled_objects/sorted_trackdf.pkl', 'rb')
+sorted_trackdf = pickle.load(pkl_file)
+
+pkl_file = open('pickled_objects/train_intersection_songs.pkl', 'rb')
+train_intersection_songs = pickle.load(pkl_file)
+
+pkl_file = open('pickled_objects/final_indices.pkl', 'rb')
+final_indices = pickle.load(pkl_file)
+
+pkl_file = open('pickled_objects/logreg_meta.pkl', 'rb')
+lastfm_meta = pickle.load(pkl_file)
+```
+
+Some additional processing of the Last.FM predictions is required to match the Million Playlist predictions.
+
+```python
+# Returns the track, features, and response separated from the create_similars dataframe
+def create_features_response(df, playlist, sorted_trackdf):
+    temp_df = df
+
+    temp_df = temp_df.replace(np.inf, np.nan)
+    temp_df = temp_df.dropna()
+    
+    features = temp_df.iloc[:, temp_df.columns != 'hit']
+    response = temp_df['hit'].values
+    
+    feature_track = features.index.values # remove track indices since the Scaler wants numerical indices
+    features = features.reset_index().drop('index', axis = 1)
+    
+    return (feature_track, features, response)
+
+# returns the final last fm predictions
+def get_lastfm_pred(target_track, playlist, sorted_trackdf):
+    full_df = create_similars_dataframe(target_track, playlist, sorted_trackdf)
+    if full_df is None:
+        return None
+    else:
+        track_info, predictors, hits = create_features_response(full_df, playlist, sorted_trackdf)
+        predictors[['artist_familiarity', 'artist_hotness', 'duration', 'tag_frequency']] = \
+            scaler.transform(predictors[['artist_familiarity', 'artist_hotness', 'duration', 'tag_frequency']])
+
+        model_keys = lastfm_model_dict.keys()
+        list_keys = list(model_keys)
+
+        pred_array = np.zeros((len(predictors), 3))
+
+        for i, key in enumerate(model_keys):
+            model = lastfm_model_dict[key]
+            pred_array[:,i] = model.predict(predictors)
+
+        pred_df = pd.DataFrame(pred_array, columns = list_keys)
+
+        NN_pred = pd.DataFrame(lastfm_NN_model.predict_classes(predictors))
+        NN_pred = NN_pred.rename(columns = {NN_pred.columns[0]: 'NN'})
+
+        pred_df = pd.concat([pred_df, NN_pred], axis = 1)
+        
+        meta_pred = lastfm_meta.predict(pred_df)
+
+        final_pred = pd.DataFrame(meta_pred)
+        final_pred['track_info'] = track_info # put track indices back on predictions
+        final_pred.set_index('track_info', inplace=True)
+        final_pred.columns = ['LastFM']
+        del final_pred.index.name
+
+        return final_pred
+```
+
+An additional preprocessing step is also required for the Million Playlist dataset to match the indices from the Last.FM predictions.
+
+```python
+TrackLike = namedtuple("TrackLike", ["song", "artist"])
+
+def strip_indices(df):
+    newIndices = [TrackLike(song=df.index[i][0], artist=df.index[i][1]) \
+              for i in range(len(df.index))]
+    df.index = newIndices
+    df = df[~df.index.duplicated()]
+    return df
+```
+
+Several functions were created to facilitate processing the predictions into a single dataframe.
+
+```python
+# concats two predictions and fills in NaNs with 0s
+def two_models_one_result(prediction_1, prediction_2):
+    result = pd.concat([prediction_1, prediction_2], axis = 1, sort = False)
+    result.index = result.index.to_series()
+    return result.fillna(value = 0)
+
+# adds hit column by cross checking against the target playlist
+def add_hit_column(result, target_playlist):
+    target_playlist = strip_album(target_playlist)
+    hit_list = []
+    for idx in result.index:
+        tempTrack = TrackLike(song=idx[0], artist=idx[1])
+        if tempTrack in target_playlist:
+            hit_list.append(1)
+        else:
+            hit_list.append(0)
+            
+    result['Hit'] = hit_list
+    return result
+
+# splits the DF into predictions and hit columns
+def split_df(result):
+    X = result.drop('Hit', axis=1)
+    y = result['Hit']
+    return X, y
+
+# Strips album from the prediction index
+def strip_album(playlist):
+    newTrack = [TrackLike(song=playlist[i].song, artist=playlist[i].artist) \
+              for i in range(len(playlist))]
+    return newTrack
+```
+
+In order to train the model, we first randomly select a `target track` and `target playlist` from the training set. We then call the necessary functions to build the predictions.
+
+```python
+list_idx = random.sample(final_indices, 1)[0]
+sample_MP_model_prediction = get_MP_model_prediction(detailed_train_playlists[list_idx][0], \
+                                                     detailed_train_playlists[0])
+prediction_1 = pd.DataFrame(sample_MP_model_prediction)
+prediction_1 = strip_indices(prediction_1)
+
+prediction_2 = get_lastfm_pred(get_target_track(detailed_train_playlists[list_idx]),
+                               detailed_train_playlists[list_idx], sorted_trackdf)
+```
+
+After the submodels' predictions are built, the final metalearner is trained using the two predictions as attributes and the `target playlist` as the taret.
+
+```python
+final_train_df = add_hit_column(two_models_one_result(prediction_1, prediction_2), 
+                                detailed_train_playlists[list_idx])
+X_final_train, y_final_train = split_df(final_train_df)
+
+C_list = [0.001, 0.005, 0.1, 0.5, 1, 10, 100, 1000, 10000, 100000, 1000000]
+finalMetalearner = LogisticRegressionCV(Cs=C_list, fit_intercept=True, penalty='l2', multi_class='ovr', 
+                                class_weight='balanced')
+finalMetalearner.fit(X_final_train, y_final_train)
+```
 
