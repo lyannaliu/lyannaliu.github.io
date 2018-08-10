@@ -145,7 +145,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
 </table>
 
 
-<h2 id="3">3. Million Playlist Model Results</h2>
+<h2 id="2">2. Million Playlist Model Results</h2>
 
 Several custom functions were built to automate the selection of test `target track`s and `target playlist`s, building predictions on the selection, and processing the results.
 
