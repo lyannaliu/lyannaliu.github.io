@@ -669,6 +669,7 @@ piano_man_df = create_similars_dataframe(target_track,
 ![PianoMan LastFM](/images/pianoman.png)
 
 The process of creating the static dataframes is repeated ~550 times (code below). Initially, the hope was to run it through 900 playlists, but after several hours, this required too much memory/processing power to handle. The output of repeating this ~550 times and concatenating into one large training dataframe leads to a dataset of over 20million observations.
+
 ```python
 df_list = []
 for playlist in log_progress(final_train_lists): 
@@ -678,10 +679,12 @@ for playlist in log_progress(final_train_lists):
 final_train_df = pd.concat(df_list)
 #log progress is a function appropriate source credit is in jupyter notebook, that allows you to track the progress of your for loops
 ```
+
 Once the training dataframe has been created, the process is repeated with the test and tune playlists. 50 of the chosen test playlists and 75 of the tuning playlists are run through the process.
 
 ### Pre-processing
 After the dataframes have all been created, some cleaning and pre-processing is done to ensure models can be fit to the data. Instances of infinity (explained further in jupyter notebook) were replaced with NaN, and all NaN observations were subsequently removed from the data. The dataframes were split into their features and respone, and the numerical features were normalized:
+
 ```python
 X_train = final_train_df.iloc[:, final_train_df.columns != 'hit']
 y_train = final_train_df['hit'].values
@@ -724,6 +727,7 @@ Metrics and scores will be discussed in the Results section.
 
 <h3 id="3.3">3.3 Bagging</h3>
 The Bagging model was built with sklearn's BaggingClassifier, with the base estimator of a DecisionTreeClassifier. We plotted various depths of a DecisionTreeClassifier to determine the optimal depth for the BaggingClassifier:
+
 ```python
 fig, ax = plt.subplots(1, 1, figsize = (15, 7))
 
@@ -751,9 +755,11 @@ fig.subplots_adjust(hspace = .35, wspace = .25)
 
 plt.show()
 ```
-![dtree_plot](/image/decisiontree_plot.png)
+
+![dtree_plot](/images/decisiontree_plot.png)
 
 The appropriate depth of the DecisionTree can be visualized below:
+
 ```python
 DT_model = DecisionTreeClassifier(max_depth = 3, class_weight = 'balanced').fit(X_train, y_train)
 from sklearn.externals.six import StringIO  
@@ -768,9 +774,11 @@ export_graphviz(DT_model, out_file = dot_data,
 graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
 Image(graph.create_png())
 ```
-![dtree_nodes](/image/dtree_model.png)
+
+![dtree_nodes](/images/dtree_model.png)
 
 Then, the ensembler model was fit with 25 estimators at a max_depth of 3. 25 estimators was chosen as that's the largest we felt we could bootstrap when there are > 20million observations in each boostrapped sample.
+
 ```python
 bag_model = BaggingClassifier(
     base_estimator = DecisionTreeClassifier(max_depth = 3, class_weight = 'balanced'), 
