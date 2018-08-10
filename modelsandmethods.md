@@ -822,7 +822,6 @@ plt.savefig('figures/AdaBoost.png')
 plt.show()
 ```
 
-<INSERT IMAGE>
 ![AdaBoost plot](/images/adaboost_lastfm.png)
 
 On first glance, it looks a terrible fit on both the training and the test sets. However, upon a closer look, we can see that the y_axis 'scale' is 9.998e-01, indicating that what looks like scores close to zero are actually scores close to 1. Since both depths 2 and 3 do quite well, we used a depth of 2 to train the classifier. We chose 4 estimators, as that's when the training set in depth 2 first achieves its max score.
@@ -837,13 +836,16 @@ Ada_model = AdaBoostClassifier(
 The final sub-model of the LastFM models is a Neural Network. 
 
 First, we converted the responses to a 2-column array of categorical responses to capture the 2 classes (0 and 1).
+
 ```python
 from keras.utils import to_categorical
 
 y_train_cat = to_categorical(y_train, num_classes=2)
 y_test_cat  = to_categorical(y_test, num_classes=2)
 ```
+
 Then, we chose to do a sequential model with rectified linear unit activation in every dense layer except for the output layer, for which we chose softmax.
+
 ```python
 NN_model = Sequential([
     Dense(500, input_shape = (6,), activation='relu'),
@@ -857,7 +859,9 @@ NN_model = Sequential([
 NN_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 NN_model.summary()
 ```
+
 The compiled model had 157,957 total parameters. The model was run with class_weight: {0: 0.0005, 1:1.0}; the low number for the 0 class was an attempt to balance the millions of misses against the thousands of hits (class 1).
+
 ```python
 class_weight = {0: 0.0005,
                 1: 1.0}
@@ -868,6 +872,7 @@ The model ran for 40 minutes. While it had what seems like a great loss score (a
 
 <h3 id="3.6">3.6 Ensemble Model</h3>
 To create the overall ensemble model of all of the LastFM submodels, we chose to do a logistic regression on the sub models' predictions on the tune playlists.
+
 ```python
 model_dict = {
     'logreg': logreg_model,
@@ -900,6 +905,7 @@ ensemble_test = pd.concat([ensemble_test, NN_test], axis = 1)
 logreg_meta = LogisticRegressionCV(class_weight = 'balanced').fit(ensemble_tune, y_tune)
 logreg_meta.coef_[0]
 ```
+
 The ensemble model completely discarded the neural network, which makes sense given that it was a terrible model. The logistic regression coefficients are shown below, with the neural net being the last:
 
 ![meta_coefs](/image/meta_coef_lastfm.png)
