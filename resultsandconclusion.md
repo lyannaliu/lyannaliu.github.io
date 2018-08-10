@@ -467,6 +467,84 @@ Overall, out of the three submodels, logistic regression performed the best. In 
 
 <h2 id="3">3. Last.FM Model Results</h2>
 
+The results for each of the LastFM models were returned when each model was fit. Since each model was fit on one very large dataframe, there was only one metric per training and test set, per model (as opposed to the Million Playlist dataset, which has many scores since the models were run separately on each dynamic dataframe).
+
+The below code was run with each model after it was fit (but here it is shown all at once, as the model code was seen previously), to return a table of metrics. This table included: sensitivity, true sensitivity, precision, false discovery rate, specificity, and accuracy. True sensitiviy is a metric we created to assess how many hits the model returned in relation to all of the songs returned. It is calculated by dividing the true positive value by the length of the input dataframe.
+
+```python
+def metrics_models(y_true, y_pred, col_name):
+    TN, FP, FN, TP = confusion_matrix(y_true, y_pred).ravel()
+    metrics_dict = {
+        'sensitivity': TP/(TP + FN),
+        'precision': TP/(TP + FP),
+        'fdr': FP/(TP + FP), #false discovery rate (complement of precision)
+        'specificity': TN/(TN + FP),
+        'accuracy': (TP + TN)/(TN + FP + FN + TP),
+    }
+    return pd.DataFrame.from_dict(metrics_dict, orient = 'index', columns = [col_name])
+
+logreg_train_metrics = metrics_models(y_train, logreg_model.predict(X_train), 'logreg_train')
+logreg_test_metrics = metrics_models(y_test, logreg_model.predict(X_test), 'logreg_test')
+logreg_metrics = pd.concat([logreg_train_metrics, logreg_test_metrics], axis = 1)
+
+DT_train_metrics = metrics_models(y_train, DT_model.predict(X_train), 'tree_train')
+DT_test_metrics = metrics_models(y_test, DT_model.predict(X_test), 'tree_test')
+DT_metrics = pd.concat([DT_train_metrics, DT_test_metrics], axis = 1)
+
+bag_train_metrics = metrics_models(y_train, bag_model.predict(X_train), 'bagging_train')
+bag_test_metrics = metrics_models(y_test, bag_model.predict(X_test), 'bagging_test')
+bag_metrics = pd.concat([bag_train_metrics, bag_test_metrics], axis = 1)
+
+Ada_train_metrics = metrics_models(y_train, Ada_model.predict(X_train), 'Ada_train')
+Ada_test_metrics = metrics_models(y_test, Ada_model.predict(X_test), 'Ada_test')
+Ada_metrics = pd.concat([Ada_train_metrics, Ada_test_metrics], axis = 1)
+
+# Neural network required different code; the model performed quite poorly and return 0s in the 'false positive' and 'true positive' parts of the confusion matrix; with a return of 0, some of the metrics were technically infinity by the actual calculations; we've defaulted the infinity values to 0
+NN_train_metrics_dict = {
+    'sensitivity': 0,
+    'true_sensitivity': 0,
+    'precision': 0,
+    'fdr': 0, 
+    'specificity': 1,
+    'accuracy': (nn_tp_train + nn_tn_train)/(nn_tn_train + nn_fp_train + nn_fn_train + nn_tp_train),
+    }
+
+NN_test_metrics_dict = {
+    'sensitivity': 0,
+    'true_sensitivity': 0,
+    'precision': 0,
+    'fdr': 0, 
+    'specificity': 1,
+    'accuracy': (nn_tp_test + nn_tn_test)/(nn_tn_test + nn_fp_test + nn_fn_test + nn_tp_test),
+    }
+
+NN_metrics = pd.DataFrame.from_dict([NN_train_metrics_dict, NN_test_metrics_dict])
+NN_metrics = NN_metrics[['sensitivity', 'true_sensitivity', 'precision', 'fdr', 
+                         'specificity', 'accuracy']]
+NN_metrics = NN_metrics.transpose()
+NN_metrics = NN_metrics.rename(index=str, columns={0: "NN_train", 1: "NN_test"})
+
+meta_tune_metrics = metrics_models(y_tune, logreg_meta.predict(ensemble_tune), 'meta_tune')
+meta_test_metrics = metrics_models(y_test, logreg_meta.predict(ensemble_test), 'meta_test')
+meta_metrics = pd.concat([meta_tune_metrics, meta_test_metrics], axis = 1)
+
+full_test_metrics = pd.concat([logreg_test_metrics, bag_test_metrics, Ada_test_metrics, 
+                               NN_metrics['NN_test'], meta_test_metrics], axis = 1)
+                               
+full_train_metrics = pd.concat([logreg_train_metrics, bag_train_metrics, Ada_train_metrics, 
+                                NN_metrics['NN_train'], meta_tune_metrics], axis = 1)
+```
+
+### Summary of results
+
+All of the models (submodels and the ensembler model), have relatively high specificity and accuracy. The models do well with finding true negatives and the majority of the `similars dataframe` contains true negatives (or true misses). Because of this, both specificity and accuracy are high. However, since we are concerned with the ability to detect true positives, accuracy and specificity aren't the best metrics to measure the performance of our models by. Therefore, we explored a few other metrics, which are discussed next.
+
+The neural network performed the worst of all four submodels. Logistic regression, bagging, and boosting showed relatively high sensitivity (~70%); however, they all scored extremely low (~0.01%) on the true sensitivity metric. The ensembler model built out of all four models showed a similar pattern. Our understanding of this is that the model is relatively good at detecting hits out of the songs it has included in the 'similars dataframe' (sensitivity), however the majority of the 'similars dataframe' includes songs that are not found in the `target playlist` (true sensitivity).
+
+All of the models and the ensembler performed poorly on precision (~0.1%, except for neural nets, with 0%); this demonstrates that the models predicted many more false positives than true positives. Since the purpose of this model is to recommend songs a user might like, based off of a `target song` in a `target playlist`, it is important that the model has higher precision and recommends fewer false positives. False discovery rate is the complement of precision, so it follows that all models scored extremely high (~99%) on this metric. The neural network scored 0% in both precision and false discovery network because we assigned 0s to any metric with a 0 in its denominator. Otherwise, these metrics could be viewed as Not Applicable.
+
+Below are the detailed metrics for the models, organized by training and testing.
+
 #### Training Metrics Table
 
 <style>
@@ -607,57 +685,21 @@ Overall, out of the three submodels, logistic regression performed the best. In 
 </table>
 
 
-The results for each of the LastFM models were returned when the model was fit. Since each model was fit on one very large dataframe, there is only one metric per training and test set per model (as opposed to Million Playlist dataset, with many scores since the models were run separately on each dynamic dataframe.
-
-The below code was run with each model after it was fit, to return a table of metrics, which included: sensitivity, precision, false discovery rate, specificity, and accuracy.
-
-```python
-def metrics_models(y_true, y_pred, col_name):
-    TN, FP, FN, TP = confusion_matrix(y_true, y_pred).ravel()
-    metrics_dict = {
-        'sensitivity': TP/(TP + FN),
-        'precision': TP/(TP + FP),
-        'fdr': FP/(TP + FP), #false discovery rate (complement of precision)
-        'specificity': TN/(TN + FP),
-        'accuracy': (TP + TN)/(TN + FP + FN + TP),
-    }
-    return pd.DataFrame.from_dict(metrics_dict, orient = 'index', columns = [col_name])
-
-logreg_train_metrics = metrics_models(y_train, logreg_model.predict(X_train), 'logreg_train')
-logreg_test_metrics = metrics_models(y_test, logreg_model.predict(X_test), 'logreg_test')
-logreg_metrics = pd.concat([logreg_train_metrics, logreg_test_metrics], axis = 1)
-
-DT_train_metrics = metrics_models(y_train, DT_model.predict(X_train), 'tree_train')
-DT_test_metrics = metrics_models(y_test, DT_model.predict(X_test), 'tree_test')
-DT_metrics = pd.concat([DT_train_metrics, DT_test_metrics], axis = 1)
-
-bag_train_metrics = metrics_models(y_train, bag_model.predict(X_train), 'bagging_train')
-bag_test_metrics = metrics_models(y_test, bag_model.predict(X_test), 'bagging_test')
-bag_metrics = pd.concat([bag_train_metrics, bag_test_metrics], axis = 1)
-
-Ada_train_metrics = metrics_models(y_train, Ada_model.predict(X_train), 'Ada_train')
-Ada_test_metrics = metrics_models(y_test, Ada_model.predict(X_test), 'Ada_test')
-Ada_metrics = pd.concat([Ada_train_metrics, Ada_test_metrics], axis = 1)
-
-NN_train_metrics = metrics_models(y_train, NN_model.predict_classes(X_train), 'NN_train')
-NN_test_metrics = metrics_models(y_test, NN_model.predict_classes(X_test), 'NN_test')
-NN_metrics = pd.concat([NN_train_metrics, NN_test_metrics], axis = 1)
-```
 
 <h2 id="4">4. Metalearner Results</h2>
 
 <h2 id="5">5. Conclusion</h2>
 
-In this study, we applied many different models and variations of those models to uniquely generated datasets in order to classify whether a song would be liked given a user's preferences. We used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
+In this study, we applied many different models and variations of those models to uniquely generated datasets in order to classify whether a song would be liked given a song in the user's current playlists. We used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
 
 We learned that individual models perform better or worse than others under certain metrics, and that applying ensembling methods to several models in some cases will and in other cases won't improve certain metrics. Choosing "the best" model is not always straight forward, especially when dealing with imbalanced data. 
 
-There were many challenges related to data that forced us to make decisions on how to handle large amounts of data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
+There were many challenges related to the data that forced us to make decisions on how to handle large amounts of data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
 
 If given more time we would like to invest in the following:
 
 1. Allocating enough memory to load all playlist data at once.
-2. Using Last.FM API to get most up to date songs and better match the Million Playlist dataset.
+2. Using Last.FM API to get most up-to-date songs and better match the Million Playlist dataset.
 3. Exploring different models for each sub-model and sub-sub-model.
 4. Tuning and cross-validating the parameters of all sub-models and ensemblers.
 5. Trying different class weights and other methods of dealing with imbalanced data.
@@ -666,5 +708,6 @@ If given more time we would like to invest in the following:
 8. Using additional datasets like the Million Song Dataset with audio features.
 9. Deeper analysis into colinearity of attributes.
 10. Tuning a better Million Playlist Neural Net.
-11. Training a better final metalearner.
-12. More consideration on how to merge the final results from each of the models.
+11. Tuning a better LastFM Neural Net
+12. Training a better final metalearner.
+13. More consideration on how to merge the final results from each of the models.
