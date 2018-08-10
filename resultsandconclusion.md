@@ -521,8 +521,8 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.0000</td>
       <td> 0.0000</td>
       <td> 0.0000</td>
-      <td> 0.0000</td>
-      <td> 0.0000</td>
+      <td> 1.0000</td>
+      <td> 0.9998</td>
     </tr>
     <tr align="center">
       <td>Ensemble model</td>
