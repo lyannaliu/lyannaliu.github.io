@@ -51,41 +51,28 @@ Imbalanced data has been studied during the last twenty years in machine learnin
 
 Among the alternatives about how to deal with imbalanced data are:
 
-·       Do nothing. It may be enough to train the given data without need for modification.
-
-·       Balance the training set with over-sampling the minority class, under-sampling the majority class or synthesizing a new minority class.
-
-·       Throw away minority examples and switch to an anomaly detection framework.
-
-·       Work with algorithms to adjust the class weight: adjust the decision threshold, modify an existing algorithm to be more sensitive to rare classes, or construct an entirely new algorithm to perform as desired on imbalanced data
-
-·       Digression: evaluate what can be done and what cannot.
+  - Do nothing. It may be enough to train the given data without need for modification.
+  - Balance the training set with over-sampling the minority class, under-sampling the majority class or synthesizing a new minority class.
+  - Throw away minority examples and switch to an anomaly detection framework.
+  - Work with algorithms to adjust the class weight: adjust the decision threshold, modify an existing algorithm to be more sensitive to rare classes, or construct an entirely new algorithm to perform as desired on imbalanced data
+  - Digression: evaluate what can be done and what cannot.
 
 There are also some recommendations as follows:
 
-·       Don’t use accuracy to evaluate a classifier.
-
-·       Use probability estimates via proba or predict_proba and do not use hard labels.
-
-·       In probability estimates, do not use 0.50 decision threshold to separate classes; a different value may be identified.
-
-·       The article recommends the application of sklearn.cross_validation.StratifiedKFold to treat the natural given distributions and sklearn.calibration.CalibratedClassifierCV to avoid the use of probability estimates.
-
-·       The article shows how to treat dimensionality of the data and the use of Cohen’s Kappa as an evaluation statistic on how much agreement would be expected just by chance.
-
-·       Over-sampling and under-sampling techniques may be applied to force the data to be balanced. In this case, the variance in the classes must be understood. The machine learning community reports mixed results with over-sampling and under-sampling methods. The R package “unbalanced” implements methods to deal with imbalanced data.
-
-·       Use bagging to combine classifiers. This technique has not been implemented in Scikit-learn, with a file called blagging.py and BlaggingClassifier, which balances bootstrapped samples before aggregation.
+  - Don’t use accuracy to evaluate a classifier.
+  - Use probability estimates via proba or predict_proba and do not use hard labels.
+  - In probability estimates, do not use 0.50 decision threshold to separate classes; a different value may be identified.
+  - The article recommends the application of sklearn.cross_validation.StratifiedKFold to treat the natural given distributions and sklearn.calibration.CalibratedClassifierCV to avoid the use of probability estimates.
+  - The article shows how to treat dimensionality of the data and the use of Cohen’s Kappa as an evaluation statistic on how much agreement would be expected just by chance.
+  - Over-sampling and under-sampling techniques may be applied to force the data to be balanced. In this case, the variance in the classes must be understood. The machine learning community reports mixed results with over-sampling and under-sampling methods. The R package “unbalanced” implements methods to deal with imbalanced data.
+  -  Use bagging to combine classifiers. This technique has not been implemented in Scikit-learn, with a file called blagging.py and BlaggingClassifier, which balances bootstrapped samples before aggregation.
 
 Neighbor-based approaches are explained:
 
-·       Over-sampling and under-sampling with randomly adjusted proportions. Other approaches examine the instance space carefully and decide what to do based on their neighborhoods.
-
-·       Tomek’s algorithm looks for pairs and removes the majority instance of the pair.
-
-·       The Chawla’s SMOTE (Synthetic Minority Oversampling TEchnique) system, to create more minority examples by interpolating between given observations.
-
-·       Adjusting class weights with machine learning tools to implement importance of classes.
+  - Over-sampling and under-sampling with randomly adjusted proportions. Other approaches examine the instance space carefully and decide what to do based on their neighborhoods.
+  - Tomek’s algorithm looks for pairs and removes the majority instance of the pair.
+  - The Chawla’s SMOTE (Synthetic Minority Oversampling TEchnique) system, to create more minority examples by interpolating between given observations.
+  - Adjusting class weights with machine learning tools to implement importance of classes.
 
 New algorithms efforts are included:
 
