@@ -37,12 +37,6 @@ We chose this structure because of several reasons:
 
 3. Given teh unique nature of the data, we were not sure which type of models would perform the best, so instead we chose to select several and use metalearners to determine the strengths and weakenesses of each model. 
 
-
-#### Potential Improvements
-
-1. Load latest data for Last.FM data
-
-
 <h2 id="2">2. Million Playlist Model</h2>
 The Million Playlist Model will be an ensembled model of three sub-models and a metalearner. The first sub-model is a logistic regression model, the second is a decision tree, and the third is a neural net. All three sub-models predict the probability of a song being a 'hit' (a song that appears on the target test playlist) and be fed into an Adaboost metalearner model that will combine the three predictions into a final probabilistic prediction. The result of the Adaboost metalearner will then feed into the final ensembler model - along with the output from the Last.FM model - to produce a final list of recommended songs.
 <h3 id="2.1">2.1 Data Preparation</h3>
