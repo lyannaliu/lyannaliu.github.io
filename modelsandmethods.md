@@ -11,10 +11,11 @@ title: Models and Methods
 * [1. Overlook of the Models](#1)
 * [2. Last.FM Model](#2)
     * [2.1 Data Preparation](#2.1)
-    * [2.2 Bagging](#2.2)
-    * [2.3 Boosting](#2.3)
-    * [2.4 Neural Network](#2.4)
-    * [2.5 Ensemble Model](#2.5)
+    * [2.2 Logistic Regression](#2.2)
+    * [2.3 Bagging](#2.3)
+    * [2.4 Boosting](#2.4)
+    * [2.5 Neural Network](#2.5)
+    * [2.6 Ensemble Model](#2.6)
 * [3. Million Playlist Model](#3)
     * [3.1 Data Preparation](#3.1)
     * [3.2 Logistic Regression](#3.2)
@@ -58,17 +59,18 @@ All three models will predict the probability of a song being a 'hit': the predi
 <h3 id="2.1">2.1 Data Preparation</h3>
 building dynamic dfs
 Include snapshot of one dynamic df
-<h3 id="2.2">2.2 Bagging</h3>
+<h3 id="2.2">2.2 Logistic Regression</h3>
+<h3 id="2.3">2.3 Bagging</h3>
 Code to create models
 Affiliated diagrams
 Justification
-<h3 id="2.3">2.3 Boosting</h3>
+<h3 id="2.4">2.4 Boosting</h3>
 Code to ensemble above models
 Affiliated diagrams
 ustification
-<h3 id="2.4">2.4 Neural Network</h3>
+<h3 id="2.5">2.5 Neural Network</h3>
 Neural Network
-<h3 id="2.5">2.5 Ensemble Model</h3>
+<h3 id="2.6">2.6 Ensemble Model</h3>
 Ensemble Model
 
 <h2 id="3">3. Million Playlist Model</h2>
