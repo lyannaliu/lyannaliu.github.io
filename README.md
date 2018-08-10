@@ -1,5 +1,7 @@
 ## Welcome to GitHub Pages
 
+This website has been creating using a Github blog template.
+
 You can use the [editor on GitHub](https://github.com/lyannaliu/lyannaliu.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
