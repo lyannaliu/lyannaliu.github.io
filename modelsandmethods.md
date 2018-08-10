@@ -24,9 +24,25 @@ title: Models and Methods
 * [4. Metalearner](#4)
 
 <h2 id="1">1. Overlook of the Models</h2>
-The overall structure of the model description of metamodel and two submodels:
+The recommendation model is a metalearner that ensembles of two primary submodels, which are the ensemble of three to four sub-submodels. 
+
+<<<<THE IMAGE GOES HERE! DELETE THIS AFTER>>>>
 
 ![Fig](/images/Fig.png)
+
+We chose this structure because of several reasons:
+
+1. The Last.FM and Million Playlist datasets are very different. The Last.FM dataset is missing newer songs, whereas the Million Playlist dataset includes very recent songs. Additionally, both datasets are generated dynamically, so missing song data from either dataset is extremely likely.
+
+2. We wanted to observe how various types of models performed against the two datasets and compare the submodels' performances to the performance of ensembled models.
+
+3. Given teh unique nature of the data, we were not sure which type of models would perform the best, so instead we chose to select several and use metalearners to determine the strengths and weakenesses of each model. 
+
+
+#### Potential Improvements
+
+1. Load latest data for Last.FM data
+
 
 <h2 id="2">2. Last.FM Model</h2>
 The Last FM Model was created as an ensemble model, built from three other models: 
