@@ -400,7 +400,8 @@ Other cleaning procedures were conducted to account for data that should have be
 songs_tags['artist_hotness'] = songs_tags['artist_hotness'].replace(0, np.NaN)
 songs_tags['year'] = songs_tags['year'].replace(0, np.NaN)
 ```
-<h3 id="3.2.4">3.2.4 Finalising 
+<h3 id="3.2.4">3.2.4 Finalising</h3>
+
 
 After all of the initial processing and cleaning, a few more steps were taken to create the final dataset with one row per track.
 
