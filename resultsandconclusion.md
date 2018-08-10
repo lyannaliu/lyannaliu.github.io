@@ -12,7 +12,8 @@ title: Results and Conclusions
 * [2. Million Playlist Model Results](#2)
 * [3. Last.FM Model Results](#3)
 * [4. Metalearner Results](#4)
-* [5. Conclusion](#4)
+* [5. Conclusion](#5)
+* [6. Future considerations](#6)
 
 
 <h2 id="1">1. Summary</h2>
@@ -467,9 +468,9 @@ Overall, out of the three submodels, logistic regression performed the best. In 
 
 <h2 id="3">3. Last.FM Model Results</h2>
 
-The results for each of the LastFM models were returned when each model was fit. Since each model was fit on one very large dataframe, there was only one metric per training and test set, per model (as opposed to the Million Playlist dataset, which has many scores since the models were run separately on each dynamic dataframe).
+The results for each of the LastFM models were returned when each model was fit. Since each model was fit on one very large dataframe, there was only one metric per training and test set, per model (in contrast with the Million Playlist dataset, which has many scores since the models were run separately on each dynamic dataframe).
 
-The below code was run with each model after it was fit (but here it is shown all at once, as the model code was seen previously), to return a table of metrics. This table included: sensitivity, true sensitivity, precision, false discovery rate, specificity, and accuracy. True sensitiviy is a metric we created to assess how many hits the model returned in relation to all of the songs returned. It is calculated by dividing the true positive value by the length of the input dataframe.
+The below code was run with each model after it was fit (here, it is shown all at once, as the modeling code was shown in Models and Methods), to return a table of metrics. This table included: sensitivity, true sensitivity, precision, false discovery rate, specificity, and accuracy. True sensitiviy is a metric we created to assess how many hits the model returned in relation to all of the songs returned. It is calculated by dividing the true positive value by the length of the input dataframe.
 
 ```python
 def metrics_models(y_true, y_pred, col_name):
@@ -696,6 +697,8 @@ We learned that individual models perform better or worse than others under cert
 
 There were many challenges related to the data that forced us to make decisions on how to handle large amounts of data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
 
+<h2 id="6">6. Future considerations</h2>
+
 If given more time we would like to invest in the following:
 
 1. Allocating enough memory to load all playlist data at once.
@@ -704,7 +707,7 @@ If given more time we would like to invest in the following:
 4. Tuning and cross-validating the parameters of all sub-models and ensemblers.
 5. Trying different class weights and other methods of dealing with imbalanced data.
 6. Exploring other methods of selecting subsets of potential songs to recommend.
-7. Determining how to differintiate better and more consistently between intersecting song names, artists, and albums across both models.
+7. Determining how to differentiate better and more consistently between intersecting song names, artists, and albums across both models.
 8. Using additional datasets like the Million Song Dataset with audio features.
 9. Deeper analysis into colinearity of attributes.
 10. Tuning a better Million Playlist Neural Net.
