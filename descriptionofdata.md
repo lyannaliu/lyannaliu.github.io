@@ -298,11 +298,11 @@ tags.rename(columns={'tag':'tag_name'}, inplace=True)
 tracks_tags = pd.merge(trackid_tagnums, tags, left_on = 'tag', right_on = 'tag_num')
 tracks_tags_copy = tracks_tags.copy()
 ```
-Subsequently, the tables were merged to create one large dataset to begin exploring and cleaning:
-
+Subsequently, the tables were merged to create one large dataset to begin exploring and cleaning: 
 ```python
 songs_tags = pd.merge(tracks_tags_copy, songs_table, left_on = 'track_id', right_on = 'track_id')
 ```
+This dataset has one row per track per tag. Ultimately, this dataset will be processed to create one row per track, containing all relevant features.
 
 ##### Cleaning
 The messiest feature of the LastFM dataset is the tag names. Many tags are misspelled, modified with adjectives that don’t change the genre/tag meaning, and/or are completely irrelevant. This was initially discovered by grouping the track and tag data by tag and counting the number of tracks associated with each. The discrepancies were seen in tags with very low frequency (ie n = 1). 
@@ -368,10 +368,113 @@ songs_tags['year'] = songs_tags['year'].replace(0, np.NaN)
 ```
 ##### Generation of final 'database' 
 
+After all of the initial processing and cleaning, a few more steps were taken to create the final dataset with one row per track.
+
+First, all of the tags for a particular track were concatenated together into one list with the following code, to create one row per track:
+```python
+single_songs = songs_tags.groupby(['track_id'])['tag_name'].apply(lambda x: ','.join(x)).reset_index()
+single_songs
+```
+![Single songs](/image/single_songs.png)
+
+Next, columns/features that won't be used in analysis were removed from the base dataset:
+```python
+songs_tags_copy = songs_tags.copy()
+songs_otherfeatures = songs_tags_copy.drop(['tid', 'tag', 'val', 'tid_num', 'tag_name', 'tag_num',
+                                      'song_id', 'artist_id', 'artist_mbid'], axis = 1)
+songs_otherfeatures.head()
+```
+![Other features](/image/songs_otherfeatures.png)
+
+The final dataset (which was later sorted by song and title) was created by joining the 'single_song' dataframe with the 'songs_otherfeatures' frame and dropping any duplicates (since songs_otherfeatures still has multiple rows with the same track):
+```python
+single_songs_copy = single_songs.copy()
+songs_otherfeatures = songs_otherfeatures.drop_duplicates(keep = 'first')
+singlesong_features = single_songs.join(songs_otherfeatures.set_index('track_id'), 
+                                        on = 'track_id', how = 'left')
+singlesong_features.head()
+```
+![Singlesong_features](/image/singlesong_features.png)
+
 <h3 id="3.3">3.3 Exploratory Data Analysis</h3>
 
 Various smaller grouped tables were created to explore the data, including: number of tags associated with each track, distribution of artist hotness, distribution of song duration, etc.
 
-The final dataset (ie one row per song) was then created by concatenating all tags for one song into a row (basically a row of tag strings now associated with each song, instead of multiple rows associated with each song, each containing a tag). This dataset will serve as the database that will be queried when running the model, using playlists from the Million Playlist Dataset (MPD).
+Some of the relevant code and figures are shown here:
+```python
+songs_tags.rename(columns={'artist_hotttnesss':'artist_hotness'}, inplace=True)
+
+songs_tags['artist_hotness'] = songs_tags['artist_hotness'].replace(0, np.NaN)
+
+hotness_artists = songs_tags.groupby(by = 'artist_name', as_index = False).agg({
+    'artist_hotness': np.max
+})
+
+fig, ax = plt.subplots(1, 1, figsize = (10, 7))
+
+ax.hist(hotness_artists['artist_hotness'], bins = 30, range = [np.min(hotness_artists['artist_hotness']), 
+                                                              np.max(hotness_artists['artist_hotness'])]);
+
+ax.tick_params(labelsize = 16)
+ax.set_xlabel('Artist Hotness', fontsize = 18)
+ax.set_ylabel('Number of Artists', fontsize = 18)
+ax.set_title('Distribution of Artist Hotness', fontsize = 20)
+
+plt.savefig('figures/artist_hotness.png')
+plt.show()
+```
+![Artist hotness](/image/artist_hotness.png)
+
+As you can see, artist hotness has a fairly normal distribution.
+
+```python
+fig, ax = plt.subplots(1, 1, figsize = (10, 7))
+
+ax.hist(singlesong_features['artist_familiarity'], range = 
+        [np.min(singlesong_features['artist_familiarity']), 
+         np.max(singlesong_features['artist_familiarity'])], bins = 30)
+
+ax.tick_params(labelsize = 16)
+ax.set_xlabel('Artist Familiarity', fontsize = 18)
+ax.set_ylabel('Number of Songs', fontsize = 18)
+ax.set_title('Distribution of Artist Familiarity across Songs', fontsize = 20)
+
+plt.savefig('figures/artist_familiarity.png')
+plt.show()
+```
+![Artist familiarity](/image/artist_familiarity.png)
+Artist familiarity also has a normal distribution.
+
+As is explained in the Models and Methods section, the two primary methods of identification 'similar songs' for the LastFM model is by tag or artist. In the plot farther up this page, you can see the spread of the top 50 tags. Below, it is apparent that the tags have an exponential dis
+
+
+
+```python
+unique_artists = singlesong_features.groupby(['artist_name'], as_index = False).agg({
+    'track_id': np.count_nonzero
+})
+artists_sorted = unique_artists.sort_values('track_id', ascending = False)[0:50]
+
+fig, ax = plt.subplots(1, 1, figsize = (90,100))
+
+ypos = artists_sorted['artist_name']
+track_count = artists_sorted['track_id']
+
+ax.barh(ypos, track_count)
+ax.invert_yaxis()  # labels read top-to-bottom
+ax.tick_params(labelsize = 70)
+ax.set_xlabel('Count of Associated Tracks', fontsize = 80)
+ax.set_ylabel('Artists Names', fontsize = 80)
+
+ax.set_xlabel('Number of Associated Tracks')
+ax.set_title('Top 50 Artists', fontsize = 90)
+
+plt.savefig('top50_artists.png')
+plt.show()
+```
+
+**LIZ TO COMPLETE THIS**
+
+
 
 
