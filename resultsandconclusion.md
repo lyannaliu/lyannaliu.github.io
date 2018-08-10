@@ -34,7 +34,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
 
 <style>
 .tablelines table, .tablelines td, .tablelines th {
-        border: 1px solid black;
+        border: 2px solid black;
         }
 </style>
 
