@@ -25,7 +25,7 @@ title: Models and Methods
 * [4. Metalearner](#4)
 
 <h2 id="1">1. Overview of the Models</h2>
-The recommendation model is a metalearner that ensembles of two primary submodels, which are the ensemble of three to four sub-submodels. 
+The recommendation model is a metalearner that ensembles two submodels (Million Playlist Model and Last.FM Model), which are the ensemble of three to four sub-submodels which are trained directly on the two submodels' respective processed datasets. 
 
 ![Fig](/images/fig3_diagram.png)
 
