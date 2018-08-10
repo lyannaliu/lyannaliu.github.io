@@ -51,7 +51,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
     </tr>
   </thead>
   <tbody>
-    <tr align="center">
+    <tr align="center" bgcolor="#00BFFF">
       <td>Metalearner Model</td>
       <td> </td>
       <td> </td>
@@ -61,16 +61,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
     </tr>
     <tr align="center" bgcolor="#87CEFA">
-      <td bgcolor="#87CEEB">Last.FM Ensemble</td>
-      <td bgcolor="#87CEEB"> </td>
-      <td bgcolor="#87CEEB"> </td>
-      <td bgcolor="#87CEEB"> </td>
-      <td bgcolor="#87CEEB"> </td>
-      <td bgcolor="#87CEEB"> </td>
-      <td bgcolor="#87CEEB"> </td>
-    </tr>
-    <tr align="center" bgcolor="#87CEFA">
-      <td bgcolor="#87CEFA">Bagging</td>
+      <td>Last.FM Ensemble</td>
       <td> </td>
       <td> </td>
       <td> </td>
@@ -78,7 +69,16 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
       <td> </td>
     </tr>
-    <tr align="center">
+    <tr align="center" bgcolor="#ADD8E6">
+      <td>Bagging</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center" bgcolor="#ADD8E6">
       <td>Boosting</td>
       <td> </td>
       <td> </td>
@@ -87,7 +87,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
       <td> </td>
     </tr>
-    <tr align="center">
+    <tr align="center" bgcolor="#ADD8E6">
       <td>Neural Network</td>
       <td> </td>
       <td> </td>
