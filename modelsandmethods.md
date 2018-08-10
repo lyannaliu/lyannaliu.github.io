@@ -35,7 +35,7 @@ We chose this structure because of several reasons:
 
 2. We wanted to observe how various types of models performed against the two datasets and compare the submodels' performances to the performance of ensembled models.
 
-3. Given teh unique nature of the data, we were not sure which type of models would perform the best, so instead we chose to select several and use metalearners to determine the strengths and weakenesses of each model. 
+3. Given the unique nature of the data, we were not sure which type of models would perform the best, so instead we chose to select several and use metalearners to determine the strengths and weakenesses of each model. 
 
 <h2 id="2">2. Million Playlist Model</h2>
 The Million Playlist Model will be an ensembled model of three sub-models and a metalearner. The first sub-model is a logistic regression model, the second is a decision tree, and the third is a neural net. All three sub-models predict the probability of a song being a 'hit' (a song that appears on the target test playlist) and be fed into an Adaboost metalearner model that will combine the three predictions into a final probabilistic prediction. The result of the Adaboost metalearner will then feed into the final ensembler model - along with the output from the Last.FM model - to produce a final list of recommended songs.
@@ -910,6 +910,8 @@ The ensemble model completely discarded the neural network, which makes sense gi
 The final metalearner takes in the predictive output of both the Million Playlist model and the Last.FM model and combines them into a two-attribute dataframe. Each predictive output is the probability of the recommended track being a hit.
 
 Since both models are able to output a different set of indices, when combined, any predictions missing due to one model recommending a song the other model does not are given a value of 0.
+
+Logistic Regression was selected for the final metalearner because for both of the submodels, logistic regression seemed to perfrom well. 
 
 ![Two Model Prediction DF](/images/final_train_df.png)
 
