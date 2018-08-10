@@ -29,16 +29,21 @@ The recommendation model is a metalearner that ensembles two submodels (Million 
 
 ![Fig](/images/fig3_diagram.png)
 
-We chose this structure because of several reasons:
+We chose this structure for several reasons:
 
-1. The Last.FM and Million Playlist datasets are very different. The Last.FM dataset is missing newer songs, whereas the Million Playlist dataset includes very recent songs. Additionally, both datasets are generated dynamically, so missing song data from either dataset is extremely likely.
+1. The Last.FM and Million Playlist datasets are very different. The Last.FM dataset is missing newer songs, whereas the Million Playlist dataset includes very recent songs.
 
 2. We wanted to observe how various types of models performed against the two datasets and compare the submodels' performances to the performance of ensembled models.
 
 3. Given the unique nature of the data, we were not sure which type of models would perform the best, so instead we chose to select several and use metalearners to determine the strengths and weakenesses of each model. 
 
 <h2 id="2">2. Million Playlist Model</h2>
-The Million Playlist Model will be an ensembled model of three sub-models and a metalearner. The first sub-model is a logistic regression model, the second is a decision tree, and the third is a neural net. All three sub-models predict the probability of a song being a 'hit' (a song that appears on the target test playlist) and be fed into an Adaboost metalearner model that will combine the three predictions into a final probabilistic prediction. The result of the Adaboost metalearner will then feed into the final ensembler model - along with the output from the Last.FM model - to produce a final list of recommended songs.
+The Million Playlist Model will be an ensembled model of three sub-models and a metalearner. The metalearner is AdaBoost and  the three sub-models are as follows:
+- Logistic Regression
+- Decision Tree
+- Neural Network
+
+All three sub-models predict the probability of a song being a 'hit' (a song that appears on the target test playlist) and are then fed into an Adaboost metalearner model that combines the three predictions into a final prediction. The result of the AdaBoost metalearner will then feed into the final ensembler model - along with the output from the Last.FM model - to produce a final list of recommended songs.
 <h3 id="2.1">2.1 Data Preparation</h3>
 The input into the Million Playlist Model should be a randomly selected song (called the `target track`) from a randomly selected playlist (called the `target playlist`). Given the `target track`, a dataset is dynamically generated from the 900,000 training playlists by building a set of tracks that are `related` to the `target track`. `Related track`s are either directly related to the `target track`, have a `related artist`, or is in a `related album`.
 
@@ -125,7 +130,7 @@ artist_song_list, album_song_list = create_artist_album_lists(songDetails)
  }
 ```
 
- Any time a dataset needs to be created for a song, the following function is run to generate the Related Track Frequency, Related Artist Frequency, and Related Album Frequency attributes.
+Any time a dataset needs to be created for a song, the following function is run to generate the Related Track Frequency, Related Artist Frequency, and Related Album Frequency attributes.
 
  ```python
 # Get frequency of other songs, artists, and albums in other playlists compared to a base track
@@ -259,11 +264,10 @@ def get_random_song_list(length, target_playlist, artistList, albumList):
 The final result is a dataframe containing the dynamically calculated frequency values for the `target song`. As shown earlier, for Piano Man, this dataframe would look something like the dataframe below.
 
 
-
 ![Piano Man DF](/images/piano_man_df.png)
 
 <h3 id="2.2">2.2 Logistic Regression</h3>
-The logistic regression submodel is an ensembled set of eight logistic models. The eight models were trained separately on eight randomly selected `target tracks` and `target playlists` from the detailed_train_playlists set. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. The final prediction is either the majority if producing a binary result or the average probability if producing a probabilistic result.
+The logistic regression submodel is an ensembled set of eight logistic models. The eight models were trained separately on eight randomly selected `target tracks` and `target playlists` from the detailed_train_playlists set. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. This number seemed to be most successful in our limited number of tries. The final prediction is either the majority if producing a binary result or the average probability if producing a probabilistic result.
 
 ```python
 C_list = [0.001, 0.005, 0.1, 0.5, 1, 10, 100, 1000, 10000]
@@ -332,30 +336,13 @@ def running_predictions(prediction_dataset, targets):
     return np.mean(running_correctnesss, axis=0)
 ```
 
-The code below generates the prediction matrix for the logistic regression models.
-
-```python
-# Create predictions matrix for N log models
-def predictions_matrix(model, N=20):
-    # Train a large number (20) of training models
-    train_models = create_models(random.sample(detailed_train_playlists, N), model)
-    
-    # create a test tf using one of the train playlists
-    train_df, train_song = create_a_test_df(random.choice(detailed_train_playlists))
-    X_train, y_train = split_test_df(train_df)
-    
-    predictions = get_predictions(X_train, y_train, train_models)
-
-    return predictions, y_train
-```
-
 The plot output for the running predictions indicates that accuracy is maximized at around 8 models.
 
 ![Logistic Regression Accuracy](/images/logistic_regression_accuracy.png)
 
 
 <h3 id="2.3">2.3 Decision Tree</h3>
-The decision tree model is a single tree of max depth 4. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. 
+The decision tree model is a single tree of max depth 4. 0's were again given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. 
 
 ```python
 DecisionTreeModel = DecisionTreeClassifier(max_depth=4)
@@ -400,7 +387,7 @@ Image(graph[0].create_png())
 ![Decision Tree](/images/decision_tree.png)
 <h3 id="2.4">2.4 Neural Network</h3>
 
-Unlike the logistic or decision tree model, the neural network model is trained on 100 different dynamically generated datasets for 100 different `target song`s and `target playlist`s. This method is used instead of splitting the dataset into multiple batches, because the liklihood of creating batches of a good representation of hits and misses is low in such a skewed dataset. The classes are given different weights with 0 being weighted .11 and 1 being weighted .89.
+Unlike the logistic or decision tree model, the neural network model is trained on 100 different dynamically generated datasets for 100 different `target song`s and `target playlist`s. This method is used instead of splitting the dataset into multiple batches, because the liklihood of creating batches of a good representation of hits and misses is low in such a skewed dataset. The classes are also given different weights with 0 being weighted .11 and 1 being weighted .89.
 
 ```python
 # set input_size as number of predictors and num_class as 1 for binary
@@ -442,7 +429,7 @@ for NN_train in NN_train_dfs:
 ```
 
 <h3 id="2.5">2.5 Ensemble Method</h3>
-The metalearner model is an Adaboost model cross validated for an optimal number of iterations. The three predictors are, given a `target track` and `target playlist`, the predictions of the probability of a hit from the three submodels: logistic regression model, decision tree model, and neural network model. Adaboost was chosen because we are able to tune the n_estimators to try and find the balance between over and underfitting. The final model is built below.
+The metalearner model is an Adaboost model cross-validated for an optimal number of iterations. The three predictors are, given a `target track` and `target playlist`, the predictions of the probability of a hit from the three submodels: logistic regression model, decision tree model, and neural network model. Adaboost was chosen because we are able to tune the n_estimators to try and find the balance between over and underfitting. The final model is built below.
 
 ```python
 final_train_predictions = build_train_predictions()
@@ -487,7 +474,7 @@ An example of the resulting dataframe is displayed below:
 
 ![Metalearner DF](/images/metalearner_df.png)
 
-To crossvalidate for a reliable number of iterations, two different `target song`s and `target playlist`s were selected from the training set and used to train the AdaBoost metalearner. The running score was then plotted and analyzed for a shared optimum. The accuracy of the metalearner, instead of an overall accuracy, was the number of True Positives predicted by the model to the number of Total Positives.
+To cross-validate for a reliable number of iterations, two different `target song`s and `target playlist`s were selected from the training set and used to train the AdaBoost metalearner. The running score was then plotted and analyzed for a shared optimum. The accuracy of the metalearner, instead of an overall accuracy, was the number of True Positives predicted by the model to the number of Total Positives.
 
 ```python
 def build_running_adaboost(predictions):
@@ -521,7 +508,7 @@ plt.legend()
 
 ![AdaBoost CV](/images/adaboost_cv.png)
 
-From the plot, it appears that by 20 iterations, the model does well for both the train and cross validation case, so n_estimators is set at 20 to prevent overfitting.
+From the plot, it appears that by 20 iterations, the model does well for both the train and cross-validation case, so n_estimators is set at 20 to prevent overfitting.
 
 <h2 id="3">3. Last.FM Model</h2>
 The LastFM Model will be an ensembled model of four sub-models. The four sub-models are as follows:
@@ -533,10 +520,10 @@ The LastFM Model will be an ensembled model of four sub-models. The four sub-mod
 All four sub-models predict the probability of a song being a 'hit' (a song that appears on the target test playlist) and will be fed into a logistic regression model to combine the four predictions into a final class prediction. The result of the ensemble model will then feed into the final metal earner model - along with the output from the Last.FM model - to produce a final list of recommended songs.
 
 <h3 id="3.1">3.1 Data Preparation</h3>
-The input into the LastFM Model is a randomly selected song (called the `target track`) from a randomly selected playlist (called the `target playlist`). Given the `target track` and `target playlist`, a static dataframe of similar songs is generated by search the LastFM `track database` (dataset) for the below features and building a dataframe with each row corresponding to a related song:
+The input into the LastFM Model is a randomly selected song (called the `target track`) from a randomly selected playlist (called the `target playlist`). Given the `target track` and `target playlist`, a static dataframe of similar songs is generated by searching the LastFM `track database` (dataset) for the below features to build a dataframe with each row corresponding to a related song.
 
 _Identification of relevant songs_
--	Related songs by tag: any song that has at least one of the same tags associated with the target song will be added as a row; the number of tags in common with the target song will be stored as ‘tag_frequency’. This is a numerical variable.
+- Related songs by tag: any song that has at least one of the same tags associated with the target song will be added as a row; the number of tags in common with the target song will be stored as ‘tag_frequency’. This is a numerical variable.
 - Related songs by artist: any song that is attributed to the same artist as the target song will be added as a row; the feature ‘same_artist’ will be added to the dataframe as a categorical variable; all of the songs found from this search will be given a ‘1’ since they were sung by the same artist; any song that was previously found by tag identification will be given a ‘1’ or ‘0’ for ‘same_artist’ as appropriate.
 
 _Addition of more variables to the above identified songs_
@@ -660,7 +647,7 @@ piano_man_df = create_similars_dataframe(target_track,
 ```
 ![PianoMan LastFM](/images/pianoman.png)
 
-The process of creating the static dataframes is repeated ~550 times (code below). Initially, the hope was to run it through 900 playlists, but after several hours, this required too much memory/processing power to handle. The output of repeating this ~550 times and concatenating into one large training dataframe leads to a dataset of over 20million observations.
+The process of creating the static dataframes is repeated ~550 times (code below). Initially, the hope was to run it through 900 playlists, but after several hours, this required too much memory/processing power to handle. The output of repeating this ~550 times and concatenating into one large training dataframe leads to a dataset of over 20    million observations.
 
 ```python
 df_list = []
@@ -780,7 +767,7 @@ bag_model = BaggingClassifier(
 <h3 id="3.4">3.4 Boosting</h3>
 The boosting model was built with sklearn's AdaBoostClassifier. The first step we took to assess the classifier fit was plotting the classifier's scores on training and test sets at two depths and 15 estimators.
 
-The two depths chosen were 2 and 3 - 3, because that was the optimal depth for the BaggingClassifier and 2, because AdaBoostClassifier's can often achieve optimal accuracy on lower depths than the base estimator (DecisionTree) can on its own. If there were more time and we had stronger processing power, we would have assessed the AdaBoost classifier on a broader range of depths and estimators (as we've done in class and homework).
+The two depths chosen were 2 and 3. 3, because that was the optimal depth for the BaggingClassifier and 2, because AdaBoostClassifier's can often achieve optimal accuracy on lower depths than the base estimator (DecisionTree) can on its own. If there were more time and we had stronger processing power, we would have assessed the AdaBoost classifier on a broader range of depths and estimators (as we've done in class and homework).
 
 ```python
 fig, axs = plt.subplots(1, 2, figsize = (15, 10))
@@ -824,7 +811,7 @@ plt.show()
 
 ![AdaBoost plot](/images/adaboost_lastfm.png)
 
-On first glance, it looks a terrible fit on both the training and the test sets. However, upon a closer look, we can see that the y_axis 'scale' is 9.998e-01, indicating that what looks like scores close to zero are actually scores close to 1. Since both depths 2 and 3 do quite well, we used a depth of 2 to train the classifier. We chose 4 estimators, as that's when the training set in depth 2 first achieves its max score.
+On first glance, it looks like a terrible fit on both the training and the test sets. However, upon closer examination, we can see that the y_axis 'scale' is 9.998e-01, indicating that what looks like scores close to zero are actually scores close to 1. Since both depths 2 and 3 do quite well, we used a depth of 2 to train the classifier. We chose 4 estimators, as that's when the training set in depth 2 first achieves its max score.
 
 ```python
 Ada_model = AdaBoostClassifier(
@@ -868,10 +855,10 @@ class_weight = {0: 0.0005,
 NN_model.fit(X_train, y_train_cat, epochs = 1, batch_size = 32, 
              validation_split = 0.2, class_weight = class_weight)
 ```
-The model ran for 40 minutes. While it had what seems like a great loss score (and accuracy score), the model was absolute garbage. As we discuss in the results section, this is because it's accurately predicting all of the misses, but it's not predicting any of the hits.
+The model ran for 40 minutes. While it had what seems like a great loss score (and accuracy score), the model performed very poorly. As we discuss in the results section, this is because it is accurately predicting all of the misses, but none of the hits.
 
 <h3 id="3.6">3.6 Ensemble Model</h3>
-To create the overall ensemble model of all of the LastFM submodels, we chose to do a logistic regression on the sub models' predictions on the tune playlists.
+To create the overall ensemble model of all of the LastFM submodels, we chose to do a logistic regression on the sub-models' predictions on fresh data (denoted `tune` in the following code).
 
 ```python
 model_dict = {
@@ -906,128 +893,21 @@ logreg_meta = LogisticRegressionCV(class_weight = 'balanced').fit(ensemble_tune,
 logreg_meta.coef_[0]
 ```
 
-The ensemble model completely discarded the neural network, which makes sense given that it was a terrible model. The logistic regression coefficients are shown below, with the neural net being the last:
+The ensemble model completely discarded the neural network, which makes sense given its poor performance. The logistic regression coefficients are shown below, with the neural net being the last:
 
 ![meta_coefs](/images/meta_coef_lastfm.png)
 
 
 <h2 id="4">4. Metalearner</h2>
 
-The final metalearner takes in the predictive output of both the Million Playlist model and the Last.FM model and combines them into a two-attribute dataframe. Each predictive output is the probability of the recommended track being a hit.
+The final metalearner takes in the predictive output of both the Million Playlist model and the Last.FM model and combines them into a two-attribute dataframe. The final output is the probability of the recommended track being a hit.
 
-Since both models are able to output a different set of indices, when combined, any predictions missing due to one model recommending a song the other model does not are given a value of 0.
+Since both models are able to output a different set of tracks, when combined, any track missing due to one model recommending a track the other model does not are given a value of 0 for that model.
 
 Logistic Regression was selected for the final metalearner because for both of the submodels, logistic regression seemed to perfrom well. 
 
 ![Two Model Prediction DF](/images/final_meta_df_v2.png)
 
-In order to combine the predictions from the two models, several steps of preprocessing need to occur.
-
-The code to build the models and create predictions is mostly redundant from building the predictions of the sub-models. The train sets, test sets, final models from each of the submodels were pickled and brought into the final ensembling file.
-
-```python
-# Randomly selected list of test playlists and test songs by index
-pkl_train_file = open('pickled_objects/detailed_train_playlists.pkl', 'rb')
-detailed_train_playlists = pickle.load(pkl_train_file)
-    
-pkl_test_file = open('pickled_objects/detailed_test_playlists.pkl', 'rb')
-detailed_test_playlists = pickle.load(pkl_test_file)
-
-pkl_file = open('pickled_objects/idx_title_test_playlist.pkl', 'rb')
-test_idx_songs = pickle.load(pkl_file)
-
-MP_models_file = open('pickled_objects/Million_Playlist_models.pkl', 'rb')
-MP_models = pickle.load(MP_models_file)
-MP_NN_model = load_model('pickled_objects/Million_Playlist_NN_Model.h5')
-
-pkl_file = open('pickled_objects/models_dict.pkl', 'rb')
-lastfm_model_dict = pickle.load(pkl_file)
-
-lastfm_NN_model = load_model('pickled_objects/NN_model.h5')
-
-pkl_file = open('pickled_objects/scaler.pkl', 'rb')
-scaler = pickle.load(pkl_file)
-
-pkl_file = open('pickled_objects/sorted_trackdf.pkl', 'rb')
-sorted_trackdf = pickle.load(pkl_file)
-
-pkl_file = open('pickled_objects/train_intersection_songs.pkl', 'rb')
-train_intersection_songs = pickle.load(pkl_file)
-
-pkl_file = open('pickled_objects/final_indices.pkl', 'rb')
-final_indices = pickle.load(pkl_file)
-
-pkl_file = open('pickled_objects/logreg_meta.pkl', 'rb')
-lastfm_meta = pickle.load(pkl_file)
-```
-
-Some additional processing of the Last.FM predictions is required to match the Million Playlist predictions.
-
-```python
-# Returns the track, features, and response separated from the create_similars dataframe
-def create_features_response(df, playlist, sorted_trackdf):
-    temp_df = df
-
-    temp_df = temp_df.replace(np.inf, np.nan)
-    temp_df = temp_df.dropna()
-    
-    features = temp_df.iloc[:, temp_df.columns != 'hit']
-    response = temp_df['hit'].values
-    
-    feature_track = features.index.values # remove track indices since the Scaler wants numerical indices
-    features = features.reset_index().drop('index', axis = 1)
-    
-    return (feature_track, features, response)
-
-# returns the final last fm predictions
-def get_lastfm_pred(target_track, playlist, sorted_trackdf):
-    full_df = create_similars_dataframe(target_track, playlist, sorted_trackdf)
-    if full_df is None:
-        return None
-    else:
-        track_info, predictors, hits = create_features_response(full_df, playlist, sorted_trackdf)
-        predictors[['artist_familiarity', 'artist_hotness', 'duration', 'tag_frequency']] = \
-            scaler.transform(predictors[['artist_familiarity', 'artist_hotness', 'duration', 'tag_frequency']])
-
-        model_keys = lastfm_model_dict.keys()
-        list_keys = list(model_keys)
-
-        pred_array = np.zeros((len(predictors), 3))
-
-        for i, key in enumerate(model_keys):
-            model = lastfm_model_dict[key]
-            pred_array[:,i] = model.predict(predictors)
-
-        pred_df = pd.DataFrame(pred_array, columns = list_keys)
-
-        NN_pred = pd.DataFrame(lastfm_NN_model.predict_classes(predictors))
-        NN_pred = NN_pred.rename(columns = {NN_pred.columns[0]: 'NN'})
-
-        pred_df = pd.concat([pred_df, NN_pred], axis = 1)
-        
-        meta_pred = lastfm_meta.predict(pred_df)
-
-        final_pred = pd.DataFrame(meta_pred)
-        final_pred['track_info'] = track_info # put track indices back on predictions
-        final_pred.set_index('track_info', inplace=True)
-        final_pred.columns = ['LastFM']
-        del final_pred.index.name
-
-        return final_pred
-```
-
-An additional preprocessing step is also required for the Million Playlist dataset to match the indices from the Last.FM predictions.
-
-```python
-TrackLike = namedtuple("TrackLike", ["song", "artist"])
-
-def strip_indices(df):
-    newIndices = [TrackLike(song=df.index[i][0], artist=df.index[i][1]) \
-              for i in range(len(df.index))]
-    df.index = newIndices
-    df = df[~df.index.duplicated()]
-    return df
-```
 
 Several functions were created to facilitate processing the predictions into a single dataframe.
 
