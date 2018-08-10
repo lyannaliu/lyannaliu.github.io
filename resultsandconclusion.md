@@ -60,7 +60,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
       <td> </td>
     </tr>
-    <tr align="center">
+    <tr align="center" bgcolor="#87CEFA">
       <td bgcolor="#87CEFA">Last.FM Ensemble</td>
       <td> </td>
       <td> </td>
