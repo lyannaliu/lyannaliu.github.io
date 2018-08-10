@@ -70,7 +70,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
     </tr>
     <tr align="center">
-      <td>Logistic Regression</td>
+      <td>Bagging</td>
       <td> </td>
       <td> </td>
       <td> </td>
@@ -79,7 +79,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
     </tr>
     <tr align="center">
-      <td>Other model 2</td>
+      <td>Boosting</td>
       <td> </td>
       <td> </td>
       <td> </td>
@@ -88,7 +88,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> </td>
     </tr>
     <tr align="center">
-      <td>Other model 3</td>
+      <td>Neural Network</td>
       <td> </td>
       <td> </td>
       <td> </td>
