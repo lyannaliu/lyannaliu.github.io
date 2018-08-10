@@ -9,19 +9,19 @@ title: Models and Methods
 ## Contents
 
 * [1. Overlook of the Models](#1)
-* [2. Last.FM Model](#2)
+* [2. Million Playlist Model](#2)
     * [2.1 Data Preparation](#2.1)
     * [2.2 Logistic Regression](#2.2)
-    * [2.3 Bagging](#2.3)
-    * [2.4 Boosting](#2.4)
-    * [2.5 Neural Network](#2.5)
-    * [2.6 Ensemble Model](#2.6)
-* [3. Million Playlist Model](#3)
+    * [2.3 Decision Tree](#2.3)
+    * [2.4 Neural Network](#2.4)
+    * [2.5 Ensemble Method](#2.5)
+* [3. Last.FM Model](#3)
     * [3.1 Data Preparation](#3.1)
     * [3.2 Logistic Regression](#3.2)
-    * [3.3 Decision Tree](#3.3)
-    * [3.4 Neural Network](#3.4)
-    * [3.5 Ensemble Method](#3.5)
+    * [3.3 Bagging](#3.3)
+    * [3.4 Boosting](#3.4)
+    * [3.5 Neural Network](#3.5)
+    * [3.6 Ensemble Model](#3.6)
 * [4. Metalearner](#4)
 
 <h2 id="1">1. Overlook of the Models</h2>
@@ -56,26 +56,9 @@ The Last FM Model was created as an ensemble model, built from three other model
 
 All three models will predict the probability of a song being a 'hit': the predicted song appears on the  
 
-<h3 id="2.1">2.1 Data Preparation</h3>
-building dynamic dfs
-Include snapshot of one dynamic df
-<h3 id="2.2">2.2 Logistic Regression</h3>
-<h3 id="2.3">2.3 Bagging</h3>
-Code to create models
-Affiliated diagrams
-Justification
-<h3 id="2.4">2.4 Boosting</h3>
-Code to ensemble above models
-Affiliated diagrams
-ustification
-<h3 id="2.5">2.5 Neural Network</h3>
-Neural Network
-<h3 id="2.6">2.6 Ensemble Model</h3>
-Ensemble Model
-
-<h2 id="3">3. Million Playlist Model</h2>
+<h2 id="2">2. Million Playlist Model</h2>
 The Million Playlist Model will be an ensembled model of three sub-models and a metalearner. The first sub-model is a logistic regression model, the second is a decision tree, and the third is a neural net. All three sub-models predict the probability of a song being a 'hit' (a song that appears on the target test playlist) and be fed into an Adaboost metalearner model that will combine the three predictions into a final probabilistic prediction. The result of the Adaboost metalearner will then feed into the final ensembler model - along with the output from the Last.FM model - to produce a final list of recommended songs.
-<h3 id="3.1">3.1 Data Preparation</h3>
+<h3 id="2.1">2.1 Data Preparation</h3>
 The input into the Million Playlist Model should be a randomly selected song (called the `target track`) from a randomly selected playlist (called the `target playlist`). Given the `target track`, a dataset is dynamically generated from the 900,000 training playlists by building a set of tracks that are `related` to the `target track`. `Related track`s are either directly related to the `target track`, have a `related artist`, or is in a `related album`.
 
 - A `related track` is defined as a track that is not the `target track` but appears in the same playlist as the `target track`.
@@ -298,7 +281,7 @@ The final result is a dataframe containing the dynamically calculated frequency 
 
 ![Piano Man DF](/images/piano_man_df.png)
 
-<h3 id="3.2">3.2 Logistic Regression</h3>
+<h3 id="2.2">2.2 Logistic Regression</h3>
 The logistic regression submodel is an ensembled set of eight logistic models. The eight models were trained separately on eight randomly selected `target tracks` and `target playlists` from the detailed_train_playlists set. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. The final prediction is either the majority if producing a binary result or the average probability if producing a probabilistic result.
 
 ```python
@@ -390,7 +373,7 @@ The plot output for the running predictions indicates that accuracy is maximized
 ![Logistic Regression Accuracy](/images/logistic_regression_accuracy.png)
 
 
-<h3 id="3.3">3.3 Decision Tree</h3>
+<h3 id="2.3">2.3 Decision Tree</h3>
 The decision tree model is a single tree of max depth 4. 0's were given a class weight of .11 versus the 1's which were given a class weight of .89 to adjust for the large number of misses in the dataset versus the small number of hits. 
 
 ```python
@@ -434,7 +417,7 @@ Image(graph[0].create_png())
 ```
 
 ![Decision Tree](/images/decision_tree.png)
-<h3 id="3.4">3.4 Neural Network</h3>
+<h3 id="2.4">2.4 Neural Network</h3>
 
 Unlike the logistic or decision tree model, the neural network model is trained on 100 different dynamically generated datasets for 100 different `target song`s and `target playlist`s. This method is used instead of splitting the dataset into multiple batches, because the liklihood of creating batches of a good representation of hits and misses is low in such a skewed dataset. The classes are given different weights with 0 being weighted .11 and 1 being weighted .89.
 
@@ -477,7 +460,7 @@ for NN_train in NN_train_dfs:
     NNmodel.fit(NN_X_train, NN_y_train, epochs=1, batch_size=len(NN_X_train))
 ```
 
-<h3 id="3.5">3.5 Ensemble Method</h3>
+<h3 id="2.5">2.5 Ensemble Method</h3>
 The metalearner model is an Adaboost model cross validated for an optimal number of iterations. The three predictors are, given a `target track` and `target playlist`, the predictions of the probability of a hit from the three submodels: logistic regression model, decision tree model, and neural network model. Adaboost was chosen because we are able to tune the n_estimators to try and find the balance between over and underfitting. The final model is built below.
 
 ```python
@@ -558,6 +541,24 @@ plt.legend()
 ![AdaBoost CV](/images/adaboost_cv.png)
 
 From the plot, it appears that by 20 iterations, the model does well for both the train and cross validation case, so n_estimators is set at 20 to prevent overfitting.
+
+<h2 id="3">3. Last.FM Model</h2>
+<h3 id="3.1">3.1 Data Preparation</h3>
+building dynamic dfs
+Include snapshot of one dynamic df
+<h3 id="3.2">3.2 Logistic Regression</h3>
+<h3 id="3.3">3.3 Bagging</h3>
+Code to create models
+Affiliated diagrams
+Justification
+<h3 id="3.4">3.4 Boosting</h3>
+Code to ensemble above models
+Affiliated diagrams
+ustification
+<h3 id="3.5">3.5 Neural Network</h3>
+Neural Network
+<h3 id="3.6">3.6 Ensemble Model</h3>
+Ensemble Model
 
 <h2 id="4">4. Metalearner</h2>
 Description
