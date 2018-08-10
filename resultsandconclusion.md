@@ -517,4 +517,24 @@ Ensemble model
 <h2 id="4">4. Metalearner Results</h2>
 
 <h2 id="5">5. Conclusion</h2>
-Conclusion
+
+In this study, we applied many different models and variations of those models to uniquely generated datasets in order to classify whether a song would be liked given a user's preferences. We used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
+
+We learned that individual models perform better or worse than others under certain metrics, and that applying ensembling methods to several models in some cases will and in other cases won't improve certain metrics. Choosing "the best" model is not always straight forward, especially when dealing with imbalanced data. 
+
+There were many challenges related to data that forced us to make decisions on how to handle large amounts of data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
+
+If given more time we would like to invest in the following:
+
+1. Allocating enough memory to load all playlist data at once.
+2. Using Last.FM API to get most up to date songs and better match the Million Playlist dataset.
+3. Exploring different models for each sub-model and sub-sub-model.
+4. Tuning and cross-validating the parameters of all sub-models and ensemblers.
+5. Trying different class weights and other methods of dealing with imbalanced data.
+6. Exploring other methods of selecting subsets of potential songs to recommend.
+7. Determining how to differintiate better and more consistently between intersecting song names, artists, and albums across both models.
+8. Using additional datasets like the Million Song Dataset with audio features.
+9. Deeper analysis into colinearity of attributes.
+10. Tuning a better Million Playlist Neural Net.
+11. Training a better final metalearner.
+12. More consideration on how to merge the final results from each of the models.
