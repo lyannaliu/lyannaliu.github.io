@@ -470,7 +470,76 @@ Overall, out of the three submodels, logistic regression performed the best. In 
 
 
 <h2 id="3">3. Last.FM Model Results</h2>
-LastFM Model Results
+
+#### Training Metrics Table
+
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1.5px solid black;
+        }
+</style>
+
+<table class="tablelines" width="910">
+  <thead>
+    <tr align="center">
+      <th width="130"><font size="3"></font></th>
+      <th width="130">Sensitivity</th>
+      <th width="130">True Sensitivity</th>
+      <th width="130">Precision</th>
+      <th width="130">FDR</th>
+      <th width="130">Specificity</th>
+      <th width="130">Accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr align="center">
+      <td>logreg_train</td>
+      <td> 0.7826</td>
+      <td> 0.0002</td>
+      <td> 0.0014</td>
+      <td> 0.9986</td>
+      <td> 0.8829</td>
+      <td> 0.8829</td>
+    </tr>
+    <tr align="center">
+      <td>bagging_train</td>
+      <td> 0.7853</td>
+      <td> 0.0002</td>
+      <td> 0.0015</td>
+      <td> 0.9985</td>
+      <td> 0.8918</td>
+      <td> 0.8918</td>
+    </tr>
+     <tr align="center">
+      <td>Ada_train</td>
+      <td> 0.8386</td>
+      <td> 0.0002</td>
+      <td> 0.0013</td>
+      <td> 0.9987</td>
+      <td> 0.8677</td>
+      <td> 0.8677</td>
+    </tr>
+    <tr align="center">
+      <td>NN_train</td>
+      <td> 0.0000</td>
+      <td> 0.0000</td>
+      <td> 0.0000</td>
+      <td> 0.0000</td>
+      <td> 0.0000</td>
+      <td> 0.0000</td>
+    </tr>
+    <tr align="center">
+      <td>meta_tune</td>
+      <td> 0.8813</td>
+      <td> 0.0002</td>
+      <td> 0.0011</td>
+      <td> 0.9989</td>
+      <td> 0.8521</td>
+      <td> 0.8522</td>
+   </tr>
+  </tbody>
+</table>
+
 
 The results for each of the LastFM models were returned when the model was fit. Since each model was fit on one very large dataframe, there is only one metric per training and test set per model (as opposed to Million Playlist dataset, with many scores since the models were run separately on each dynamic dataframe.
 
