@@ -531,7 +531,7 @@ plt.legend()
 
 From the plot, it appears that by 20 iterations, the model does well for both the train and cross validation case, so n_estimators is set at 20 to prevent overfitting.
 
-<h2 id="2">2. Last.FM Model</h2>
+<h2 id="3">3. Last.FM Model</h2>
 The Last FM Model was created as an ensemble model, built from three other models: 
 
   - Bagging 
