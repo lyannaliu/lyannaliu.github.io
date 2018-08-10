@@ -38,7 +38,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
         }
 </style>
 
-<table class="tablelines">
+<table class="tablelines" width="100%">
   <thead>
     <tr align="center">
       <th><font size="3">Model</font></th>
