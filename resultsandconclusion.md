@@ -62,12 +62,12 @@ Below is an overview of how all our models performed. Each value is the mean sco
     </tr>
     <tr align="center" bgcolor="#87CEFA">
       <td bgcolor="#87CEFA">Last.FM Ensemble</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td bgcolor="#87CEFA"> </td>
+      <td bgcolor="#87CEFA"> </td>
+      <td bgcolor="#87CEFA"> </td>
+      <td bgcolor="#87CEFA"> </td>
+      <td bgcolor="#87CEFA"> </td>
+      <td bgcolor="#87CEFA"> </td>
     </tr>
     <tr align="center">
       <td>Bagging</td>
