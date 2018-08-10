@@ -12,7 +12,7 @@ Music Recommender Systems (MRS) have recently exploded popularity thanks to musi
 
 ## Abstract
 
-Goal: The goal of this study is to produce a model that, when given a song, predicts what songs a user will like by training and comparing its results against pre-existing playlists.
+The goal of this study is to produce a model that, when given a song, predicts what songs a user will like by training and comparing its results against pre-existing playlists.
 
 To achieve this goal, we built a model that is comprised of two sub-models and a metalearner. Both submodels use different datasets to produce a list of potential song recommendations and the probability each song is liked. The metalearner then uses the two predictions to produce a final list of song recommendations and an associated value of 1 if the song should be recommended or 0 if the song should not be recommended.
 
