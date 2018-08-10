@@ -405,22 +405,27 @@ songs_tags['year'] = songs_tags['year'].replace(0, np.NaN)
 After all of the initial processing and cleaning, a few more steps were taken to create the final dataset with one row per track.
 
 First, all of the tags for a particular track were concatenated together into one list with the following code, to create one row per track:
+
 ```python
 single_songs = songs_tags.groupby(['track_id'])['tag_name'].apply(lambda x: ','.join(x)).reset_index()
 single_songs
 ```
+
 ![Single songs](/images/single_songs.png)
 
 Next, columns/features that won't be used in analysis were removed from the base dataset:
+
 ```python
 songs_tags_copy = songs_tags.copy()
 songs_otherfeatures = songs_tags_copy.drop(['tid', 'tag', 'val', 'tid_num', 'tag_name', 'tag_num',
                                       'song_id', 'artist_id', 'artist_mbid'], axis = 1)
 songs_otherfeatures.head()
 ```
+
 ![Other features](/images/songs_otherfeatures.png)
 
 The final dataset (which was later sorted by song and title) was created by joining the 'single_song' dataframe with the 'songs_otherfeatures' frame and dropping any duplicates (since songs_otherfeatures still has multiple rows with the same track):
+
 ```python
 single_songs_copy = single_songs.copy()
 songs_otherfeatures = songs_otherfeatures.drop_duplicates(keep = 'first')
@@ -428,13 +433,16 @@ singlesong_features = single_songs.join(songs_otherfeatures.set_index('track_id'
                                         on = 'track_id', how = 'left')
 singlesong_features.head()
 ```
+
 ![Singlesong_features](/images/singlesong_features.png)
+
 
 <h3 id="3.3">3.3 Exploratory Data Analysis</h3>
 
 Various smaller grouped tables were created to explore the data, including: number of tags associated with each track, distribution of artist hotness, distribution of song duration, etc.
 
 Some of the relevant code and figures are shown here:
+
 ```python
 songs_tags.rename(columns={'artist_hotttnesss':'artist_hotness'}, inplace=True)
 
@@ -457,7 +465,9 @@ ax.set_title('Distribution of Artist Hotness', fontsize = 20)
 plt.savefig('figures/artist_hotness.png')
 plt.show()
 ```
+
 ![Artist hotness](/images/artist_hotness.png)
+
 
 As you can see, artist hotness has a fairly normal distribution.
 
@@ -476,6 +486,7 @@ ax.set_title('Distribution of Artist Familiarity across Songs', fontsize = 20)
 plt.savefig('figures/artist_familiarity.png')
 plt.show()
 ```
+
 ![Artist familiarity](/images/artist_familiarity.png)
 
 Artist familiarity also has a normal distribution.
@@ -499,9 +510,12 @@ ax.set_title('Distribution of tags per track', fontsize = 20)
 plt.savefig('figures/tags_per_track.png')
 plt.show()
 ```
+
 ![tagspertrack](/images/tags_per_track.png)
 
+
 We then decided to explore the distribution of artists in the dataset. The top 5 artists in the LastFM dataset are: Michael Jackson, Aerosmith, Franz Ferdinand, Johnny Cash, and the Rolling Stones.
+
 
 ```python
 unique_artists = singlesong_features.groupby(['artist_name'], as_index = False).agg({
@@ -526,9 +540,11 @@ ax.set_title('Top 50 Artists', fontsize = 90)
 plt.savefig('top50_artists.png')
 plt.show()
 ```
+
 ![top50artists](/images/top50_artists.png)
 
 Finally, since duration is one of the features used in the modeling, we looked at the distribution of song duration. As you can see, it's a normal distribution with a small tail to the right.
+
 
 ```python
 fig, ax = plt.subplots(1, 1, figsize = (10, 7))
@@ -546,3 +562,5 @@ plt.show()
 ```
 
 ![songduration](/images/song_duration.png)
+
+
