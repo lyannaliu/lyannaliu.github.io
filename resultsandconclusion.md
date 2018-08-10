@@ -482,14 +482,14 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <th width="130">Sensitivity</th>
       <th width="130">True Sensitivity</th>
       <th width="130">Precision</th>
-      <th width="130">FDR</th>
+      <th width="130">False discovery rate</th>
       <th width="130">Specificity</th>
       <th width="130">Accuracy</th>
     </tr>
   </thead>
   <tbody>
     <tr align="center">
-      <td>logreg_train</td>
+      <td>Logistic regression</td>
       <td> 0.7826</td>
       <td> 0.0002</td>
       <td> 0.0014</td>
@@ -498,7 +498,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.8829</td>
     </tr>
     <tr align="center">
-      <td>bagging_train</td>
+      <td>Bagging</td>
       <td> 0.7853</td>
       <td> 0.0002</td>
       <td> 0.0015</td>
@@ -507,7 +507,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.8918</td>
     </tr>
      <tr align="center">
-      <td>Ada_train</td>
+      <td>Boosting</td>
       <td> 0.8386</td>
       <td> 0.0002</td>
       <td> 0.0013</td>
@@ -516,7 +516,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.8677</td>
     </tr>
     <tr align="center">
-      <td>NN_train</td>
+      <td>Neural network</td>
       <td> 0.0000</td>
       <td> 0.0000</td>
       <td> 0.0000</td>
@@ -525,7 +525,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.0000</td>
     </tr>
     <tr align="center">
-      <td>meta_tune</td>
+      <td>Ensemble model</td>
       <td> 0.8813</td>
       <td> 0.0002</td>
       <td> 0.0011</td>
@@ -552,14 +552,14 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <th width="130">Sensitivity</th>
       <th width="130">True Sensitivity</th>
       <th width="130">Precision</th>
-      <th width="130">FDR</th>
+      <th width="130">False discovery rate</th>
       <th width="130">Specificity</th>
       <th width="130">Accuracy</th>
     </tr>
   </thead>
   <tbody>
     <tr align="center">
-      <td>logreg_train</td>
+      <td>Logistic regression</td>
       <td> 0.7190</td>
       <td> 0.0001</td>
       <td> 0.0014</td>
@@ -568,7 +568,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.8937</td>
     </tr>
     <tr align="center">
-      <td>bagging_train</td>
+      <td>Bagging</td>
       <td> 0.6938</td>
       <td> 0.0001</td>
       <td> 0.0013</td>
@@ -577,7 +577,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.8915</td>
     </tr>
      <tr align="center">
-      <td>Ada_train</td>
+      <td>Boosting</td>
       <td> 0.7422</td>
       <td> 0.0002</td>
       <td> 0.0012</td>
@@ -586,7 +586,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.8760</td>
     </tr>
     <tr align="center">
-      <td>NN_train</td>
+      <td>Neural network</td>
       <td> 0.0000</td>
       <td> 0.0000</td>
       <td> 0.0000</td>
@@ -595,7 +595,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
       <td> 0.9998</td>
     </tr>
     <tr align="center">
-      <td>meta_tune</td>
+      <td>Ensemble model</td>
       <td> 0.7345</td>
       <td> 0.0002</td>
       <td> 0.0014</td>
