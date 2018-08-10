@@ -45,17 +45,6 @@ We chose this structure because of several reasons:
 1. Load latest data for Last.FM data
 
 
-<h2 id="2">2. Last.FM Model</h2>
-The Last FM Model was created as an ensemble model, built from three other models: 
-
-  - Bagging 
-  - Boosting
-  - Neural Network 
-  
-**Need to be completed:** 
-
-All three models will predict the probability of a song being a 'hit': the predicted song appears on the  
-
 <h2 id="2">2. Million Playlist Model</h2>
 The Million Playlist Model will be an ensembled model of three sub-models and a metalearner. The first sub-model is a logistic regression model, the second is a decision tree, and the third is a neural net. All three sub-models predict the probability of a song being a 'hit' (a song that appears on the target test playlist) and be fed into an Adaboost metalearner model that will combine the three predictions into a final probabilistic prediction. The result of the Adaboost metalearner will then feed into the final ensembler model - along with the output from the Last.FM model - to produce a final list of recommended songs.
 <h3 id="2.1">2.1 Data Preparation</h3>
@@ -542,7 +531,17 @@ plt.legend()
 
 From the plot, it appears that by 20 iterations, the model does well for both the train and cross validation case, so n_estimators is set at 20 to prevent overfitting.
 
-<h2 id="3">3. Last.FM Model</h2>
+<h2 id="2">2. Last.FM Model</h2>
+The Last FM Model was created as an ensemble model, built from three other models: 
+
+  - Bagging 
+  - Boosting
+  - Neural Network 
+  
+**Need to be completed:** 
+
+All three models will predict the probability of a song being a 'hit': the predicted song appears on the  
+
 <h3 id="3.1">3.1 Data Preparation</h3>
 building dynamic dfs
 Include snapshot of one dynamic df
