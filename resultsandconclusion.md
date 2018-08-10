@@ -470,7 +470,45 @@ Overall, out of the three submodels, logistic regression performed the best. In 
 
 
 <h2 id="3">3. Last.FM Model Results</h2>
-Last.FM Model Results
+LastFM Model Results
+
+The results for each of the LastFM models were returned when the model was fit. Since each model was fit on one very large dataframe, there is only one metric per training and test set per model (as opposed to Million Playlist dataset, with many scores since the models were run separately on each dynamic dataframe.
+
+The below code was run with each model after it was fit, to return a table of metrics, which included: sensitivity, precision, false discovery rate, specificity, and accuracy.
+
+```python
+def metrics_models(y_true, y_pred, col_name):
+    TN, FP, FN, TP = confusion_matrix(y_true, y_pred).ravel()
+    metrics_dict = {
+        'sensitivity': TP/(TP + FN),
+        'precision': TP/(TP + FP),
+        'fdr': FP/(TP + FP), #false discovery rate (complement of precision)
+        'specificity': TN/(TN + FP),
+        'accuracy': (TP + TN)/(TN + FP + FN + TP),
+    }
+    return pd.DataFrame.from_dict(metrics_dict, orient = 'index', columns = [col_name])
+
+logreg_train_metrics = metrics_models(y_train, logreg_model.predict(X_train), 'logreg_train')
+logreg_test_metrics = metrics_models(y_test, logreg_model.predict(X_test), 'logreg_test')
+logreg_metrics = pd.concat([logreg_train_metrics, logreg_test_metrics], axis = 1)
+
+DT_train_metrics = metrics_models(y_train, DT_model.predict(X_train), 'tree_train')
+DT_test_metrics = metrics_models(y_test, DT_model.predict(X_test), 'tree_test')
+DT_metrics = pd.concat([DT_train_metrics, DT_test_metrics], axis = 1)
+
+bag_train_metrics = metrics_models(y_train, bag_model.predict(X_train), 'bagging_train')
+bag_test_metrics = metrics_models(y_test, bag_model.predict(X_test), 'bagging_test')
+bag_metrics = pd.concat([bag_train_metrics, bag_test_metrics], axis = 1)
+
+Ada_train_metrics = metrics_models(y_train, Ada_model.predict(X_train), 'Ada_train')
+Ada_test_metrics = metrics_models(y_test, Ada_model.predict(X_test), 'Ada_test')
+Ada_metrics = pd.concat([Ada_train_metrics, Ada_test_metrics], axis = 1)
+
+NN_train_metrics = metrics_models(y_train, NN_model.predict_classes(X_train), 'NN_train')
+NN_test_metrics = metrics_models(y_test, NN_model.predict_classes(X_test), 'NN_test')
+NN_metrics = pd.concat([NN_train_metrics, NN_test_metrics], axis = 1)
+```
+
 <h3 id="3.1">3.1 Logistic regression</h3>
 Logistic regression
 <h3 id="3.2">3.2 Ensemble model</h3>
