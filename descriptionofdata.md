@@ -301,7 +301,7 @@ songs_tags = pd.merge(tracks_tags_copy, songs_table, left_on = 'track_id', right
 ```
 This dataset has one row per track per tag (see below). Ultimately, this dataset will be further processed (after some cleaning) to create one row per track, containing all relevant features.
 
-![songstags](/image/songs_tags.png)
+![songstags](/images/songs_tags.png)
 
 ##### Cleaning
 The messiest feature of the LastFM dataset is the tag names. Many tags are misspelled, modified with adjectives that don’t change the genre/tag meaning, and/or are completely irrelevant. This was initially discovered by grouping the track and tag data by tag and counting the number of tracks associated with each. The discrepancies were seen in tags with very low frequency (ie n = 1). 
