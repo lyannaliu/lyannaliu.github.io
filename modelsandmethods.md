@@ -27,7 +27,7 @@ title: Models and Methods
 <h2 id="1">1. Overview of the Models</h2>
 The recommendation model is a metalearner that ensembles of two primary submodels, which are the ensemble of three to four sub-submodels. 
 
-![Fig](/images/fig2_diagram.png)
+![Fig](/images/fig3_diagram.png)
 
 We chose this structure because of several reasons:
 
