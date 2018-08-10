@@ -15,7 +15,8 @@ title: Results and Conclusions
     * [3.3 Boosting](#3.3)
     * [3.4 Neural Network](#3.4)
     * [3.5 Ensemble Model](#3.5)
-* [4. Conclusion](#4)
+* [4. Metalearner Results](#4)
+* [5. Conclusion](#4)
 
 
 <h2 id="1">1. Summary</h2>
@@ -475,5 +476,7 @@ Logistic regression
 <h3 id="3.2">3.2 Ensemble model</h3>
 Ensemble model
 
-<h2 id="4">4 Conclusion</h2>
+<h2 id="4">4. Metalearner Results</h2>
+
+<h2 id="5">5. Conclusion</h2>
 Conclusion
