@@ -468,7 +468,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
 
 <h2 id="3">3. Last.FM Model Results</h2>
 
-The results for each of the LastFM models were returned when each model was fit. Since each model was fit on one very large dataframe, there was only one metric per training and test set, per model (in contrast with the Million Playlist dataset, which has many scores since the models were run separately on each dynamic dataframe).
+The results for each of the LastFM models were returned when each model was fit. Since each model was fit on one very large dataframe, there was only one metric per training and test set for each per model. This is in contrast with the Million Playlist dataset, which has many scores since the models were run separately on each dynamic dataframe.
 
 The below code was run with each model after it was fit (here, it is shown all at once, as the modeling code was shown in Models and Methods), to return a table of metrics. This table included: sensitivity, true sensitivity, precision, false discovery rate, specificity, and accuracy. True sensitiviy is a metric we created to assess how many hits the model returned in relation to all of the songs returned. It is calculated by dividing the true positive value by the length of the input dataframe.
 
