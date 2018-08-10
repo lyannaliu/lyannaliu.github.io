@@ -534,6 +534,7 @@ From the plot, it appears that by 20 iterations, the model does well for both th
 <h2 id="3">3. Last.FM Model</h2>
 The Last FM Model was created as an ensemble model, built from three other models: 
 
+  - Logistic Regression
   - Bagging 
   - Boosting
   - Neural Network 
