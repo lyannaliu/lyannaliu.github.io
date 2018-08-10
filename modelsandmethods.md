@@ -726,11 +726,60 @@ logreg_model = LogisticRegressionCV(class_weight = 'balanced').fit(X_train, y_tr
 Metrics and scores will be discussed in the Results section.
 
 <h3 id="3.3">3.3 Bagging</h3>
-The Bagging model was built with sklearn's BaggingClassifier, with the base estimator of a DecisionTreeClassifier.
+The Bagging model was built with sklearn's BaggingClassifier, with the base estimator of a DecisionTreeClassifier. We plotted various depths of a DecisionTreeClassifier to determine the optimal depth for the BaggingClassifier:
+```python
+fig, ax = plt.subplots(1, 1, figsize = (15, 7))
 
-Code to create models
-Affiliated diagrams
-Justification
+list_scores = []
+for cur_depth in range(1, 6):
+    model = DecisionTreeClassifier(max_depth = cur_depth, class_weight = 'balanced')
+    scores = cross_val_score(model, X_train, y_train, cv = 5)
+    score_dict = {
+        'depth': cur_depth,
+        'mean_score': np.mean(scores),
+        'std_score': np.std(scores),
+        'twostd_below': np.mean(scores) - np.std(scores)*2,
+        'twostd_above': np.mean(scores) + np.std(scores)*2
+    }
+    list_scores.append(score_dict)
+    ax.errorbar(x = cur_depth, y = np.mean(scores), yerr = np.std(scores)*2, fmt = 'o', lw = 3, 
+                capsize = 6, markersize = 8)
+    
+ax.xaxis.set_major_locator(plt.MultipleLocator(1))
+ax.tick_params(labelsize = 14)
+ax.set_xlabel('Depth of Tree', fontsize = 15)
+ax.set_ylabel('Performance of Model', fontsize = 15)
+ax.set_title('Estimated Performance (+/- two s.d.)\nof Various Depths of a Decision Tree', fontsize = 18)
+fig.subplots_adjust(hspace = .35, wspace = .25)
+
+plt.show()
+```
+![dtree_plot](/image/decisiontree_plot.png)
+
+The appropriate depth of the DecisionTree can be visualized below:
+```python
+DT_model = DecisionTreeClassifier(max_depth = 3, class_weight = 'balanced').fit(X_train, y_train)
+from sklearn.externals.six import StringIO  
+from IPython.display import Image  
+from sklearn.tree import export_graphviz
+import pydotplus
+
+dot_data = StringIO()
+export_graphviz(DT_model, out_file = dot_data,  
+                filled = True, rounded = True,
+                special_characters = True)
+graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+Image(graph.create_png())
+```
+![dtree_nodes](/image/dtree_model.png)
+
+Then, the ensembler model was fit with 25 estimators at a max_depth of 3. 25 estimators was chosen as that's the largest we felt we could bootstrap when there are > 20million observations in each boostrapped sample.
+```python
+bag_model = BaggingClassifier(
+    base_estimator = DecisionTreeClassifier(max_depth = 3, class_weight = 'balanced'), 
+    n_estimators = 25).fit(X_train, y_train)
+```
+
 <h3 id="3.4">3.4 Boosting</h3>
 Code to ensemble above models
 Affiliated diagrams
