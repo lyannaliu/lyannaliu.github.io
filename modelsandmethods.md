@@ -717,7 +717,17 @@ X_tune[['artist_familiarity', 'artist_hotness', 'duration',
 Now, the data are ready to be fit to models.
 
 <h3 id="3.2">3.2 Logistic Regression</h3>
+The logistic regression model was built with `LogisticRegressionCV`, with the default C-list and with `class_weight` = 'balanced'. Having a 'balanced' class weight is extremely important because 'misses' (class = 0) heavily dominate 'hits' (class = 1), and we want to 'even the playing field' between the two classes.
+
+The logistic regression model was built with one line of code:
+```python
+logreg_model = LogisticRegressionCV(class_weight = 'balanced').fit(X_train, y_train)
+```
+Metrics and scores will be discussed in the Results section.
+
 <h3 id="3.3">3.3 Bagging</h3>
+The Bagging model was built with sklearn's BaggingClassifier, with the base estimator of a DecisionTreeClassifier.
+
 Code to create models
 Affiliated diagrams
 Justification
