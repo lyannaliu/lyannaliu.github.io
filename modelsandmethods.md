@@ -8,7 +8,7 @@ title: Models and Methods
 
 ## Contents
 
-* [1. Overlook of the Models](#1)
+* [1. Overview of the Models](#1)
 * [2. Million Playlist Model](#2)
     * [2.1 Data Preparation](#2.1)
     * [2.2 Logistic Regression](#2.2)
@@ -24,7 +24,7 @@ title: Models and Methods
     * [3.6 Ensemble Model](#3.6)
 * [4. Metalearner](#4)
 
-<h2 id="1">1. Overlook of the Models</h2>
+<h2 id="1">1. Overview of the Models</h2>
 The recommendation model is a metalearner that ensembles of two primary submodels, which are the ensemble of three to four sub-submodels. 
 
 ![Fig](/images/Fig.png)
