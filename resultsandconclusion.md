@@ -541,6 +541,76 @@ Overall, out of the three submodels, logistic regression performed the best. In 
 </table>
 
 
+#### Test Metrics Table
+
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1.5px solid black;
+        }
+</style>
+
+<table class="tablelines" width="910">
+  <thead>
+    <tr align="center">
+      <th width="130"> </th>
+      <th width="130">Sensitivity</th>
+      <th width="130">True Sensitivity</th>
+      <th width="130">Precision</th>
+      <th width="130">FDR</th>
+      <th width="130">Specificity</th>
+      <th width="130">Accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr align="center">
+      <td>logreg_train</td>
+      <td> 0.7190</td>
+      <td> 0.0001</td>
+      <td> 0.0014</td>
+      <td> 0.9986</td>
+      <td> 0.8938</td>
+      <td> 0.8937</td>
+    </tr>
+    <tr align="center">
+      <td>bagging_train</td>
+      <td> 0.6938</td>
+      <td> 0.0001</td>
+      <td> 0.0013</td>
+      <td> 0.9987</td>
+      <td> 0.8915</td>
+      <td> 0.8915</td>
+    </tr>
+     <tr align="center">
+      <td>Ada_train</td>
+      <td> 0.7422</td>
+      <td> 0.0002</td>
+      <td> 0.0012</td>
+      <td> 0.9988</td>
+      <td> 0.8760</td>
+      <td> 0.8760</td>
+    </tr>
+    <tr align="center">
+      <td>NN_train</td>
+      <td> 0.0000</td>
+      <td> 0.0000</td>
+      <td> 0.0000</td>
+      <td> 0.0000</td>
+      <td> 1.0000</td>
+      <td> 0.9998</td>
+    </tr>
+    <tr align="center">
+      <td>meta_tune</td>
+      <td> 0.7345</td>
+      <td> 0.0002</td>
+      <td> 0.0014</td>
+      <td> 0.9986</td>
+      <td> 0.8886</td>
+      <td> 0.8885</td>
+   </tr>
+  </tbody>
+</table>
+
+
 The results for each of the LastFM models were returned when the model was fit. Since each model was fit on one very large dataframe, there is only one metric per training and test set per model (as opposed to Million Playlist dataset, with many scores since the models were run separately on each dynamic dataframe.
 
 The below code was run with each model after it was fit, to return a table of metrics, which included: sensitivity, precision, false discovery rate, specificity, and accuracy.
