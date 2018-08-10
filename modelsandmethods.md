@@ -908,7 +908,7 @@ logreg_meta.coef_[0]
 
 The ensemble model completely discarded the neural network, which makes sense given that it was a terrible model. The logistic regression coefficients are shown below, with the neural net being the last:
 
-![meta_coefs](/image/meta_coef_lastfm.png)
+![meta_coefs](/images/meta_coef_lastfm.png)
 
 
 <h2 id="4">4. Metalearner</h2>
