@@ -27,7 +27,7 @@ title: Models and Methods
 <h2 id="1">1. Overview of the Models</h2>
 The recommendation model is a metalearner that ensembles of two primary submodels, which are the ensemble of three to four sub-submodels. 
 
-![Fig](/images/Fig.png)
+![Fig](/images/fig2_diagram.png)
 
 We chose this structure because of several reasons:
 
@@ -919,7 +919,7 @@ Since both models are able to output a different set of indices, when combined, 
 
 Logistic Regression was selected for the final metalearner because for both of the submodels, logistic regression seemed to perfrom well. 
 
-![Two Model Prediction DF](/images/final_meta_df.png)
+![Two Model Prediction DF](/images/final_meta_df_v2.png)
 
 In order to combine the predictions from the two models, several steps of preprocessing need to occur.
 
