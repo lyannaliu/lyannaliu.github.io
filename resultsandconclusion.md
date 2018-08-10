@@ -10,8 +10,10 @@ title: Results and Conclusions
 
 * [1. Summary](#1)
 * [2. Last.FM Model Results](#2)
-    * [2.1 Logistic regression](#2.1)
-    * [2.2 Ensemble model](#2.2)
+    * [2.2 Bagging](#2.2)
+    * [2.3 Boosting](#2.3)
+    * [2.4 Neural Network](#2.4)
+    * [2.5 Ensemble Model](#2.5)
 * [3. Million Playlist Model Results](#3)
 * [4. Conclusion](#4)
 
