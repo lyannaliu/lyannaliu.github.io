@@ -19,7 +19,7 @@ title: Description of Data
          * [3.2.1 Description of the Raw Data](#3.2.1)
          * [3.2.2 Processing](#3.2.2)
          * [3.2.3 Cleaning](#3.2.3)
-         * [3.2.4 Finalising](#3.2.4)
+         * [3.2.4 Finalizing](#3.2.4)
     * [3.3 Exploratory Data Analysis](#3.3)
 
 
@@ -400,7 +400,7 @@ Other cleaning procedures were conducted to account for data that should have be
 songs_tags['artist_hotness'] = songs_tags['artist_hotness'].replace(0, np.NaN)
 songs_tags['year'] = songs_tags['year'].replace(0, np.NaN)
 ```
-<h3 id="3.2.4">3.2.4 Finalising</h3>
+<h3 id="3.2.4">3.2.4 Finalizing</h3>
 
 
 After all of the initial processing and cleaning, a few more steps were taken to create the final dataset with one row per track.
