@@ -63,7 +63,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
     </tr>
     <tr align="center" bgcolor="#97CBFF">
       <td>Last.FM Ensemble</td>
-      <td> 0.7007</td>
+      <td> 0.8812</td>
       <td> 0.0650</td>
       <td> 0.9350</td>
       <td> </td>
@@ -824,6 +824,7 @@ def run_100_final_tests():
 ```
 
 From these functions, we were able to obtain the following:
+
 For the train playlists:
 - on the meta learner: true negative, false positive, false negative, true positive, and total length of the features 
 
