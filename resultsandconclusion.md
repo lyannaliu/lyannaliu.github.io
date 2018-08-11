@@ -689,6 +689,9 @@ Below are the detailed metrics for the models, organized by training and testing
 
 <h2 id="4">4. Metalearner Results</h2>
 
+![Final Results](/images/final_results.png)
+
+
 <h2 id="5">5. Conclusion</h2>
 
 In this study, we applied many different models and variations of those models to uniquely generated datasets in order to classify whether a song would be liked given a song in the user's current playlists. We used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
