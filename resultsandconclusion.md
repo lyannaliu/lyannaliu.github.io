@@ -479,9 +479,7 @@ Overall, out of the three submodels, logistic regression performed the best. In 
 
 <h2 id="3">3. Last.FM Model Results</h2>
 
-The results for each of the LastFM models were returned when each model was fit. Since each model was fit on one very large dataframe, there was only one metric per training and test set for each per model. This is in contrast with the Million Playlist dataset, which has many scores since the models were run separately on each dynamic dataframe.
-
-The below code was run with each model after it was fit (here, it is shown all at once, as the modeling code was shown in Models and Methods), to return a table of metrics. This table included: sensitivity, true sensitivity, precision, false discovery rate, specificity, and accuracy. True sensitiviy is a metric we created to assess how many hits the model returned in relation to all of the songs returned. It is calculated by dividing the true positive value by the length of the input dataframe.
+The code below was run with each model after it was fit to return a table of metrics. This table included: sensitivity, true sensitivity, precision, false discovery rate, specificity, and accuracy. True sensitiviy is a metric we created to assess how many hits the model returned in relation to all of the songs returned. It is calculated by dividing the true positive value by the number of tracks in the dataframe.
 
 ```python
 def metrics_models(y_true, y_pred, col_name):
@@ -549,7 +547,7 @@ full_train_metrics = pd.concat([logreg_train_metrics, bag_train_metrics, Ada_tra
 
 ### Summary of results
 
-All of the models (submodels and the ensembler model), have relatively high specificity and accuracy. The models do well with finding true negatives and the majority of the `similars dataframe` contains true negatives (or true misses). Because of this, both specificity and accuracy are high. However, since we are concerned with the ability to detect true positives, accuracy and specificity aren't the best metrics to measure the performance of our models by. Therefore, we explored a few other metrics, which are discussed next.
+All of the models (submodels and the ensembler model), have relatively high specificity and accuracy. The models do well with finding true negatives and the majority of the `similars dataframe` contains true negatives (or true misses). Because of this, both specificity and accuracy are high. 
 
 The neural network performed the worst of all four submodels. Logistic regression, bagging, and boosting showed relatively high sensitivity (~70%); however, they all scored extremely low (~0.01%) on the true sensitivity metric. The ensembler model built out of all four models showed a similar pattern. Our understanding of this is that the model is relatively good at detecting hits out of the songs it has included in the 'similars dataframe' (sensitivity), however the majority of the 'similars dataframe' includes songs that are not found in the `target playlist` (true sensitivity).
 
