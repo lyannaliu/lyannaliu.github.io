@@ -698,6 +698,28 @@ Below are the detailed metrics for the models, organized by training and testing
 
 <h2 id="4">4. Metalearner Results</h2>
 
+```python
+labels = ['Million Playlist Model', 'Last.FM Model', 'Metalearner Model']
+sensitivity_labels = ['Sensitivity', 'Precision', 'True Sensitivity']
+
+meta_graph = [meta_sensitivity_list, meta_precision_list, meta_true_sensitivity_list]
+fm_graph = [fm_sensitivity_list, fm_precision_list, fm_true_sensitivity_list]
+mp_graph = [mp_sensitivity_list, mp_precision_list, mp_true_sensitivity_list]
+
+fig, ax = plt.subplots(nrows=3, ncols=1)
+fig.set_size_inches(15, 20)
+fig.suptitle('Comparison of Sensitivity and Precision Scores for Submodels and Metalearner Model', 
+             fontsize=20, y=0.95)
+
+for i in range(3):
+    ax[i].boxplot([mp_graph[i], fm_graph[i], meta_graph[i]], 
+                   labels=labels)
+    ax[i].legend()
+    ax[i].set_ylabel('Score')
+    ax[i].set_title('Comparison of {} Scores'.format(sensitivity_labels[i]))
+    #ax[i].set_ylim(ymax=.4)
+```
+
 ![Final Results](/images/final_results.png)
 
 
