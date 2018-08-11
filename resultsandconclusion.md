@@ -904,25 +904,25 @@ We only performed this process once, as it would require a lot of memory and tim
 
 ```python
 def get_song_pred(target_playlist, sorted_trackdf)
-target_track = get_target_track(target_playlist)
-MP_model_prediction = pd.DataFrame(get_MP_model_prediction(target_track, 
+        target_track = get_target_track(target_playlist)
+        MP_model_prediction = pd.DataFrame(get_MP_model_prediction(target_track, 
                                                                    target_playlist))
-MP_model_prediction = strip_indices(MP_model_prediction)
-FM_model_prediction = get_lastfm_pred(target_track, target_playlist, sorted_trackdf)
-final_train_df = two_models_one_result(MP_model_prediction, FM_model_prediction)
-final_train_df = add_hit_column(final_train_df, target_playlist)
+        MP_model_prediction = strip_indices(MP_model_prediction)
+        FM_model_prediction = get_lastfm_pred(target_track, target_playlist, sorted_trackdf)
+        final_train_df = two_models_one_result(MP_model_prediction, FM_model_prediction)
+        final_train_df = add_hit_column(final_train_df, target_playlist)
 
-X_final_train, y_final_train = split_df(final_train_df)
-predicted_rec = finalMetalearner.predict(X_final_train)
-predicted_rec_df = pd.DataFrame([predicted_rec, y_final_train]).transpose().set_index(X_final_train.index)
-rec_songs = predicted_rec_df.groupby(0).get_group(1).index
+        X_final_train, y_final_train = split_df(final_train_df)
+        predicted_rec = finalMetalearner.predict(X_final_train)
+        predicted_rec_df = pd.DataFrame([predicted_rec, y_final_train]).transpose().set_index(X_final_train.index)
+        rec_songs = predicted_rec_df.groupby(0).get_group(1).index
         
-tot_list = len(X_final_train)
+        tot_list = len(X_final_train)
 
-train_tn, train_fp, train_fn, train_tp = \
+        train_tn, train_fp, train_fn, train_tp = \
             confusion_matrix(y_final_train, predicted_rec).ravel() 
 
-return rec_songs, train_tn, train_fp, train_fn, train_tp, tot_list
+        return rec_songs, train_tn, train_fp, train_fn, train_tp, tot_list
 ```
 
 <h2 id="6">6. Conclusion</h2>
