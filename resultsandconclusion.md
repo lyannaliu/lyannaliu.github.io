@@ -875,7 +875,7 @@ The models performed similarly in precision, as all models have a median very cl
 Of interest, and what demonstrates the complexities of combining two models that were built with different types of data frames, LastFM’s sensitivity is much lower than both Million Playlist Model and metalearner Model. However, the LastFM model outperforms the Million Playlist Model in sensitivity (~0.73 vs ~0.11, respectively) during the process of initially generating these models and their submodels. One explanation behind this difference in sensitivity behavior could be how the LastFM model was built; this model was generated using one static, large, stacked data frame. The process of creating the metalearner introduces only one playlist at a time to the models, which is a change to how LastFM was trained and built. 
 
 <h2 id="5">5. Song recommendation</h2>
-To achieve our ultimate goal of providing a user with recommended songs based on a `target track` in one of their current playlists, we performed the following, which is a modification of run_100_final_train(), applied to a test playlist:
+To achieve our ultimate goal of providing a user with recommended songs based on a `target track` in one of their current playlists, we performed the following, which is a modification of `run_100_final_train()`, applied to a test playlist:
 
 ```python
 test_idx = random.sample(final_indices, 1)[0]
