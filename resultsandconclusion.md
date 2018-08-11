@@ -842,7 +842,7 @@ test_tn_list, test_fp_list, test_fn_list, test_tp_list, test_tot_list, \
 mp_test_tn_list, mp_test_fp_list, mp_test_fn_list, mp_test_tp_list, mp_test_tot_list, \
 fm_test_tn_list, fm_test_fp_list, fm_test_fn_list, fm_test_tp_list, fm_test_tot_list = run_100_final_tests()
 ```
-We used two different functions to assess measure the metalearner's performance on the training and test sets because we decided it was most important to understand the model's performance on the test playlists. In order to do that, we wanted to compare it to the metrics of its the models that feed into it (LastFM model and Million Playlist Dataset model). The main difference between run_100_final_train() and run_100_final_test() is the acquisition of performance metrics for the two submodels in the latter function.
+We used two different functions to assess the metalearner's performance on the training and test sets because we decided it was most important to understand the model's performance on the test playlists. In order to do that, we wanted to compare it to the metrics of its the models that feed into it (LastFM model and Million Playlist Dataset model). The main difference between run_100_final_train() and run_100_final_test() is the acquisition of performance metrics for the two submodels in the latter function.
 
 In order to understand the performance of the three models on the test playlists, we created visualizations of sensitivity, precision, and true sensitivity:
 
