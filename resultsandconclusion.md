@@ -703,9 +703,13 @@ Below are the detailed metrics for the models, organized by training and testing
 
 <h2 id="5">5. Conclusion</h2>
 
-In this study, we applied many different models and variations of those models to uniquely generated datasets in order to classify whether a song would be liked given a song in the user's current playlists. We used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
+In this study, we explore a difficult recommendation problem where, given just a single song, we recommend a list of songs we believe the user will like. Our model will be most helpful as the algorithm for a MRS when the MRS has no other information about a user other than their first song selection. After all, even for these new users, we want to provide a recommendation that is better than a random guess.
 
-We learned that individual models perform better or worse than others under certain metrics, and that applying ensembling methods to several models in some cases will and in other cases won't improve certain metrics. Choosing "the best" model is not always straight forward, especially when dealing with imbalanced data. Adding weights helps when working with imbalanced data.  
+To achieve this goal, we applied many different models and variations of those models to uniquely generated datasets and used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
+
+We showcased a problem that had many categorical features that would require one-hot encoding (artist, album, tags, etc.) and limited those features by tailoring datasets to a specific `target song`. Our results show that, while our features may not have been the best features to use, they were still able to produce sucessful predictions.
+
+We learned that individual models perform better or worse than others under certain metrics, and that applying ensembling methods to several models in some cases will and in other cases won't improve certain metrics. Choosing "the best" model is not always straight forward, especially when dealing with imbalanced data.
 
 There were many challenges related to the data that forced us to make decisions on our recommendation algorithm: large amounts of input data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
 
