@@ -43,6 +43,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <th width="130">Sensitivity (Train)</th>
       <th width="130">Precision (Train)</th>
       <th width="130">False Discovery Rate (Train)</th>
+      <th width="130">True Sensitivity (Test)</th>
       <th width="130">Sensitivity (Test)</th>
       <th width="130">Precision (Test)</th>
       <th width="130">False Discovery Rate (Test)</th>
@@ -51,18 +52,20 @@ Below is an overview of how all our models performed. Each value is the mean sco
   <tbody>
     <tr align="center" bgcolor="#66B3FF">
       <td>Metalearner Model</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td> .1307</td>
+      <td> .0199</td>
+      <td> .9701</td>
+      <td> .00004</td>
+      <td> .1300</td>
+      <td> .0064</td>
+      <td> .9836</td>
     </tr>
     <tr align="center" bgcolor="#97CBFF">
       <td>Last.FM Ensemble</td>
       <td> 0.7007</td>
       <td> 0.0650</td>
       <td> 0.9350</td>
+      <td> </td>
       <td> 0.9048</td>
       <td> 0.0847</td>
       <td> 0.9153</td>
@@ -72,6 +75,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.7859</td>
       <td> 0.0773</td>
       <td> 0.9227</td>
+      <td> </td>
       <td> 0.8952</td>
       <td> 0.0845</td>
       <td> 0.9155</td>
@@ -81,6 +85,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.9929</td>
       <td> 0.5243</td>
       <td> 0.4757</td>
+      <td> </td>
       <td> 0.1810</td>
       <td> 0.1450</td>
       <td> 0.8550</td>
@@ -90,6 +95,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.8808</td>
       <td> 0.1011</td>
       <td> 0.8989</td>
+      <td> </td>
       <td> 0.7143</td>
       <td> 0.0801</td>
       <td> 0.9199</td>
@@ -99,6 +105,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.3768</td>
       <td> 0.1460</td>
       <td> 0.8540</td>
+      <td> </td>
       <td> 0.4286</td>
       <td> 0.1590</td>
       <td> 0.8410</td>
@@ -109,6 +116,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.0018</td>
       <td> 0.9982</td>
       <td> 0.0865</td>
+      <td> 0.0865</td>
       <td> 0.0009</td>
       <td> 0.9991</td>
     </tr>
@@ -118,6 +126,7 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.0390</td>
       <td> 0.9610</td>
       <td> 0.1193</td>
+      <td> 0.1586</td>
       <td> 0.0240</td>
       <td> 0.9760</td>
     </tr>
@@ -126,12 +135,14 @@ Below is an overview of how all our models performed. Each value is the mean sco
       <td> 0.0125</td>
       <td> 0.0474</td>
       <td> 0.9526</td>
+      <td> 0.0200</td>
       <td> 0.0150</td>
       <td> 0.0355</td>
       <td> 0.9645</td>
     </tr>
     <tr align="center" bgcolor="#C4E1FF">
       <td>Neural Network</td>
+      <td> 0</td>
       <td> 0</td>
       <td> 0</td>
       <td> 0</td>
