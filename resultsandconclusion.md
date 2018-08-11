@@ -842,9 +842,7 @@ test_tn_list, test_fp_list, test_fn_list, test_tp_list, test_tot_list, \
 mp_test_tn_list, mp_test_fp_list, mp_test_fn_list, mp_test_tp_list, mp_test_tot_list, \
 fm_test_tn_list, fm_test_fp_list, fm_test_fn_list, fm_test_tp_list, fm_test_tot_list = run_100_final_tests()
 ```
-We used two different functions to assess the metalearner's performance on the training and test sets because we decided it was most important to understand the model's performance on the test playlists. In order to do that, we wanted to compare it to the metrics of its the models that feed into it (LastFM model and Million Playlist Dataset model). The main difference between run_100_final_train() and run_100_final_test() is the acquisition of performance metrics for the two submodels in the latter function.
-
-In order to understand the performance of the three models on the test playlists, we created visualizations of sensitivity, precision, and true sensitivity:
+While we ran 100 train sets and recorded the overall sensitivity, precision, and discovery scores in the above results table, we used a slightly different function against the 100 test sets. We captured the true negative, false positive, false negative, and true positive values for the two submodels as well as the metalearner model. We used these intermediary statistics to compare the performance of each of the submodels versus the final metalearner. Below is the visualization of sensitivity, precision, and true sensitivity scores of the three models' predictions using test data.
 
 ```python
 labels = ['Million Playlist Model', 'Last.FM Model', 'Metalearner Model']
@@ -931,11 +929,11 @@ return rec_songs, train_tn, train_fp, train_fn, train_tp, tot_list
 
 In this study, we explore a difficult recommendation problem where, given just a single song, we recommend a list of songs we believe the user will like. Our model will be most helpful as the algorithm for a MRS when the MRS has no other information about a user other than their first song selection. After all, even for these new users, we want to provide a recommendation that is better than a random guess.
 
-To achieve this goal, we applied many different models and variations of those models to uniquely generated datasets and used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
+To achieve this goal, we applied many different models and variations of those models to uniquely generated datasets. We used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
 
 We showcased a problem that had many categorical features that would require one-hot encoding (artist, album, tags, etc.) and limited those features by tailoring datasets to a specific `target song`. Our results show that, while our features may not have been the best features to use, they were still able to produce sucessful predictions.
 
-We learned that individual models perform better or worse than others under certain metrics, and that applying ensembling methods to several models in some cases will and in other cases won't improve certain metrics. Choosing "the best" model is not always straight forward, especially when dealing with imbalanced data.
+We learned that individual models perform better or worse than others under certain metrics, and that applying ensembling methods to several models in some cases will and in other cases won't improve certain metrics. Choosing "the best" model is not always straight forward, especially when dealing with imbalanced data. However, in our case, it seemed like the simpler models (logistic regressions) generally performed better than the more complex models (neural networks).
 
 There were many challenges related to the data that forced us to make decisions on our recommendation algorithm: large amounts of input data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
 
