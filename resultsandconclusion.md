@@ -18,13 +18,13 @@ title: Results and Conclusions
 
 <h2 id="1">1. Summary</h2>
 
-Because of the large number of 0s in our datasets, true accuracy scores are not very useful in understanding how well our models scores. Therefore, we primarily focused on three other metrics when determining how well our models performed.
+Because of the large number of misses (encoded as 0) in our datasets, true accuracy scores are not very useful in understanding how well our models perform. We are trying to recommend a playlist based on a single song. Therefore, we primarily focused on three other metrics when determining our models' performance.
 
 1. Sensitivity: Defined as `True Positive/(True Positive + False Negative)`. This value represents what we actually care about - out of all the tracks in the `target playlist`, how many did we actually recommend?
 
 2. Precision: Defined as `True Positive/(True Positive + False Positive)`. This value represents how much our models are cheating - how many tracks are we recommending? If we recommend all the songs in our datasets, then we probably have a great sensitivity, but a recommendation this extensive wouldn't be very helpful.
 
-3. False Discovery Rate: Defined as `False Positive/(True Positive + False Positive)`. This score is related to precision and tells us if our models are getting tracks correct simply because they are recommending everything and the kitchen sink.
+3. False Discovery Rate (FDR): Defined as `False Positive/(True Positive + False Positive)`. This score is related to precision and tells us if our models are getting tracks correct simply because they are recommending everything and the kitchen sink. Note that the FDR is simply the complement of precision.
 
 Below is an overview of how all our models performed. Each value is the mean score of either 100 train sets or 100 test sets.
 
@@ -551,7 +551,7 @@ All of the models (submodels and the ensembler model), have relatively high spec
 
 The neural network performed the worst of all four submodels. Logistic regression, bagging, and boosting showed relatively high sensitivity (~70%); however, they all scored extremely low (~0.01%) on the true sensitivity metric. The ensembler model built out of all four models showed a similar pattern. Our understanding of this is that the model is relatively good at detecting hits out of the songs it has included in the 'similars dataframe' (sensitivity), however the majority of the 'similars dataframe' includes songs that are not found in the `target playlist` (true sensitivity).
 
-All of the models and the ensembler performed poorly on precision (~0.1%, except for neural nets, with 0%); this demonstrates that the models predicted many more false positives than true positives. Since the purpose of this model is to recommend songs a user might like, based off of a `target song` in a `target playlist`, it is important that the model has higher precision and recommends fewer false positives. False discovery rate is the complement of precision, so it follows that all models scored extremely high (~99%) on this metric. The neural network scored 0% in both precision and false discovery network because we assigned 0s to any metric with a 0 in its denominator. Otherwise, these metrics could be viewed as Not Applicable.
+All of the models and the ensembler performed poorly on precision (~0.1%, except for neural nets, with 0%); this demonstrates that the models predicted many more false positives than true positives. Since the purpose of this model is to recommend songs a user might like, based off of a `target song` in a `target playlist`, it is important that the model has higher precision and recommends fewer false positives. False discovery rate is the complement of precision, so it follows that all models scored extremely high (~99%) on this metric. The neural network scored 0% in both precision and false discovery network because we assigned 0s to any metric with a 0 in its denominator to avoid a divison by zero error. Otherwise, these metrics could be viewed as Not Applicable.
 
 Below are the detailed metrics for the models, organized by training and testing.
 
@@ -705,24 +705,16 @@ Below are the detailed metrics for the models, organized by training and testing
 
 In this study, we applied many different models and variations of those models to uniquely generated datasets in order to classify whether a song would be liked given a song in the user's current playlists. We used pre-existing playlists to validate our recommendations under the assumption that, if our model can recommend other songs from the playlist given one of the songs from the playlist, then our model is doing a good job.
 
-We learned that individual models perform better or worse than others under certain metrics, and that applying ensembling methods to several models in some cases will and in other cases won't improve certain metrics. Choosing "the best" model is not always straight forward, especially when dealing with imbalanced data. 
+We learned that individual models perform better or worse than others under certain metrics, and that applying ensembling methods to several models in some cases will and in other cases won't improve certain metrics. Choosing "the best" model is not always straight forward, especially when dealing with imbalanced data. Adding weights helps when working with imbalanced data.  
 
-There were many challenges related to the data that forced us to make decisions on how to handle large amounts of data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
+There were many challenges related to the data that forced us to make decisions on our recommendation algorithm: large amounts of input data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
 
 <h2 id="6">6. Future considerations</h2>
 
 If given more time we would like to invest in the following:
 
 1. Allocating enough memory to load all playlist data at once.
-2. Using Last.FM API to get most up-to-date songs and better match the Million Playlist dataset.
-3. Exploring different models for each sub-model and sub-sub-model.
-4. Tuning and cross-validating the parameters of all sub-models and ensemblers.
-5. Trying different class weights and other methods of dealing with imbalanced data.
-6. Exploring other methods of selecting subsets of potential songs to recommend.
-7. Determining how to differentiate better and more consistently between intersecting song names, artists, and albums across both models.
-8. Using additional datasets like the Million Song Dataset with audio features.
-9. Deeper analysis into colinearity of attributes.
-10. Tuning a better Million Playlist Neural Net.
-11. Tuning a better LastFM Neural Net
-12. Training a better final metalearner.
-13. More consideration on how to merge the final results from each of the models.
+2. Tuning and cross-validating the parameters of all sub-models and ensemblers.
+3. Trying different class weights and other methods of dealing with imbalanced data.
+4. Exploring other methods of building the dynamic track list.
+5. Using additional datasets like the Million Song Dataset with audio features.
