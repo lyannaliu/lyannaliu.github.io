@@ -12,8 +12,9 @@ title: Results and Conclusions
 * [2. Million Playlist Model Results](#2)
 * [3. Last.FM Model Results](#3)
 * [4. Metalearner Results](#4)
-* [5. Conclusion](#5)
-* [6. Future considerations](#6)
+* [5. Song Recommendations](#5)
+* [6. Conclusion](#6)
+* [7. Future considerations](#7)
 
 
 <h2 id="1">1. Summary</h2>
@@ -697,6 +698,152 @@ Below are the detailed metrics for the models, organized by training and testing
 
 
 <h2 id="4">4. Metalearner Results</h2>
+Once the meta learner was trained using the two predictions as features and the `target playlist` as the response, it was tested on a subset of the training playlists and the test playlists that were used to test the ensemble models. 
+
+In order to this, we used the following functions to report metrics on the metalearner (and its submodels):
+
+```python
+def run_100_final_trains():
+    train_tn_list = []
+    train_fp_list = []
+    train_fn_list = []
+    train_tp_list = []
+    train_tot_list = []
+    
+    for idx in random.sample(final_indices, 100):
+        target_track = get_target_track(detailed_train_playlists[idx])
+        MP_model_prediction = pd.DataFrame(get_MP_model_prediction(target_track, 
+                                                                   detailed_train_playlists[idx]))
+        MP_model_prediction = strip_indices(MP_model_prediction)
+        FM_model_prediction = get_lastfm_pred(target_track, detailed_train_playlists[idx], sorted_trackdf)
+        final_train_df = two_models_one_result(MP_model_prediction, FM_model_prediction)
+        final_train_df = add_hit_column(final_train_df, detailed_train_playlists[idx])
+
+        X_final_train, y_final_train = split_df(final_train_df)
+        
+        if X_final_train.shape[1] < 2:
+            X_final_train['LastFM'] = 0.0
+        else:
+            X_final_train = X_final_train
+        
+        predicted_rec = finalMetalearner.predict(X_final_train)
+        
+        train_tn, train_fp, train_fn, train_tp = \
+            confusion_matrix(y_final_train, predicted_rec).ravel() 
+        train_tn_list.append(train_tn)
+        train_fp_list.append(train_fp)
+        train_fn_list.append(train_fn)
+        train_tp_list.append(train_tp) 
+        train_tot_list.append(len(X_final_train))
+        
+    return train_tn_list, train_fp_list, train_fn_list, train_tp_list, train_tot_list
+
+def run_100_final_tests():
+    test_tn_list = []
+    test_fp_list = []
+    test_fn_list = []
+    test_tp_list = []
+    test_tot_list = []
+    
+    mp_test_tn_list = []
+    mp_test_fp_list = []
+    mp_test_fn_list = []
+    mp_test_tp_list = []
+    mp_test_tot_list = []
+    
+    fm_test_tn_list = []
+    fm_test_fp_list = []
+    fm_test_fn_list = []
+    fm_test_tp_list = []
+    fm_test_tot_list = []
+    
+    for idx in test_idx_songs:
+        test_playlist = detailed_test_playlists[idx['playlist_idx']]
+        target_track = detailed_test_playlists[idx['playlist_idx']][idx['song_idx']]
+        
+        MP_model_prediction = pd.DataFrame(get_MP_model_prediction(target_track, test_playlist))
+        MP_model_prediction = strip_indices(MP_model_prediction)
+        FM_model_prediction = get_lastfm_pred(target_track, test_playlist, sorted_trackdf)
+       
+        final_test_df = two_models_one_result(MP_model_prediction, FM_model_prediction)
+        final_test_df = add_hit_column(final_test_df, test_playlist)
+        X_test, y_test = split_df(final_test_df)
+                
+        if X_test.shape[1] < 2:
+            X_test['LastFM'] = 0.0
+        else:
+            X_test = X_test
+            
+        # Turn results binary to get submodel confusion matrices
+        binary_predictions = pd.DataFrame([X_test['Meta_Prob'].apply(lambda x: 0 if x <= .5 else 1),
+                                           X_test['LastFM'].apply(lambda x: 0 if x <= .5 else 1)]).transpose()
+        
+        # Record confusion matrix stats for MP model only
+        try:
+            mp_test_tn, mp_test_fp, mp_test_fn, mp_test_tp = confusion_matrix(y_test, binary_predictions['Meta_Prob']).ravel()
+        except ValueError:
+            mp_test_tn = confusion_matrix(y_test, binary_predictions['Meta_Prob']).ravel()[0]
+            mp_test_fp, mp_test_fn, mp_test_tp = (0,0,0)
+        
+        mp_test_tn_list.append(mp_test_tn)
+        mp_test_fp_list.append(mp_test_fp)
+        mp_test_fn_list.append(mp_test_fn)
+        mp_test_tp_list.append(mp_test_tp)
+        mp_test_tot_list.append(len(X_test))
+        
+        # Record confusion matrix for FM model only
+        try:
+            fm_test_tn, fm_test_fp, fm_test_fn, fm_test_tp = confusion_matrix(y_test, binary_predictions['LastFM']).ravel()
+        except ValueError:
+            fm_test_tn = confusion_matrix(y_test, binary_predictions['LastFM']).ravel()[0]
+            fm_test_fp, fm_test_fn, fm_test_tp = (0,0,0)
+        
+        fm_test_tn_list.append(fm_test_tn)
+        fm_test_fp_list.append(fm_test_fp)
+        fm_test_fn_list.append(fm_test_fn)
+        fm_test_tp_list.append(fm_test_tp)
+        fm_test_tot_list.append(len(X_test))
+            
+        
+        predicted_rec = finalMetalearner.predict(X_test)        
+                
+        try:
+            test_tn, test_fp, test_fn, test_tp = confusion_matrix(y_test, predicted_rec).ravel()
+        except ValueError:
+            test_tn = confusion_matrix(y_test, predicted_rec).ravel()[0]
+            test_fp, test_fn, test_tp = (0,0,0)
+        test_tn_list.append(test_tn)
+        test_fp_list.append(test_fp)
+        test_fn_list.append(test_fn)
+        test_tp_list.append(test_tp)
+        test_tot_list.append(len(X_test))
+    return test_tn_list, test_fp_list, test_fn_list, test_tp_list, test_tot_list, \
+            mp_test_tn_list, mp_test_fp_list, mp_test_fn_list, mp_test_tp_list, \
+            mp_test_tot_list, fm_test_tn_list, fm_test_fp_list, fm_test_fn_list, \
+            fm_test_tp_list, fm_test_tot_list
+```
+
+From these functions, we were able to obtain the following:
+For the train playlists:
+- on the meta learner: true negative, false positive, false negative, true positive, and total length of the features 
+
+```python
+train_tn_list, train_fp_list, train_fn_list, train_tp_list, train_tot_list = run_100_final_trains()
+```
+
+For the test playlists:
+- on the meta learner: true negative, false positive, false negative, true positive, and total length of the features
+- on the LastFM model: true negative, false positive, false negative, true positive, and total length of the features
+- on the Million Playlist Dataset model: true negative, false positive, false negative, true positive, and total length of the features  
+
+```python
+test_tn_list, test_fp_list, test_fn_list, test_tp_list, test_tot_list, \
+mp_test_tn_list, mp_test_fp_list, mp_test_fn_list, mp_test_tp_list, mp_test_tot_list, \
+fm_test_tn_list, fm_test_fp_list, fm_test_fn_list, fm_test_tp_list, fm_test_tot_list = run_100_final_tests()
+```
+We used two different functions to assess measure the metalearner's performance on the training and test sets because we decided it was most important to understand the model's performance on the test playlists. In order to do that, we wanted to compare it to the metrics of its the models that feed into it (LastFM model and Million Playlist Dataset model). The main difference between run_100_final_train() and run_100_final_test() is the acquisition of performance metrics for the two submodels in the latter function.
+
+In order to understand the performance of the three models on the test playlists, we created visualizations of sensitivity, precision, and true sensitivity:
 
 ```python
 labels = ['Million Playlist Model', 'Last.FM Model', 'Metalearner Model']
@@ -722,8 +869,64 @@ for i in range(3):
 
 ![Final Results](/images/final_results.png)
 
+From these visualizations, we observe that all three models (Million Playlist Model, LastFM Model, and Metalearner Model) all have very low true sensitivity scores; LastFM model is the worst performer on this metric, with Million Playlist Model and Metalearner Model having comparable performances (similar median value). Based on the metrics performed on the two submodels during their own ensembling process, this finding makes sense. The LastFM submodels and the ensemble model had extremely low true sensitivity (0.0002), while the Million Playlist ensemble model and its submodels consistently performed better (with scores ranging from 0.01 to 0.09).
 
-<h2 id="5">5. Conclusion</h2>
+The models performed similarly in precision, as all models have a median very close to zero. LastFM’s 3rd quartile (and consequently, its maximum) is slightly higher than the Million Playlist Model and the Metalearner model. 
+
+Of interest, and what demonstrates the complexities of combining two models that were built with different types of data frames, LastFM’s sensitivity is much lower than both Million Playlist Model and metalearner Model. However, the LastFM model outperforms the Million Playlist Model in sensitivity (~0.73 vs ~0.11, respectively) during the process of initially generating these models and their submodels. One explanation behind this difference in sensitivity behavior could be how the LastFM model was built; this model was generated using one static, large, stacked data frame. The process of creating the metalearner introduces only one playlist at a time to the models, which is a change to how LastFM was trained and built. 
+
+<h2 id="5">5. Song recommendation</h2>
+To achieve our ultimate goal of providing a user with recommended songs based on a `target track` in one of their current playlists, we performed the following, which is a modification of run_100_final_train(), applied to a test playlist:
+
+```python
+test_idx = random.sample(final_indices, 1)[0]
+target_track = get_target_track(detailed_train_playlists[test_idx])
+MP_model_prediction = pd.DataFrame(get_MP_model_prediction(target_track, 
+                                                                   detailed_train_playlists[test_idx]))
+MP_model_prediction = strip_indices(MP_model_prediction)
+FM_model_prediction = get_lastfm_pred(target_track, detailed_train_playlists[test_idx], sorted_trackdf)
+final_train_df = two_models_one_result(MP_model_prediction, FM_model_prediction)
+final_train_df = add_hit_column(final_train_df, detailed_train_playlists[test_idx])
+
+X_final_train, y_final_train = split_df(final_train_df)
+predicted_rec = finalMetalearner.predict(X_final_train)
+predicted_rec_df = pd.DataFrame([predicted_rec, y_final_train]).transpose().set_index(X_final_train.index)
+predicted_rec_df.groupby(0).get_group(1)
+        
+train_tn, train_fp, train_fn, train_tp = \
+            confusion_matrix(y_final_train, predicted_rec).ravel() 
+```
+
+The resulting data frame from predicted_rec_df.groupby(0).get_group(1) provides a list of recommendations through the track name and artist in the indices. The ones in the ‘0’ column indicate that the model predicted the song as a hit. The 0s and 1s in the ‘1’ column indicate whether or not that song was actually found in the `target playlist`. So, for Led Zeppelin’s ‘Whole Lotta Love’, the model recommends 6919 tracks, including: (Anna Sun, WALK THE MOON), (I Bet You Look Good On The Dancefloor, Arctic Monkeys), (From The Ritz To The Rubble, Arctic Monkeys), (Trojans, Atlas Genius), (Two Against One (feat. Jack White), Danger Mouse).
+
+![song_recs](/images/song_recs.png)
+
+We only performed this process once, as it would require a lot of memory and time to predict songs for 100 train playlists and 100 test playlists. However, for a given playlist, the below function will provide a set of song recommendations and associated metrics with the predictions:
+
+```python
+def get_song_pred(target_playlist, sorted_trackdf)
+target_track = get_target_track(target_playlist)
+MP_model_prediction = pd.DataFrame(get_MP_model_prediction(target_track, 
+                                                                   target_playlist))
+MP_model_prediction = strip_indices(MP_model_prediction)
+FM_model_prediction = get_lastfm_pred(target_track, target_playlist, sorted_trackdf)
+final_train_df = two_models_one_result(MP_model_prediction, FM_model_prediction)
+final_train_df = add_hit_column(final_train_df, target_playlist)
+
+X_final_train, y_final_train = split_df(final_train_df)
+predicted_rec = finalMetalearner.predict(X_final_train)
+predicted_rec_df = pd.DataFrame([predicted_rec, y_final_train]).transpose().set_index(X_final_train.index)
+rec_songs = predicted_rec_df.groupby(0).get_group(1).index
+        
+tot_list = len(X_final_train)
+
+train_tn, train_fp, train_fn, train_tp = \
+            confusion_matrix(y_final_train, predicted_rec).ravel() 
+
+return rec_songs, train_tn, train_fp, train_fn, train_tp, tot_list
+```
+
+<h2 id="6">6. Conclusion</h2>
 
 In this study, we explore a difficult recommendation problem where, given just a single song, we recommend a list of songs we believe the user will like. Our model will be most helpful as the algorithm for a MRS when the MRS has no other information about a user other than their first song selection. After all, even for these new users, we want to provide a recommendation that is better than a random guess.
 
@@ -735,7 +938,7 @@ We learned that individual models perform better or worse than others under cert
 
 There were many challenges related to the data that forced us to make decisions on our recommendation algorithm: large amounts of input data, imbalanced data, dynamic data, and vastly different datasets. At the crossroads of each of these decisions, it would have been optimal to cross validate several options before moving forward. However, given time constraints, it became clear that we would have to make intuitive decisions (or ensemble enough models to make decisions for us) in order to move forward.
 
-<h2 id="6">6. Future considerations</h2>
+<h2 id="7">7. Future considerations</h2>
 
 If given more time we would like to invest in the following:
 
